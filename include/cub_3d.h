@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub_3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mavitori <mavitori@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 14:08:53 by mavitori          #+#    #+#             */
-/*   Updated: 2024/09/20 16:46:31 by mavitori         ###   ########.fr       */
+/*   Updated: 2024/10/09 21:56:40 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <fcntl.h>
 
 # define MAP_WIDTH 10
 # define MAP_HEIGHT 10
@@ -154,5 +155,9 @@ void		ft_game(void *param);
 
 // DRAW TEXTURE
 void		draw_wall_line(t_wall *wall, t_dda *dda, t_game *game);
+
+// VALIDATE MAP
+int verify_extension(char *map_file);
+int	read_file(char *map_file, t_game *game);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   setup.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mavitori <mavitori@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 17:48:48 by mavitori          #+#    #+#             */
-/*   Updated: 2024/10/05 21:01:48 by mavitori         ###   ########.fr       */
+/*   Updated: 2024/10/09 21:56:40 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,9 @@ int	fill_full_map(t_game *game)
 
 int	read_map(char *map_file, t_game *game)
 {
-	if (add_player_map(game) == -1)
+	if(verify_extension(map_file) == -1)
+		return (-1);
+	if (add_player_map(game) == -1 || read_file(map_file, game) == -1)
 		return (-1);
 	game->map->north_texture = ft_strdup("textures/pie.png");
 	game->map->south_texture = ft_strdup("textures/cat.png");
