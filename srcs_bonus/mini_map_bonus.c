@@ -6,7 +6,7 @@
 /*   By: mavitori <mavitori@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 15:26:15 by mavitori          #+#    #+#             */
-/*   Updated: 2024/10/08 17:40:23 by mavitori         ###   ########.fr       */
+/*   Updated: 2024/10/10 09:45:23 by mavitori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ void	ft_mini_map(void *param)
 			draw_pixels(game, color, j, i);
 			j++;
 		}
-		printf("\n");
 		i++;
 	}
 	draw_pixels(game, ft_pixel(255, 0, 0, 255), game->pos->x, game->pos->y);

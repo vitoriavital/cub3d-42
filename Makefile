@@ -48,7 +48,7 @@ fclean: clean
 
 re: clean all
 
-bonus: libmlx $(OBJS_PATH_BONUS) $(OBJS_BONUS)
+bonus: LIBFT libmlx $(OBJS_PATH_BONUS) $(OBJS_BONUS)
 	@$(CC) $(OBJS_BONUS) $(LIB_MLX) $(LIB_FT) $(HEADERS_BONUS) -o $(NAME)_bonus
 
 $(OBJS_PATH_BONUS)/%.o: ./srcs_bonus/%.c | $(OBJS_PATH_BONUS)
