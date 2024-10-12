@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 20:03:19 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/10/09 22:12:06 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/10/12 12:55:06 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,10 @@ int	check_config_signal(char *line)
 		// if(content[i][0] == 'NO' || content[i][0] == 'SO'
 		//  || content[i][0] == 'WE' || content[i][0] == 'EA' || content[i][0] == 'F'
 		//  || content[i][0] == 'C' )
+	return (0);
 }
 
-void	parser_file(char **full_content)
+void	parser_file(char *full_content)
 {
 	char	**config;
 	char	**content;
@@ -43,7 +44,7 @@ void	parser_file(char **full_content)
 	content = ft_split(full_content, '\n'); //fazer split mesmo?
 	while(content[i]) // checar se não é o map tbm
 	{
-		if(check_config_signal(content[i]))
+		// if(check_config_signal(content[i]))
 			//se for mandar pra config
 		i++;
 	}
@@ -60,7 +61,7 @@ int	read_file(char *map_file, t_game *game)
 	fd = open(map_file, O_RDONLY);
 	if (fd < 1)
 	{
-		printf("Error: File error\n");
+		printf("Error: File error or not exist.\n");
 		return (-1);
 	}
 	full_content = ft_strdup("");
@@ -74,7 +75,7 @@ int	read_file(char *map_file, t_game *game)
 		free(line);
 		free(temp);
 	}
-	parser_file(&full_content);
+	parser_file(full_content);
 	return (0);
 }
 

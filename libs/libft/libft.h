@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mavitori <mavitori@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 11:36:27 by mavitori          #+#    #+#             */
-/*   Updated: 2023/11/05 15:10:57 by mavitori         ###   ########.fr       */
+/*   Updated: 2024/10/12 12:52:42 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,10 @@
 
 # include <stdlib.h>
 # include <unistd.h>
+
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 10
+# endif
 
 int					ft_isalpha(int c);
 int					ft_isdigit(int c);
@@ -68,5 +72,22 @@ void				ft_lstclear(t_list **lst, void (*del)(void *));
 void				ft_lstiter(t_list *lst, void (*f)(void *));
 t_list				*ft_lstmap(t_list *lst, void *(*f)(void *),
 						void (*del)(void *));
+
+//gnl
+
+typedef struct s_list_get
+{
+	char			content;
+	struct s_list_get	*next;
+}	t_list_get;
+
+char	*get_next_line(int fd);
+size_t	find_n(t_list_get **list);
+void	create_list(t_list_get **list, int fd);
+char	*get_one_line(t_list_get **list);
+void	insert_end(t_list_get **root, char value);
+size_t	str_len(t_list_get **list);
+void	copy_txt(t_list_get **list, char *str);
+void	dealloc_list(t_list_get **list);
 
 #endif
