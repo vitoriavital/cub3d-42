@@ -132,6 +132,7 @@ int	read_map(char *map_file, t_game *game)
 		return (-1);
 	if (add_player_map(game) == -1 || read_file(map_file, game) == -1)
 		return (-1);
+	exit(0);
 	game->map->north_texture = ft_strdup("textures/pie.png");
 	game->map->south_texture = ft_strdup("textures/cat.png");
 	game->map->west_texture = ft_strdup("textures/ghost.png");

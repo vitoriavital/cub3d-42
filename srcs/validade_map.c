@@ -12,45 +12,79 @@
 
 #include "../include/cub_3d.h"
 
-typedef enum e_configs	t_configs;
-enum						e_configs
+void	print_teste(char **content)
 {
-	NO = -6,
-	SO = -5,
-	WE = -4,
-	EA = -3,
-	F = -2,
-	C = -1,
-};
+	int i; 
+	
+	i = -1;
+	while(content[++i])
+	{
+		printf("->%s\n", content[i]);
+	}
+}
+
+// typedef enum e_configs	t_configs;
+// enum						e_configs
+// {
+// 	NO = -6,
+// 	SO = -5,
+// 	WE = -4,
+// 	EA = -3,
+// 	F = -2,
+// 	C = -1,
+// };
+
+void	free_split(char **content)
+{
+	int i;
+
+	i = -1;
+	while(content[i])
+	{
+		free(content[++i]);
+	}
+	free(content);
+}
+
+int check_config(char **line)
+{
+	// char	**content;
+	int		i;
+
+	i = 0;
+	while(line[i])
+		i++;
+	if(i != 6)
+		return (-1);
+	i = 0;
+	while (line[i])
+	{
+		if (ft_strncmp(&line[i][ft_strlen(line[i]) - 4], ".png", 4) != 0 && line[i][1] != ' ')
+			return (-1);
+		i++;
+	}
+	return (0);
+}
 
 int	check_config_signal(char *line)
 {
 	// retirar espaços antes do caracter
-	// checar os 3 primeiros
-	if(ft_strncmp(line, "NO", 2) == 0)
+	// checar os primeiros chars
+	if(ft_strncmp(line, "NO ", 3) == 0)
 		return (0);
-	else if(ft_strncmp(line, "SO", 2) == 0)
+	else if(ft_strncmp(line, "SO ", 3) == 0)
 		return (0);
-	else if(ft_strncmp(line, "WE", 2) == 0)
+	else if(ft_strncmp(line, "WE ", 3) == 0)
 		return (0);
-	else if(ft_strncmp(line, "EA", 2) == 0)
+	else if(ft_strncmp(line, "EA ", 3) == 0)
 		return (0);
-	else if(ft_strncmp(line, "F", 1) == 0)
+	else if(ft_strncmp(line, "F ", 2) == 0)
 		return (0);
-	else if(ft_strncmp(line, "C", 1) == 0)
+	else if(ft_strncmp(line, "C ", 2) == 0)
 		return (0);
-	return (1);
+	return (-1);
 }
 
-void	print_teste(char **content)
-{
-	int i = 0;
-
-	while(content[i])
-	{
-		printf("->%s\n", content[i++]);
-	}
-}
 
 void	parser_file(char *full_content)
 {
@@ -64,12 +98,11 @@ void	parser_file(char *full_content)
 	i = 0;
 	j = 0;
 	h = 0;
-	content = ft_split(full_content, '\n'); //fazer split mesmo?
+	content = ft_split(full_content, '\n');
 	while(content[i])
 	{
 		if(check_config_signal(content[i]) == 0)
 		{
-			//se for mandar pra config
 			config[j] = ft_strdup(content[i]);
 			j++;
 		}
@@ -78,12 +111,15 @@ void	parser_file(char *full_content)
 			map[h] = ft_strdup(content[i]);
 			h++;
 		}
+		free(content[i]);
 		i++;
 	}
+	if(check_config(config) == -1)
+		exit(0);
+	// check_map(map);
 	print_teste(config);
 	printf("->>>>\n");
 	print_teste(map);
-	exit(0);
 }
 
 int	read_file(char *map_file, t_game *game)
@@ -111,6 +147,8 @@ int	read_file(char *map_file, t_game *game)
 		free(temp);
 	}
 	parser_file(full_content);
+	free(full_content);
+	exit(0);
 	return (0);
 }
 
