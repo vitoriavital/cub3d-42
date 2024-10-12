@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 20:03:19 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/10/12 12:55:06 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/10/12 13:35:50 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,28 +27,63 @@ int	check_config_signal(char *line)
 {
 	// retirar espaços antes do caracter
 	// checar os 3 primeiros
-		// if(content[i][0] == 'NO' || content[i][0] == 'SO'
-		//  || content[i][0] == 'WE' || content[i][0] == 'EA' || content[i][0] == 'F'
-		//  || content[i][0] == 'C' )
-	return (0);
+	if(ft_strncmp(line, "NO", 2) == 0)
+		return (0);
+	else if(ft_strncmp(line, "SO", 2) == 0)
+		return (0);
+	else if(ft_strncmp(line, "WE", 2) == 0)
+		return (0);
+	else if(ft_strncmp(line, "EA", 2) == 0)
+		return (0);
+	else if(ft_strncmp(line, "F", 1) == 0)
+		return (0);
+	else if(ft_strncmp(line, "C", 1) == 0)
+		return (0);
+	return (1);
+}
+
+void	print_teste(char **content)
+{
+	int i = 0;
+
+	while(content[i])
+	{
+		printf("->%s\n", content[i++]);
+	}
 }
 
 void	parser_file(char *full_content)
 {
-	char	**config;
+	char	*config[70000];
+	char	*map[70000];
 	char	**content;
-	char	**map;
 	int		i;
 	int		j;
+	int		h;
 
+	i = 0;
+	j = 0;
+	h = 0;
 	content = ft_split(full_content, '\n'); //fazer split mesmo?
-	while(content[i]) // checar se não é o map tbm
+	while(content[i])
 	{
-		// if(check_config_signal(content[i]))
+		if(check_config_signal(content[i]) == 0)
+		{
 			//se for mandar pra config
+			config[j] = ft_strdup(content[i]);
+			j++;
+		}
+		else
+		{
+			map[h] = ft_strdup(content[i]);
+			h++;
+		}
 		i++;
 	}
-
+	print_teste(config);
+	printf("->>>>\n");
+	print_teste(map);
+	exit(0);
 }
 
 int	read_file(char *map_file, t_game *game)
