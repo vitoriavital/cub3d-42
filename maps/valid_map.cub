@@ -1,38 +1,11 @@
-WE ./path_to_the_west_texture.png
-SO ./path_to_the_south_texture.png
-EA ./path_to_the_east_texture.png
+WE ./textures/pie.png
+SO ./textures/cat.png
+EA ./textures/ghost.png
 
-NO ./path_to_the_north_texture.png
-
-
-
-
-
-
-
-
-
+NO ./textures/spider.png
 
 F 220,100,0
 C 225,30,0
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
              1111111111

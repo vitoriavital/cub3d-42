@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 20:03:19 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/10/13 17:59:18 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/10/13 19:19:45 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,68 +93,98 @@ int check_c_f(char *rgb)
 	return (0);
 }
 
-int check_config(char **line)
+void	set_config(char **config,t_game *game)
+{
+	int		i;
+	char	**split_line;
+
+	i = 0;
+	while (i < 6)
+	{
+		split_line = ft_split(config[i], ' ');
+		if (ft_strncmp(split_line[0], "NO", 2) == 0)
+			game->map->north_texture = ft_strdup(split_line[1]);
+		else if (ft_strncmp(split_line[0], "SO", 2) == 0)
+			game->map->south_texture = ft_strdup(split_line[1]);
+		else if (ft_strncmp(split_line[0], "WE", 2) == 0)
+			game->map->west_texture = ft_strdup(split_line[1]);
+		else if (ft_strncmp(split_line[0], "EA", 2) == 0)
+			game->map->east_texture = ft_strdup(split_line[1]);
+		else if (ft_strncmp(split_line[0], "F", 1) == 0)
+			game->map->floor_color = ft_strdup(split_line[1]);
+		else if (ft_strncmp(split_line[0], "C", 1) == 0)
+			game->map->ceiling_color = ft_strdup(split_line[1]);
+		free_split(split_line);
+		i++;
+	}
+}
+
+int	check_config(char **line)
 {
 	char	**file;
 	int		i;
 
 	i = 0;
-	while(line[i])
-		i++;
-	if(i != 6)
-		return (-1);
-	i = 0;
 	while (line[i])
 	{
-		file = ft_split(line[i],' ');
+		file = ft_split(line[i], ' ');
+		if (!file[1])
+		{
+			free_split(file);
+			return (-1);
+		}
 		if (file[2] != NULL)
 		{
 			free_split(file);
-			return(-1);
+			return (-1);
 		}
 		if (ft_strncmp(file[0], "F", 1) == 0 || ft_strncmp(file[0], "C", 1) == 0)
 		{
-			if(check_c_f(file[1]) != 0)
+			if (check_c_f(file[1]) != 0)
 			{
 				free_split(file);
 				return (-1);
 			}
 		}
-		else if(check_directions(file[1]) != 0)
+		else if (check_directions(file[1]) != 0)
 		{
 			free_split(file);
 			return (-1);
 		}
+		free_split(file);
 		i++;
 	}
 	return (0);
 }
 
+int	ft_isspace(char c)
+{
+	if (c == ' ' || (c >= 9 && c <= 13))
+		return (-1);
+	return 0;
+}
+
 int	check_config_signal(char *line)
 {
-	// retirar espaços antes do caracter
-	// checar os primeiros chars
-	if(ft_strncmp(line, "NO ", 3) == 0)
+	while (ft_isspace(*line))
+		line++;
+	if (ft_strncmp(line, "NO ", 3) == 0)
 		return (0);
-	else if(ft_strncmp(line, "SO ", 3) == 0)
+	else if (ft_strncmp(line, "SO ", 3) == 0)
 		return (0);
-	else if(ft_strncmp(line, "WE ", 3) == 0)
+	else if (ft_strncmp(line, "WE ", 3) == 0)
 		return (0);
-	else if(ft_strncmp(line, "EA ", 3) == 0)
+	else if (ft_strncmp(line, "EA ", 3) == 0)
 		return (0);
-	else if(ft_strncmp(line, "F ", 2) == 0)
+	else if (ft_strncmp(line, "F ", 2) == 0)
 		return (0);
-	else if(ft_strncmp(line, "C ", 2) == 0)
+	else if (ft_strncmp(line, "C ", 2) == 0)
 		return (0);
 	return (-1);
 }
 
-
-void	parser_file(char *full_content)
+int	split_content(char **content, char **config, char **map)
 {
-	char	*config[70000];
-	char	*map[70000];
-	char	**content;
 	int		i;
 	int		j;
 	int		h;
@@ -162,28 +192,51 @@ void	parser_file(char *full_content)
 	i = 0;
 	j = 0;
 	h = 0;
-	content = ft_split(full_content, '\n');
 	while(content[i])
 	{
 		if(check_config_signal(content[i]) == 0)
-		{
-			config[j] = ft_strdup(content[i]);
-			j++;
-		}
+			config[j++] = ft_strdup(content[i]);
 		else
-		{
-			map[h] = ft_strdup(content[i]);
-			h++;
-		}
+			map[h++] = ft_strdup(content[i]);
 		free(content[i]);
 		i++;
 	}
-	if(check_config(config) == -1)
+	config[j] = NULL;
+	map[h] = NULL;
+	return (0);
+}
+
+void parser_file(char *full_content, t_game *game)
+{
+	char	**config;
+	char	**map;
+	char	**content;
+	int		i;
+
+	i = 0;
+	content = ft_split(full_content, '\n');
+	while((check_config_signal(content[i]) == 0))
+		i++;
+	if ( i != 6)
 		exit(0);
-	// check_map(map);
+	config = (char **)malloc(sizeof(char *) * 7);
+	while (content[i])
+		i++;
+	map = (char **)malloc(sizeof(char *) * (i - 6));
+	if (split_content(content, config, map) == -1)
+	{
+		printf("Error: .\n");
+		exit(0);
+	}
+	if (check_config(config) == -1)
+	{
+		printf("Error: Invalid config.\n");
+		exit(0);
+	}
+	set_config(config, game);
 	print_teste(config);
-	printf("->>>>\n");
-	print_teste(map);
+	// printf("     \n");
+	// print_teste(map);
 }
 
 int	read_file(char *map_file, t_game *game)
@@ -210,9 +263,8 @@ int	read_file(char *map_file, t_game *game)
 		free(line);
 		free(temp);
 	}
-	parser_file(full_content);
+	parser_file(full_content, game);
 	free(full_content);
-	exit(0);
 	return (0);
 }
 
