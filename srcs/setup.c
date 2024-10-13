@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 17:48:48 by mavitori          #+#    #+#             */
-/*   Updated: 2024/10/13 19:36:06 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/10/13 19:39:43 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,6 +141,10 @@ int	read_map(char *map_file, t_game *game)
 	game->so = mlx_load_png(game->map->south_texture);
 	game->ea = mlx_load_png(game->map->east_texture);
 	game->we = mlx_load_png(game->map->west_texture);
+	apply_dark_filter(game->no);
+	apply_dark_filter(game->so);
+	apply_dark_filter(game->ea);
+	apply_dark_filter(game->we);
 	// game->map->floor_color = ft_strdup("220,100,0");
 	// game->map->ceiling_color = ft_strdup("225,30,0");
 	if (add_full_map(game) == -1)
