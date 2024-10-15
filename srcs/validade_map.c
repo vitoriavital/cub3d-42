@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 20:03:19 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/10/13 19:19:45 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/10/14 22:02:34 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,88 @@ void	set_config(char **config,t_game *game)
 		free_split(split_line);
 		i++;
 	}
+}
+int		ft_mtxlen(char	**matrix)
+{
+	int	i;
+
+	i = 0;
+	while(matrix[i])
+		i++;
+	return (i);
+}
+
+char	**find_space(char **map)
+{
+	char	**result;
+	int		i;
+	int		j;
+
+	j = -1;
+	i = ft_mtxlen(map);
+	result = (char **)malloc(sizeof(char *) * (i + 1));
+	while (map[++j])
+	{
+		result[j] = ft_strdup(map[j]);
+		free(map[j]);
+	}
+	result[j] = '\0';
+	return(result);
+
+}
+
+int	check_walls(char **lines)
+{
+	int	line;
+	int	column;
+	int	i;
+	int	j;
+
+	i = 0;
+	line = ft_mtxlen(lines);
+
+}
+
+void	count_player(char c, int *player)
+{
+	if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
+		(*player)++;
+	return ;
+}
+
+int	check_map(char **lines)
+{
+	int		i;
+	int		line;
+	int		player;
+
+	line = 0;
+	i = 0;
+	player = 0;
+	// verificar catacteres
+	while(lines[line])
+	{
+		while(lines[line][i])
+		{
+			if(ft_strrchr(" 01NSWE", lines[line][i]) == NULL)
+				return(-1);
+			count_player(lines[line][i], &player);
+			i++;
+		}
+		line++;
+		i = 0;
+	}
+	if (player != 1)
+		return (-1);
+	// verificar paredes
+	// if (check_walls(lines) == -1)
+	// 	return (-1);
+	// verificar player
+	//substituir espaços por 1 ou 0
+	// map = find_space(lines);
+	// print_teste(map);
+	// mandar pro flood fill
+
 }
 
 int	check_config(char **line)
@@ -233,10 +315,17 @@ void parser_file(char *full_content, t_game *game)
 		printf("Error: Invalid config.\n");
 		exit(0);
 	}
+	if (check_map(map) == -1)
+	{
+		printf("Error: Invalid map.\n");
+		exit(0);
+	}
 	set_config(config, game);
-	print_teste(config);
+	// print_teste(config);
 	// printf("     \n");
-	// print_teste(map);
+	print_teste(map);
+	// set_map(map, game);
+	exit(0);
 }
 
 int	read_file(char *map_file, t_game *game)
