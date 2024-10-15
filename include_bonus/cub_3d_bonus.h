@@ -6,7 +6,7 @@
 /*   By: mavitori <mavitori@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 14:08:53 by mavitori          #+#    #+#             */
-/*   Updated: 2024/10/08 15:28:26 by mavitori         ###   ########.fr       */
+/*   Updated: 2024/10/15 17:37:06 by mavitori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@
 # include <stdlib.h>
 # include <unistd.h>
 
-# define MAP_WIDTH 10
-# define MAP_HEIGHT 10
 # define SCREEN_WIDTH 800
 # define SCREEN_HEIGHT 600
+# define MAP_WIDTH 10
+# define MAP_HEIGHT 10
 # define PI 3.141592653589793
 
 typedef enum e_direction	t_direction;
@@ -46,6 +46,16 @@ typedef struct s_player
 	int			column;
 	t_direction	dir;
 }				t_player;
+
+typedef struct s_mini
+{
+	int			width;
+	int			height;
+	int			offset;
+	int			px;
+	int			py;
+	int			tile;
+}				t_mini;
 
 typedef struct s_map
 {
