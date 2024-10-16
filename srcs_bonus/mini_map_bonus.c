@@ -6,7 +6,7 @@
 /*   By: mavitori <mavitori@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 15:26:15 by mavitori          #+#    #+#             */
-/*   Updated: 2024/10/15 17:43:12 by mavitori         ###   ########.fr       */
+/*   Updated: 2024/10/16 13:17:58 by mavitori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,14 @@ static void	draw_walls_mm(t_game *game, t_mini *mini)
 			tile_x = map_x - (tiles_wide / 2) + i;
 			tile_y = map_y - (tiles_high / 2) + j;
 
-			if (tile_x >= 0 && tile_x < 10 && tile_y >= 0 && tile_y < 10)
+			if (tile_x >= 0 && tile_x < MAP_WIDTH && tile_y >= 0 && tile_y < MAP_HEIGHT)
 			{
 				if (game->map->full_map[tile_y][tile_x] > '0' && game->map->full_map[tile_y][tile_x] != '3')
-					color = ft_pixel(255, 255, 255, 255);
-				else
+					color = ft_pixel(100, 100, 100, 255);
+				else if (game->map->full_map[tile_y][tile_x] == '0')
 					color = ft_pixel(0, 0, 0, 255);
+				else
+					color = ft_pixel(100, 100, 100, 255);
 
 				draw_tile(game, mini, mini->offset + i * mini->tile, mini->offset + j * mini->tile, color);
 			}
@@ -67,6 +69,7 @@ static void	draw_walls_mm(t_game *game, t_mini *mini)
 	}
 }
 
+// Function to make player a circle in the mini map
 // static void	draw_player(t_game *game, t_mini *mini)
 // {
 // 	int			x;
@@ -94,6 +97,23 @@ static void	draw_walls_mm(t_game *game, t_mini *mini)
 // 	}
 // }
 
+static void	draw_background(t_game *game, t_mini *mini)
+{
+	int	i = mini->offset / 2;
+	int	j = mini->offset / 2;
+
+	while (i < mini->width + mini->offset)
+	{
+		j = mini->offset / 2;
+		while (j < mini->height + mini->offset)
+		{
+			mlx_put_pixel(game->image, i, j, ft_pixel(100, 100, 100, 255));
+			j++;
+		}
+		i++;
+	}
+}
+
 void	ft_mini_map(void *param)
 {
 	t_game	*game;
@@ -107,12 +127,11 @@ void	ft_mini_map(void *param)
 	mini->width = SCREEN_WIDTH * 0.2;
 	mini->height = SCREEN_HEIGHT * 0.2;
 	mini->offset = 20;
-	int	i = mini->offset;
-	int	j = mini->offset;
+	draw_background(game, mini);
 	draw_walls_mm(game, mini);
-	mini->px = ((mini->width - mini->offset) / 2) + mini->offset + 10;
-	mini->py = ((mini->height - mini->offset) / 2) + mini->offset + 10;
+	mini->px = ((mini->width - mini->offset) / 2) + mini->offset + mini->tile / 2;
+	mini->py = ((mini->height - mini->offset) / 2) + mini->offset + mini->tile / 2;
 	draw_tile(game, mini, mini->px, mini->py, ft_pixel(255, 0, 0, 255));
 	// draw_player(game, mini);
-
+	free(mini);
 }

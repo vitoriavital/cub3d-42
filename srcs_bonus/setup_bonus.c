@@ -6,7 +6,7 @@
 /*   By: mavitori <mavitori@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 17:48:48 by mavitori          #+#    #+#             */
-/*   Updated: 2024/10/08 16:26:55 by mavitori         ###   ########.fr       */
+/*   Updated: 2024/10/16 13:13:02 by mavitori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ int	fill_full_map(t_game *game)
 		"1000010001",
 		"1010000001",
 		"1000000001",
-		"1000100001",
+		"1000211111",
 		"1000000001",
 		"1000000001",
 		"1010000001",
@@ -145,7 +145,7 @@ int	read_map(char *map_file, t_game *game)
 	if (fill_full_map(game) == -1)
 		return (-1);
 	game->player->line = 3;
-	game->player->column = 4;
+	game->player->column = 6;
 	game->player->dir = NORTH;
 	game->pos = ft_vector_create(game->player->line, game->player->column);
 	player_direction(game);
