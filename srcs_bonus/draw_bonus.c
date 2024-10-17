@@ -6,7 +6,7 @@
 /*   By: mavitori <mavitori@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 13:29:05 by mavitori          #+#    #+#             */
-/*   Updated: 2024/10/08 15:23:58 by mavitori         ###   ########.fr       */
+/*   Updated: 2024/10/17 14:44:06 by mavitori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,44 +17,64 @@ int32_t	ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a)
 	return (r << 24 | g << 16 | b << 8 | a);
 }
 
-void	draw_floor(t_game *game)
-{
-	uint32_t	x;
-	uint32_t	y;
-	uint32_t	color;
-
-	x = 0;
-	while (x < SCREEN_WIDTH)
-	{
-		y = 0;
-		while (y < SCREEN_HEIGHT / 2)
-		{
-			color = ft_pixel(190, 190, 255, 255);
-			mlx_put_pixel(game->image, x, y, color);
-			y++;
-		}
-		x++;
-	}
-}
-
 void	draw_ceiling(t_game *game)
 {
 	uint32_t	x;
 	uint32_t	y;
 	uint32_t	color;
+	int			rgb[3];
+	char		**colors;
 
 	x = 0;
+	colors = ft_split(game->map->ceiling_color, ',');
+	rgb[0] = ft_atoi(colors[0]);
+	rgb[1] = ft_atoi(colors[1]);
+	rgb[2] = ft_atoi(colors[2]);
 	while (x < SCREEN_WIDTH)
 	{
-		y = SCREEN_HEIGHT / 2;
-		while (y < SCREEN_HEIGHT)
+		y = 0;
+		while (y < SCREEN_HEIGHT / 2)
 		{
-			color = ft_pixel(105, 105, 105, 255);
+			color = ft_pixel(rgb[0], rgb[1], rgb[2], 255);
 			mlx_put_pixel(game->image, x, y, color);
 			y++;
 		}
 		x++;
 	}
+	free(colors[0]);
+	free(colors[1]);
+	free(colors[2]);
+	free(colors);
+}
+
+void	draw_floor(t_game *game)
+{
+	uint32_t	x;
+	uint32_t	y;
+	uint32_t	color;
+	int			rgb[3];
+	char		**colors;
+
+	x = 0;
+	colors = ft_split(game->map->floor_color, ',');
+	rgb[0] = ft_atoi(colors[0]);
+	rgb[1] = ft_atoi(colors[1]);
+	rgb[2] = ft_atoi(colors[2]);
+	while (x < SCREEN_WIDTH)
+	{
+		y = SCREEN_HEIGHT / 2;
+		while (y < SCREEN_HEIGHT)
+		{
+			color = ft_pixel(rgb[0], rgb[1], rgb[2], 255);
+			mlx_put_pixel(game->image, x, y, color);
+			y++;
+		}
+		x++;
+	}
+	free(colors[0]);
+	free(colors[1]);
+	free(colors[2]);
+	free(colors);
 }
 
 void	draw_wall(t_game *game, float dist, t_dda *dda)

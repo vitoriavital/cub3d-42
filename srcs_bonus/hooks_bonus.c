@@ -6,7 +6,7 @@
 /*   By: mavitori <mavitori@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 17:51:27 by mavitori          #+#    #+#             */
-/*   Updated: 2024/10/17 10:15:52 by mavitori         ###   ########.fr       */
+/*   Updated: 2024/10/17 14:38:48 by mavitori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,16 +49,19 @@ void	move_player_up_down(t_game *game, int key, int multiplier)
 
 	move_x = 0.0;
 	move_y = 0.0;
-	if (key == MLX_KEY_W)
+	if (multiplier == 10)
 	{
-		if (multiplier == 10)
+		if (key == MLX_KEY_W)
 			update_position(game, 0, -2, UP);
 		else
-		{
-			move_x += game->dir->x * 0.05 * multiplier;
-			move_y += game->dir->y * 0.05 * multiplier;
-			update_position(game, move_x, move_y, UP);
-		}
+			update_position(game, 0, 2, DOWN);
+		return ;
+	}
+	if (key == MLX_KEY_W)
+	{
+		move_x += game->dir->x * 0.05 * multiplier;
+		move_y += game->dir->y * 0.05 * multiplier;
+		update_position(game, move_x, move_y, UP);
 	}
 	if (key == MLX_KEY_S)
 	{
@@ -68,7 +71,7 @@ void	move_player_up_down(t_game *game, int key, int multiplier)
 	}
 }
 
-static void	move_player_left_right(t_game *game, int key)
+void	move_player_left_right(t_game *game, int key, int multiplier)
 {
 	float		move_x;
 	float		move_y;
@@ -76,6 +79,14 @@ static void	move_player_left_right(t_game *game, int key)
 
 	move_x = 0.0;
 	move_y = 0.0;
+	if (multiplier == 10)
+	{
+		if (key == MLX_KEY_A)
+			update_position(game, 2, 0, LEFT);
+		else
+			update_position(game, -2, 0, RIGHT);
+		return ;
+	}
 	// Compute a perpendicular vector for walking right or left
 	if (key == MLX_KEY_A)
 		v = ft_vector_create(game->dir->y, -game->dir->x);
@@ -90,6 +101,7 @@ static void	move_player_left_right(t_game *game, int key)
 	else
 		update_position(game, move_x, move_y, RIGHT);
 }
+
 static void	mouse_rotation(t_game *game)
 {
 	int		x;
@@ -134,9 +146,9 @@ void	ft_hook(void *param)
 	if (mlx_is_key_down(game->mlx, MLX_KEY_S))
 		move_player_up_down(game, MLX_KEY_S, 1);
 	if (mlx_is_key_down(game->mlx, MLX_KEY_A))
-		move_player_left_right(game, MLX_KEY_A);
+		move_player_left_right(game, MLX_KEY_A, 1);
 	if (mlx_is_key_down(game->mlx, MLX_KEY_D))
-		move_player_left_right(game, MLX_KEY_D);
+		move_player_left_right(game, MLX_KEY_D, 1);
 	if (mlx_is_key_down(game->mlx, MLX_KEY_O))
 		switch_door_portal(game);
 }

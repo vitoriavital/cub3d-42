@@ -6,7 +6,7 @@
 /*   By: mavitori <mavitori@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 14:08:53 by mavitori          #+#    #+#             */
-/*   Updated: 2024/10/16 14:33:32 by mavitori         ###   ########.fr       */
+/*   Updated: 2024/10/17 15:17:35 by mavitori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,8 @@ typedef struct s_map
 	char		*portal_texture;
 	char		*floor_color;
 	char		*ceiling_color;
+	char		*old_floor_color;
+	char		*old_ceiling_color;
 	char		**full_map;
 }				t_map;
 
@@ -163,6 +165,7 @@ void			free_game(t_game *game);
 // HOOKS
 void			ft_hook(void *param);
 void			move_player_up_down(t_game *game, int key, int multiplier);
+void			move_player_left_right(t_game *game, int key, int multiplier);
 
 // BUILD
 void			delta_dist(t_game *game, t_dda *dda);

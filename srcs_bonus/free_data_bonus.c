@@ -6,7 +6,7 @@
 /*   By: mavitori <mavitori@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 17:50:25 by mavitori          #+#    #+#             */
-/*   Updated: 2024/10/16 14:01:03 by mavitori         ###   ########.fr       */
+/*   Updated: 2024/10/17 15:24:24 by mavitori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,10 @@ void	free_game(t_game *game)
 	free_textures(game);
 	free(game->map->floor_color);
 	free(game->map->ceiling_color);
+	if (game->map->old_ceiling_color)
+		free(game->map->old_ceiling_color);
+	if (game->map->old_floor_color)
+		free(game->map->old_floor_color);
 	if (game->map->full_map)
 	{
 		while (i < MAP_HEIGHT)
