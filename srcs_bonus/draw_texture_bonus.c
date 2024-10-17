@@ -6,7 +6,7 @@
 /*   By: mavitori <mavitori@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 16:42:01 by mavitori          #+#    #+#             */
-/*   Updated: 2024/10/08 15:23:44 by mavitori         ###   ########.fr       */
+/*   Updated: 2024/10/16 14:06:25 by mavitori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,20 +40,24 @@ static void	calculate_texture_x(t_dda *dda, t_game *game, t_wall *wall)
 
 static void	wall_direction(t_game *game, t_dda *dda)
 {
-	if (dda->hit_side == 0)
+	if (dda->hit_side == 0 && dda->wall_type == WALL)
 	{
 		if (game->ray_dir->x < 0)
 			game->texture = game->we;
 		else
 			game->texture = game->ea;
 	}
-	else
+	else if (dda->wall_type == WALL)
 	{
 		if (game->ray_dir->y < 0)
 			game->texture = game->no;
 		else
 			game->texture = game->so;
 	}
+	else if (dda->wall_type == DOOR)
+		game->texture = game->door;
+	else
+		game->texture = game->portal;
 }
 
 void	draw_wall_line(t_wall *wall, t_dda *dda, t_game *game)

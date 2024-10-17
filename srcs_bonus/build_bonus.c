@@ -6,7 +6,7 @@
 /*   By: mavitori <mavitori@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 17:52:28 by mavitori          #+#    #+#             */
-/*   Updated: 2024/10/15 17:45:20 by mavitori         ###   ########.fr       */
+/*   Updated: 2024/10/16 14:14:43 by mavitori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,18 @@ void	build_ray(t_game *game, t_dda *dda)
 		hit_wall(wall_pos, dda);
 		x = (int)wall_pos->x;
 		y = (int)wall_pos->y;
-		if (game->map->full_map[y][x] > '0' && game->map->full_map[y][x] != '3')
+		// 1 = WALL
+		// 2 = DOOR
+		// 3 = OPEN DOOR
+		// 4 = PORTAL
+		if (game->map->full_map[y][x] == '1' || game->map->full_map[y][x] == '2' || game->map->full_map[y][x] == '4')
 			hit = 1;
+		if (game->map->full_map[y][x] == '2')
+			dda->wall_type = DOOR;
+		else if (game->map->full_map[y][x] == '4')
+			dda->wall_type = PORTAL;
+		else if (game->map->full_map[y][x] == '1')
+			dda->wall_type = WALL;
 	}
 	calc_wall_dist(game, wall_pos, dda);
 	free(wall_pos);

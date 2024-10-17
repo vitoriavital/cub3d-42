@@ -6,7 +6,7 @@
 /*   By: mavitori <mavitori@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 14:08:53 by mavitori          #+#    #+#             */
-/*   Updated: 2024/10/15 17:37:06 by mavitori         ###   ########.fr       */
+/*   Updated: 2024/10/16 14:33:32 by mavitori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,15 @@ enum						e_direction
 	LEFT = 3,
 };
 
+typedef enum e_wall_type	t_wall_type;
+enum						e_wall_type
+{
+	WALL = 0,
+	DOOR = 1,
+	PORTAL = 2,
+};
+
+
 typedef struct s_player
 {
 	int			line;
@@ -63,6 +72,8 @@ typedef struct s_map
 	char		*south_texture;
 	char		*west_texture;
 	char		*east_texture;
+	char		*door_texture;
+	char		*portal_texture;
 	char		*floor_color;
 	char		*ceiling_color;
 	char		**full_map;
@@ -104,6 +115,7 @@ typedef struct s_dda
 	float		player_dist_wall;
 	float		wall_x;
 	float		wall_y;
+	int			wall_type;
 }				t_dda;
 
 typedef struct s_game
@@ -123,49 +135,55 @@ typedef struct s_game
 	mlx_texture_t	*so;
 	mlx_texture_t	*ea;
 	mlx_texture_t	*we;
+	mlx_texture_t	*door;
+	mlx_texture_t	*portal;
 	mlx_texture_t	*texture;
 }				t_game;
 
 
 // VECTOR UTILS
-float		ft_vector_magnitude(t_vector *v);
-void		ft_vector_normalize(t_vector *v);
-void		ft_vector_rotate(t_vector *v, float angle);
+float			ft_vector_magnitude(t_vector *v);
+void			ft_vector_normalize(t_vector *v);
+void			ft_vector_rotate(t_vector *v, float angle);
 
 // VECTOR OPERATIONS
-t_vector	*ft_vector_create(float x, float y);
-void		ft_vector_add(t_vector *v1, t_vector *v2, t_vector *result);
-t_vector	*ft_vector_copy(t_vector *v);
-void		ft_vector_floor(t_vector *v, t_vector *result);
-void		ft_vector_scalar(t_vector *v, double scalar, t_vector *result);
+t_vector		*ft_vector_create(float x, float y);
+void			ft_vector_add(t_vector *v1, t_vector *v2, t_vector *result);
+t_vector		*ft_vector_copy(t_vector *v);
+void			ft_vector_floor(t_vector *v, t_vector *result);
+void			ft_vector_scalar(t_vector *v, double scalar, t_vector *result);
 
 // SETUP
-void		player_direction(t_game *game);
-int			read_map(char *map_file, t_game *game);
+void			player_direction(t_game *game);
+int				read_map(char *map_file, t_game *game);
 
 // FREE DATA
-void		free_game(t_game *game);
+void			free_game(t_game *game);
 
 // HOOKS
-void		ft_hook(void *param);
+void			ft_hook(void *param);
+void			move_player_up_down(t_game *game, int key, int multiplier);
 
 // BUILD
-void		delta_dist(t_game *game, t_dda *dda);
-void		dist_to_side(t_game *game, t_dda *dda);
-void		build_ray(t_game *game, t_dda *dda);
+void			delta_dist(t_game *game, t_dda *dda);
+void			dist_to_side(t_game *game, t_dda *dda);
+void			build_ray(t_game *game, t_dda *dda);
 
 // DRAW
-void		draw_floor(t_game *game);
-void		draw_ceiling(t_game *game);
-void		draw_wall(t_game *game, float dist, t_dda *dda);
-int32_t		ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a);
+void			draw_floor(t_game *game);
+void			draw_ceiling(t_game *game);
+void			draw_wall(t_game *game, float dist, t_dda *dda);
+int32_t			ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a);
 // GAME
-void		ft_game(void *param);
+void			ft_game(void *param);
 
 // DRAW TEXTURE
-void		draw_wall_line(t_wall *wall, t_dda *dda, t_game *game);
+void			draw_wall_line(t_wall *wall, t_dda *dda, t_game *game);
 
 // MINI MAP
-void	ft_mini_map(void *param);
+void			ft_mini_map(void *param);
+
+// DOOR PORTAL
+void			switch_door_portal(t_game *game);
 
 #endif

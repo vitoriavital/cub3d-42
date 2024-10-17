@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_data.c                                        :+:      :+:    :+:   */
+/*   free_data_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mavitori <mavitori@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 17:50:25 by mavitori          #+#    #+#             */
-/*   Updated: 2024/10/08 15:24:14 by mavitori         ###   ########.fr       */
+/*   Updated: 2024/10/16 14:01:03 by mavitori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,14 @@ static void	free_textures(t_game *game)
 	free(game->map->south_texture);
 	free(game->map->west_texture);
 	free(game->map->east_texture);
+	free(game->map->door_texture);
+	free(game->map->portal_texture);
 	mlx_delete_texture(game->no);
 	mlx_delete_texture(game->so);
 	mlx_delete_texture(game->ea);
 	mlx_delete_texture(game->we);
+	mlx_delete_texture(game->door);
+	mlx_delete_texture(game->portal);
 }
 
 void	free_game(t_game *game)

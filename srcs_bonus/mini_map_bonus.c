@@ -6,7 +6,7 @@
 /*   By: mavitori <mavitori@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 15:26:15 by mavitori          #+#    #+#             */
-/*   Updated: 2024/10/16 13:17:58 by mavitori         ###   ########.fr       */
+/*   Updated: 2024/10/16 14:17:08 by mavitori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static void	draw_walls_mm(t_game *game, t_mini *mini)
 			{
 				if (game->map->full_map[tile_y][tile_x] > '0' && game->map->full_map[tile_y][tile_x] != '3')
 					color = ft_pixel(100, 100, 100, 255);
-				else if (game->map->full_map[tile_y][tile_x] == '0')
+				else if (game->map->full_map[tile_y][tile_x] == '0' || game->map->full_map[tile_y][tile_x] == '3')
 					color = ft_pixel(0, 0, 0, 255);
 				else
 					color = ft_pixel(100, 100, 100, 255);

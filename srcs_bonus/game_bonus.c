@@ -6,7 +6,7 @@
 /*   By: mavitori <mavitori@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 13:31:25 by mavitori          #+#    #+#             */
-/*   Updated: 2024/10/08 15:24:31 by mavitori         ###   ########.fr       */
+/*   Updated: 2024/10/16 13:31:41 by mavitori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ static void	game_loop(t_game *game)
 
 	x = 0;
 	dda = malloc(sizeof(t_dda));
+	dda->wall_type = WALL;
 	while (x < SCREEN_WIDTH)
 	{
 		game->current_pixel = x;
