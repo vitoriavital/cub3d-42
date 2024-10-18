@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 14:08:53 by mavitori          #+#    #+#             */
-/*   Updated: 2024/10/13 19:37:04 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/10/18 19:00:22 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ typedef struct s_dda
 typedef struct s_game
 {
 	t_map			*map;
+	char			**map_fill;
 	t_player		*player;
 	mlx_image_t		*image;
 	mlx_t			*mlx;

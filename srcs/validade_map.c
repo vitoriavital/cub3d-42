@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 20:03:19 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/10/14 22:02:34 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/10/18 19:57:42 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,7 +166,34 @@ void	count_player(char c, int *player)
 	return ;
 }
 
-int	check_map(char **lines)
+void	set_position(char **map, t_game *game)
+{
+	int	x;
+	int	y;
+	int	i;
+	int	j;
+
+	i = 0;
+	x = 0;
+	y = 0;
+	while(map[i] != NULL)
+	{
+		j = 0;
+		while (map[i][j] != '\0')
+		{
+			if (map[i][j] == 'W')
+			{
+				game->player->line = i;
+				game->player->column = j;
+			}
+			j++;
+		}
+		i++;
+	}
+}
+
+
+int	check_map(char **lines, t_game *game)
 {
 	int		i;
 	int		line;
@@ -190,10 +217,11 @@ int	check_map(char **lines)
 	}
 	if (player != 1)
 		return (-1);
+	set_position(lines, game);
+
 	// verificar paredes
 	// if (check_walls(lines) == -1)
 	// 	return (-1);
-	// verificar player
 	//substituir espaços por 1 ou 0
 	// map = find_space(lines);
 	// print_teste(map);
@@ -265,7 +293,7 @@ int	check_config_signal(char *line)
 	return (-1);
 }
 
-int	split_content(char **content, char **config, char **map)
+int	split_content(char **content, char **config, char **map, char **map_fill)
 {
 	int		i;
 	int		j;
@@ -279,12 +307,16 @@ int	split_content(char **content, char **config, char **map)
 		if(check_config_signal(content[i]) == 0)
 			config[j++] = ft_strdup(content[i]);
 		else
+		{
+			map_fill[h] = ft_strdup(content[i]);
 			map[h++] = ft_strdup(content[i]);
+		}
 		free(content[i]);
 		i++;
 	}
 	config[j] = NULL;
 	map[h] = NULL;
+	map_fill[h] = NULL;
 	return (0);
 }
 
@@ -292,6 +324,7 @@ void parser_file(char *full_content, t_game *game)
 {
 	char	**config;
 	char	**map;
+	char	**map_fill;
 	char	**content;
 	int		i;
 
@@ -305,7 +338,7 @@ void parser_file(char *full_content, t_game *game)
 	while (content[i])
 		i++;
 	map = (char **)malloc(sizeof(char *) * (i - 6));
-	if (split_content(content, config, map) == -1)
+	if (split_content(content, config, map, map_fill) == -1)
 	{
 		printf("Error: .\n");
 		exit(0);
@@ -315,15 +348,20 @@ void parser_file(char *full_content, t_game *game)
 		printf("Error: Invalid config.\n");
 		exit(0);
 	}
-	if (check_map(map) == -1)
+	if (check_map(map, game) == -1)
 	{
 		printf("Error: Invalid map.\n");
 		exit(0);
 	}
 	set_config(config, game);
 	// print_teste(config);
-	// printf("     \n");
+	printf("     \n");
+	// set_position(map, game);
+	printf("X-> %d\n Y-> %d\n",game->player->line, game->player->column);
 	print_teste(map);
+	printf("     \n");
+	game->map_fill = map_fill;
+	print_teste(game->map_fill);
 	// set_map(map, game);
 	exit(0);
 }
