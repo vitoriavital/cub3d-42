@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 14:08:53 by mavitori          #+#    #+#             */
-/*   Updated: 2024/10/18 19:00:22 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/10/19 17:11:14 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@
 # include <unistd.h>
 # include <fcntl.h>
 
-# define MAP_WIDTH 10
-# define MAP_HEIGHT 10
+// # define MAP_WIDTH 10
+// # define MAP_HEIGHT 10 tirei
 # define SCREEN_WIDTH 800
 # define SCREEN_HEIGHT 600
 # define PI 3.141592653589793

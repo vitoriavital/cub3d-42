@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 20:03:19 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/10/18 19:57:42 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/10/19 18:07:18 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,20 +19,9 @@ void	print_teste(char **content)
 	i = -1;
 	while(content[++i])
 	{
-		printf("->%s\n", content[i]);
+		printf("%s\n", content[i]);
 	}
 }
-
-// typedef enum e_configs	t_configs;
-// enum						e_configs
-// {
-// 	NO = -6,
-// 	SO = -5,
-// 	WE = -4,
-// 	EA = -3,
-// 	F = -2,
-// 	C = -1,
-// };
 
 void	free_split(char **content)
 {
@@ -74,7 +63,7 @@ int	check_directions(char *file)
 	return (0);
 }
 
-int check_c_f(char *rgb)
+int	check_c_f(char *rgb)
 {
 	char	**colors;
 
@@ -118,6 +107,7 @@ void	set_config(char **config,t_game *game)
 		i++;
 	}
 }
+
 int		ft_mtxlen(char	**matrix)
 {
 	int	i;
@@ -147,23 +137,24 @@ char	**find_space(char **map)
 
 }
 
-int	check_walls(char **lines)
-{
-	int	line;
-	int	column;
-	int	i;
-	int	j;
-
-	i = 0;
-	line = ft_mtxlen(lines);
-
-}
-
 void	count_player(char c, int *player)
 {
 	if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
 		(*player)++;
 	return ;
+}
+
+int	see_where(char c, t_game *game)
+{
+	if (c == 'N')
+		return (game->player->dir = NORTH);
+	else if (c == 'S')
+		return(game->player->dir = SOUTH);
+	else if (c == 'E')
+		return(game->player->dir = EAST);
+	else if (c == 'W')
+		return(game->player->dir = WEST);
+	return (10);
 }
 
 void	set_position(char **map, t_game *game)
@@ -181,10 +172,12 @@ void	set_position(char **map, t_game *game)
 		j = 0;
 		while (map[i][j] != '\0')
 		{
-			if (map[i][j] == 'W')
+			if (see_where(map[i][j], game) != 10)
 			{
 				game->player->line = i;
 				game->player->column = j;
+				map[i][j] = '0';
+				game->map_fill[i][j] = '0';
 			}
 			j++;
 		}
@@ -192,23 +185,91 @@ void	set_position(char **map, t_game *game)
 	}
 }
 
+void	flood_fill(t_game *game, int x, int y)
+{
+	if (game->map_fill[x][y] != '0')
+		return;
+	game->map_fill[x][y] = 'F';
+	flood_fill(game, x + 1, y);
+	flood_fill(game, x - 1, y);
+	flood_fill(game, x, y + 1);
+	flood_fill(game, x, y - 1);
+}
+
+int	check_sides(char **map, int x, int y)
+{
+	//cimaa
+	if (map[x-1][y] == '0' || map[x-1][y] == '\0' || map[x-1][y] == ' ')
+		return (-1);
+	// baixo
+	if (map[x+1] == NULL || (map[x+1][y] == '0' || map[x+1][y] == '\0' ))
+		return (-1);
+	// esquerda
+	if (map[x][y-1] == '0' || map[x][y-1] == '\0')
+		return (-1);
+	// direita
+	if (map[x][y+1] == '\0' || (map[x][y+1] == '0' || map[x][y+1] == '\0'))
+		return (-1);
+	return (0);
+}
+
+int	check_bishop(char **map, int x, int y)
+{
+	// superior esquerda
+	if (map[x-1][y-1] == '0' || map[x-1][y-1] == '\0')
+		return (-1);
+	// superior direita
+	if (map[x-1][y+1] == '\0' || map[x-1][y+1] == '0')
+		return (-1);
+	// inferior esquerda
+	if (map[x+1] == NULL || (map[x+1][y-1] == '0' || map[x+1][y-1] == '\0'))
+		return (-1);
+	// inferior direita
+	if (map[x+1] == NULL || map[x+1][y+1] == '\0' || (map[x+1][y+1] == '0'))
+		return (-1);
+	return (0);
+}
+
+int	is_f_exposed(t_game *game)
+{
+	int	x;
+	int	y;
+
+	x = 0;
+	y = 0;
+	while (game->map_fill[x] != NULL)
+	{
+		y = 0;
+		while (game->map_fill[x][y] != '\0')
+		{
+			if (game->map_fill[x][y] == 'F')
+			{
+				if (check_sides(game->map_fill, x, y) == -1)
+					return (-1);
+				if (check_bishop(game->map_fill, x, y) == -1)
+					return (-1);
+			}
+			y++;
+		}
+		x++;
+	}
+	return (0);
+}
 
 int	check_map(char **lines, t_game *game)
 {
-	int		i;
-	int		line;
-	int		player;
+	int i, line, player;
 
 	line = 0;
 	i = 0;
 	player = 0;
-	// verificar catacteres
-	while(lines[line])
+
+	while (lines[line])
 	{
-		while(lines[line][i])
+		while (lines[line][i])
 		{
-			if(ft_strrchr(" 01NSWE", lines[line][i]) == NULL)
-				return(-1);
+			if (ft_strrchr(" 01NSWE", lines[line][i]) == NULL)
+				return (-1);
 			count_player(lines[line][i], &player);
 			i++;
 		}
@@ -218,15 +279,14 @@ int	check_map(char **lines, t_game *game)
 	if (player != 1)
 		return (-1);
 	set_position(lines, game);
-
-	// verificar paredes
-	// if (check_walls(lines) == -1)
-	// 	return (-1);
-	//substituir espaços por 1 ou 0
-	// map = find_space(lines);
-	// print_teste(map);
-	// mandar pro flood fill
-
+	flood_fill(game, game->player->line, game->player->column);
+	print_teste(game->map_fill);
+	if (is_f_exposed(game) == -1)
+	{
+		printf("Invalid map: The map missing wall.\n");
+		return (-1);
+	}
+	return (0);
 }
 
 int	check_config(char **line)
@@ -330,7 +390,7 @@ void parser_file(char *full_content, t_game *game)
 
 	i = 0;
 	content = ft_split(full_content, '\n');
-	while((check_config_signal(content[i]) == 0))
+	while ((check_config_signal(content[i]) == 0))
 		i++;
 	if ( i != 6)
 		exit(0);
@@ -348,22 +408,18 @@ void parser_file(char *full_content, t_game *game)
 		printf("Error: Invalid config.\n");
 		exit(0);
 	}
+	game->map_fill = map_fill;
 	if (check_map(map, game) == -1)
 	{
 		printf("Error: Invalid map.\n");
 		exit(0);
 	}
 	set_config(config, game);
-	// print_teste(config);
 	printf("     \n");
-	// set_position(map, game);
 	printf("X-> %d\n Y-> %d\n",game->player->line, game->player->column);
 	print_teste(map);
 	printf("     \n");
-	game->map_fill = map_fill;
-	print_teste(game->map_fill);
-	// set_map(map, game);
-	exit(0);
+	game->map->full_map = map;
 }
 
 int	read_file(char *map_file, t_game *game)
@@ -401,9 +457,9 @@ int verify_extension(char *map_file)
 	const char	*extension=".cub";
 
 	len = 0;
-	while(map_file[len])
+	while (map_file[len])
 		len++;
-	if(ft_strncmp(&map_file[len - 4], ".cub", 4) == 0)
+	if (ft_strncmp(&map_file[len - 4], ".cub", 4) == 0)
 		return (0);
 	printf("Error: The file need be .cub\n");
 	return (-1);

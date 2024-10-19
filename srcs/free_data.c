@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_data.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mavitori <mavitori@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 17:50:25 by mavitori          #+#    #+#             */
-/*   Updated: 2024/09/20 16:46:07 by mavitori         ###   ########.fr       */
+/*   Updated: 2024/10/19 17:11:00 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,11 @@ void	free_game(t_game *game)
 	free(game->map->ceiling_color);
 	if (game->map->full_map)
 	{
-		while (i < MAP_HEIGHT)
-			free(game->map->full_map[i++]);
+		while (game->map->full_map[i]) // alterei aqui
+		{
+			free(game->map->full_map[i]);
+			i++;
+		}
 		free(game->map->full_map);
 	}
 	free(game->map);
