@@ -6,7 +6,7 @@
 /*   By: mavitori <mavitori@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 17:48:48 by mavitori          #+#    #+#             */
-/*   Updated: 2024/10/21 11:18:32 by mavitori         ###   ########.fr       */
+/*   Updated: 2024/10/21 14:41:38 by mavitori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,33 @@ int	full_map_error(int i, t_game *game)
 // 	return (0);
 // }
 
+int	load_textures(t_game *game)
+{
+	mlx_texture_t	*texture;
+
+	game->so = NULL;
+	game->no = NULL;
+	game->ea = NULL;
+	game->we = NULL;
+	texture = mlx_load_png(game->map->north_texture);
+	if (!texture)
+		return (-1);
+	game->no = texture;
+	texture = mlx_load_png(game->map->south_texture);
+	if (!texture)
+		return (-1);
+	game->so = texture;
+	texture = mlx_load_png(game->map->east_texture);
+	if (!texture)
+		return (-1);
+	game->ea = texture;
+	texture = mlx_load_png(game->map->west_texture);
+	if (!texture)
+		return (-1);
+	game->we = texture;
+	return (0);
+}
+
 int	read_map(char *map_file, t_game *game)
 {
 	game->map = NULL;
@@ -153,10 +180,11 @@ int	read_map(char *map_file, t_game *game)
 	// game->map->south_texture = ft_strdup("textures/cat.png");
 	// game->map->west_texture = ft_strdup("textures/ghost.png");
 	// game->map->east_texture = ft_strdup("textures/spider.png");
-	game->no = mlx_load_png(game->map->north_texture);
-	game->so = mlx_load_png(game->map->south_texture);
-	game->ea = mlx_load_png(game->map->east_texture);
-	game->we = mlx_load_png(game->map->west_texture);
+	if (load_textures(game) == -1)
+	{
+		printf("Texture failed to load\n");
+		return (-1);
+	}
 	// apply_dark_filter(game->no);
 	// apply_dark_filter(game->so);
 	// apply_dark_filter(game->ea);

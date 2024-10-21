@@ -1,10 +1,10 @@
-NO       ./textures/north.png
+NO       ./textures/pie.png
 
-SO ./textures/south.png
+SO ./textures/cat.png
 
-WE ./textures/west.png
+WE ./textures/ghost.png
 
-EA ./textures/east.png
+EA ./textures/spider.png
 
 F 28,28,28
 C 105,105,105

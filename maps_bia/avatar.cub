@@ -1,10 +1,10 @@
-NO ./textures/air.png
+NO ./textures/pie.png
 
-SO ./textures/fire.png  
+SO ./textures/cat.png
 
-WE  ./textures/water.png
+WE  ./textures/ghost.png
 
-   EA ./textures/earth.png
+   EA ./textures/spider.png
 
 
    C 100,149,237

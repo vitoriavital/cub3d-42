@@ -6,41 +6,34 @@
 /*   By: mavitori <mavitori@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 17:50:25 by mavitori          #+#    #+#             */
-/*   Updated: 2024/10/21 11:26:31 by mavitori         ###   ########.fr       */
+/*   Updated: 2024/10/21 14:43:58 by mavitori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub_3d.h"
-
-static void	free_textures(t_game *game)
-{
-	if (game->map->north_texture)
-	{
-		free(game->map->north_texture);
-		mlx_delete_texture(game->no);
-	}
-	if (game->map->south_texture)
-	{
-		free(game->map->south_texture);
-		mlx_delete_texture(game->so);
-	}
-	if (game->map->east_texture)
-	{
-		free(game->map->east_texture);
-		mlx_delete_texture(game->ea);
-	}
-	if (game->map->west_texture)
-	{
-		free(game->map->west_texture);
-		mlx_delete_texture(game->we);
-	}
-}
 
 void	check_free(void *ptr)
 {
 	if (ptr)
 		free(ptr);
 }
+
+static void	free_textures(t_game *game)
+{
+	check_free(game->map->north_texture);
+	check_free(game->map->south_texture);
+	check_free(game->map->east_texture);
+	check_free(game->map->west_texture);
+	if (game->no)
+		mlx_delete_texture(game->no);
+	if (game->so)
+		mlx_delete_texture(game->so);
+	if (game->ea)
+		mlx_delete_texture(game->ea);
+	if (game->we)
+		mlx_delete_texture(game->we);
+}
+
 
 void	free_game(t_game *game)
 {

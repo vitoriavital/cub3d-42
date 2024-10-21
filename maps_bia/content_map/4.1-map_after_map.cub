@@ -1,7 +1,7 @@
-NO ./textures/north.png
-SO ./textures/south.png
-WE ./textures/west.png
-EA ./textures/east.png
+NO ./textures/notvalid.png
+SO ./textures/spider.png
+WE ./textures/ghost.png
+EA ./textures/cat.png
 
         F 220,100,0
 

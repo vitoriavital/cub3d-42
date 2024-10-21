@@ -6,7 +6,7 @@
 /*   By: mavitori <mavitori@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 20:03:19 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/10/21 13:23:39 by mavitori         ###   ########.fr       */
+/*   Updated: 2024/10/21 14:18:12 by mavitori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,13 +193,18 @@ void	set_position(char **map, t_game *game)
 
 void	flood_fill(t_game *game, int x, int y)
 {
-	if (game->map_fill[x][y] != '0')
+	if (x < 0 || y < 0 || !game->map_fill[x] || y >= (int)ft_strlen(game->map_fill[x]) || game->map_fill[x][y] != '0')
 		return;
+
 	game->map_fill[x][y] = 'F';
-	flood_fill(game, x + 1, y);
-	flood_fill(game, x - 1, y);
-	flood_fill(game, x, y + 1);
-	flood_fill(game, x, y - 1);
+	if (game->map_fill[x + 1])
+		flood_fill(game, x + 1, y);
+	if (x - 1 >= 0 && game->map_fill[x - 1])
+		flood_fill(game, x - 1, y);
+	if (y + 1 < (int)ft_strlen(game->map_fill[x]))
+		flood_fill(game, x, y + 1);
+	if (y - 1 >= 0)
+		flood_fill(game, x, y - 1);
 }
 
 int	check_sides(char **map, int x, int y)
