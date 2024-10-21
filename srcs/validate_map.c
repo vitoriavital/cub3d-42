@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 20:03:19 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/10/21 19:47:34 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/10/21 20:52:15 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,15 @@ int	is_f_exposed(t_game *game)
 			if (game->map_fill[x][y] == 'F')
 			{
 				if (check_sides(game->map_fill, x, y) == -1)
+				{
+					// printf("Invalid map: The map missing wall.\n");
 					return (-1);
+				}
 				if (check_bishop(game->map_fill, x, y) == -1)
+				{
+					// printf("Invalid map: The map missing wall.\n");
 					return (-1);
+				}
 			}
 			y++;
 		}
@@ -74,12 +80,13 @@ int	is_f_exposed(t_game *game)
 
 int	check_map(char **lines, t_game *game)
 {
-	int i, line, player;
+	int	i;
+	int	line;
+	int	player;
 
 	line = 0;
 	i = 0;
 	player = 0;
-
 	while (lines[line])
 	{
 		while (lines[line][i])
@@ -95,12 +102,5 @@ int	check_map(char **lines, t_game *game)
 	if (player != 1)
 		return (-1);
 	set_position(lines, game);
-	flood_fill(game, game->player->line, game->player->column);
-	// print_teste(game->map_fill);
-	if (is_f_exposed(game) == -1)
-	{
-		printf("Invalid map: The map missing wall.\n");
-		return (-1);
-	}
-	return (0);
+	return (is_f_exposed(game));
 }

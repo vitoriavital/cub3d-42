@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 20:03:19 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/10/21 19:50:31 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/10/21 20:47:11 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,24 @@ void	set_config(char **config,t_game *game)
 	}
 }
 
+int	handle_file_check(char **file)
+{
+	if (ft_strncmp(file[0], "F", 1) == 0 || ft_strncmp(file[0], "C", 1) == 0)
+	{
+		if (check_c_f(file[1]) != 0)
+		{
+			free_split(file);
+			return (-1);
+		}
+	}
+	else if (check_file_dir(file[1]) != 0)
+	{
+		free_split(file);
+		return (-1);
+	}
+	return (0);
+}
+
 int	check_config(char **line)
 {
 	char	**file;
@@ -47,29 +65,13 @@ int	check_config(char **line)
 	while (line[i])
 	{
 		file = ft_split(line[i], ' ');
-		if (!file[1])
+		if (!file[1] || file[2] != NULL)
 		{
 			free_split(file);
 			return (-1);
 		}
-		if (file[2] != NULL)
-		{
-			free_split(file);
+		if (handle_file_check(file) != 0)
 			return (-1);
-		}
-		if (ft_strncmp(file[0], "F", 1) == 0 || ft_strncmp(file[0], "C", 1) == 0)
-		{
-			if (check_c_f(file[1]) != 0)
-			{
-				free_split(file);
-				return (-1);
-			}
-		}
-		else if (check_file_dir(file[1]) != 0)
-		{
-			free_split(file);
-			return (-1);
-		}
 		free_split(file);
 		i++;
 	}

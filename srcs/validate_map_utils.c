@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 20:03:19 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/10/21 19:47:38 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/10/21 20:28:13 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,13 +94,13 @@ void	set_position(char **map, t_game *game)
 		}
 		i++;
 	}
+	flood_fill(game, game->player->line, game->player->column);
 }
 
 void	flood_fill(t_game *game, int x, int y)
 {
 	if (x < 0 || y < 0 || !game->map_fill[x] || y >= (int)ft_strlen(game->map_fill[x]) || game->map_fill[x][y] != '0')
-		return;
-
+		return ;
 	game->map_fill[x][y] = 'F';
 	if (game->map_fill[x + 1])
 		flood_fill(game, x + 1, y);
