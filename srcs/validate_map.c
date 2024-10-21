@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   validade_map.c                                     :+:      :+:    :+:   */
+/*   validate_map.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: mavitori <mavitori@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 20:03:19 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/10/19 18:07:18 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/10/21 09:47:55 by mavitori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,7 @@ char	**find_space(char **map)
 		result[j] = ft_strdup(map[j]);
 		free(map[j]);
 	}
-	result[j] = '\0';
+	result[j] = 0;
 	return(result);
 
 }
@@ -461,6 +461,6 @@ int verify_extension(char *map_file)
 		len++;
 	if (ft_strncmp(&map_file[len - 4], ".cub", 4) == 0)
 		return (0);
-	printf("Error: The file need be .cub\n");
+	printf("Error: The file need be .cub\n");	
 	return (-1);
 }

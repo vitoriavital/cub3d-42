@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_data.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: mavitori <mavitori@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 17:50:25 by mavitori          #+#    #+#             */
-/*   Updated: 2024/10/19 17:11:00 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/10/21 09:56:48 by mavitori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ void	free_game(t_game *game)
 	int	i;
 
 	i = 0;
-	free_textures(game);
+	if (!game->map)
+		return (free(game));
 	free(game->map->floor_color);
 	free(game->map->ceiling_color);
 	if (game->map->full_map)

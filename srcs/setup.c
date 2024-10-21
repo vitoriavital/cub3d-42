@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   setup.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: mavitori <mavitori@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 17:48:48 by mavitori          #+#    #+#             */
-/*   Updated: 2024/10/19 18:01:47 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/10/21 09:56:42 by mavitori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,7 @@ int	full_map_error(int i, t_game *game)
 
 int	read_map(char *map_file, t_game *game)
 {
+	game->map = NULL;
 	if(verify_extension(map_file) == -1)
 		return (-1);
 	if (add_player_map(game) == -1 || read_file(map_file, game) == -1)
