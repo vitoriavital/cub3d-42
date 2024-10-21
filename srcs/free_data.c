@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_data.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mavitori <mavitori@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 17:50:25 by mavitori          #+#    #+#             */
-/*   Updated: 2024/10/21 14:43:58 by mavitori         ###   ########.fr       */
+/*   Updated: 2024/10/21 19:28:52 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,6 @@ static void	free_textures(t_game *game)
 
 void	free_game(t_game *game)
 {
-	int	i;
-
-	i = 0;
 	if (!game->map)
 		return (check_free(game));
 	free_textures(game);
@@ -61,4 +58,22 @@ void	free_game(t_game *game)
 	if (game->map_fill)
 		free_split(game->map_fill);
 	check_free(game);
+}
+
+void	free_split(char **content)
+{
+	int i;
+
+	i = 0;
+	if (!content)
+		return ;
+	while(content[i])
+	{
+		if (content[i])
+			free(content[i++]);
+		else
+			i++;
+	}
+	if (content)
+		free(content);
 }

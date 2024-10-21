@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub_3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mavitori <mavitori@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 14:08:53 by mavitori          #+#    #+#             */
-/*   Updated: 2024/10/21 10:45:25 by mavitori         ###   ########.fr       */
+/*   Updated: 2024/10/21 19:55:46 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,8 +158,32 @@ void		ft_game(void *param);
 void		draw_wall_line(t_wall *wall, t_dda *dda, t_game *game);
 
 // VALIDATE MAP
-int			verify_extension(char *map_file);
-int			read_file(char *map_file, t_game *game);
 void		free_split(char **content);
+void		flood_fill(t_game *game, int x, int y);
+void		set_position(char **map, t_game *game);
+int			see_where(char c, t_game *game);
+void		count_player(char c, int *player);
+int			check_map(char **lines, t_game *game);
+int			check_file_dir(char *file);
+
+// VALIDATE CONFIG
+int			check_rgb(char *red, char *green, char *blue);
+int			check_c_f(char *rgb);
+void		set_config(char **config,t_game *game);
+int			check_config_signal(char *line);
+int			check_config(char **line);
+
+//PARSER
+int			read_file(char *map_file, t_game *game);
+int 		verify_extension(char *map_file);
+int 		parser_file(char *full_content, t_game *game);
+int			split_content(char **content, char **config, char **map, char **map_fill);
+int			ft_isspace(char c);
+
+
+//tirar
+void	print_teste(char **content);
+// int		ft_mtxlen(char	**matrix)
+// char	**find_space(char **map)
 
 #endif
