@@ -6,7 +6,7 @@
 /*   By: mavitori <mavitori@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 20:03:19 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/10/21 12:48:44 by mavitori         ###   ########.fr       */
+/*   Updated: 2024/10/21 13:23:39 by mavitori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -379,9 +379,6 @@ int	split_content(char **content, char **config, char **map, char **map_fill)
 		}
 		i++;
 	}
-	config[j] = NULL;
-	map[h] = NULL;
-	map_fill[h] = NULL;
 	free_split(content);
 	return (0);
 }
@@ -396,6 +393,11 @@ int parser_file(char *full_content, t_game *game)
 
 	i = 0;
 	content = ft_split(full_content, '\n');
+	if (!content[0])
+	{
+		free_split(content);
+		return (-1);
+	}
 	while ((check_config_signal(content[i]) == 0))
 		i++;
 	if ( i != 6)
@@ -403,17 +405,17 @@ int parser_file(char *full_content, t_game *game)
 		free_split(content);
 		return (-1);
 	}
-	config = (char **)malloc(sizeof(char *) * 7);
+	config = (char **)ft_calloc(sizeof(char *), 7);
 	while (content[i])
 		i++;
-	map = (char **)malloc(sizeof(char *) * (i - 6));
-	map_fill = (char **)malloc(sizeof(char *) * (i - 6));
+	map = (char **)ft_calloc(sizeof(char *), (i - 5));
+	map_fill = (char **)ft_calloc(sizeof(char *), (i - 5));
 	if (split_content(content, config, map, map_fill) == -1)
 	{
 		printf("Error: .\n");
 		free(map);
-		free(map_fill);
-		free(config);
+		free_split(map_fill);
+		free_split(config);
 		return (-1);
 	}
 	if (check_config(config) == -1)
@@ -433,12 +435,12 @@ int parser_file(char *full_content, t_game *game)
 		return (-1);
 	}
 	set_config(config, game);
-	printf("     \n");
-	printf("X-> %d\n Y-> %d\n",game->player->line, game->player->column);
+	// printf("     \n");
+	// printf("X-> %d\n Y-> %d\n",game->player->line, game->player->column);
 	// print_teste(map);
-	printf("     \n");
+	// printf("     \n");
 	game->map->full_map = map;
-	free(config);
+	free_split(config);
 	return (0);
 }
 
