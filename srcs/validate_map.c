@@ -6,7 +6,7 @@
 /*   By: mavitori <mavitori@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 20:03:19 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/10/21 11:26:37 by mavitori         ###   ########.fr       */
+/*   Updated: 2024/10/21 12:48:44 by mavitori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -286,7 +286,7 @@ int	check_map(char **lines, t_game *game)
 		return (-1);
 	set_position(lines, game);
 	flood_fill(game, game->player->line, game->player->column);
-	print_teste(game->map_fill);
+	// print_teste(game->map_fill);
 	if (is_f_exposed(game) == -1)
 	{
 		printf("Invalid map: The map missing wall.\n");
@@ -435,7 +435,7 @@ int parser_file(char *full_content, t_game *game)
 	set_config(config, game);
 	printf("     \n");
 	printf("X-> %d\n Y-> %d\n",game->player->line, game->player->column);
-	print_teste(map);
+	// print_teste(map);
 	printf("     \n");
 	game->map->full_map = map;
 	free(config);
