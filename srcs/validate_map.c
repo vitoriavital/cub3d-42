@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validate_map.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mavitori <mavitori@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 20:03:19 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/10/21 09:47:55 by mavitori         ###   ########.fr       */
+/*   Updated: 2024/10/21 10:50:46 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -280,7 +280,7 @@ int	check_map(char **lines, t_game *game)
 		return (-1);
 	set_position(lines, game);
 	flood_fill(game, game->player->line, game->player->column);
-	print_teste(game->map_fill);
+	// print_teste(game->map_fill);
 	if (is_f_exposed(game) == -1)
 	{
 		printf("Invalid map: The map missing wall.\n");
@@ -398,6 +398,7 @@ void parser_file(char *full_content, t_game *game)
 	while (content[i])
 		i++;
 	map = (char **)malloc(sizeof(char *) * (i - 6));
+	map_fill = (char **)malloc(sizeof(char *) * (i - 6));
 	if (split_content(content, config, map, map_fill) == -1)
 	{
 		printf("Error: .\n");
@@ -417,7 +418,7 @@ void parser_file(char *full_content, t_game *game)
 	set_config(config, game);
 	printf("     \n");
 	printf("X-> %d\n Y-> %d\n",game->player->line, game->player->column);
-	print_teste(map);
+	// print_teste(map);
 	printf("     \n");
 	game->map->full_map = map;
 }
@@ -461,6 +462,6 @@ int verify_extension(char *map_file)
 		len++;
 	if (ft_strncmp(&map_file[len - 4], ".cub", 4) == 0)
 		return (0);
-	printf("Error: The file need be .cub\n");	
+	printf("Error: The file need be .cub\n");
 	return (-1);
 }
