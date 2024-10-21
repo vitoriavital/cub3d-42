@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   hooks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: mavitori <mavitori@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 17:51:27 by mavitori          #+#    #+#             */
-/*   Updated: 2024/10/19 16:13:57 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/10/21 10:11:19 by mavitori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub_3d.h"
 
-static int	check_wall(t_game *game, float x, float y, int dir)
+static int	check_wall(t_game *game, float x, float y)
 {
 	int	row;
 	int	column;
@@ -27,15 +27,14 @@ static int	check_wall(t_game *game, float x, float y, int dir)
 		return (-1);
 }
 
-static void	update_position(t_game *game, float delta_x,
-		float delta_y, int direction)
+static void	update_position(t_game *game, float delta_x, float delta_y)
 {
 	float	future_x;
 	float	future_y;
 
 	future_x = game->pos->x + delta_x;
 	future_y = game->pos->y + delta_y;
-	if (check_wall(game, future_x, future_y, direction) != -1)
+	if (check_wall(game, future_x, future_y) != -1)
 	{
 		game->pos->y += delta_y;
 		game->pos->x += delta_x;
@@ -53,13 +52,13 @@ static void	move_player_up_down(t_game *game, int key)
 	{
 		move_x += game->dir->x * 0.05;
 		move_y += game->dir->y * 0.05;
-		update_position(game, move_x, move_y, UP);
+		update_position(game, move_x, move_y);
 	}
 	if (key == MLX_KEY_S)
 	{
 		move_x -= game->dir->x * 0.05;
 		move_y -= game->dir->y * 0.05;
-		update_position(game, move_x, move_y, DOWN);
+		update_position(game, move_x, move_y);
 	}
 }
 
@@ -81,9 +80,9 @@ static void	move_player_left_right(t_game *game, int key)
 	move_y += v->y * 0.05;
 	free (v);
 	if (key == MLX_KEY_A)
-		update_position(game, move_x, move_y, LEFT);
+		update_position(game, move_x, move_y);
 	else
-		update_position(game, move_x, move_y, RIGHT);
+		update_position(game, move_x, move_y);
 }
 
 void	ft_hook(void *param)

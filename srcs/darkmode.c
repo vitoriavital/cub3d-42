@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   darkmode.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: mavitori <mavitori@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 19:38:17 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/10/13 19:51:44 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/10/21 10:12:16 by mavitori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void	apply_dark_filter(mlx_texture_t *texture)
 {
-	int x;
-	int y;
-	uint8_t *pixel;
+	uint32_t	x;
+	uint32_t	y;
+	uint8_t		*pixel;
 
 	y = 0;
 	while (y < texture->height)

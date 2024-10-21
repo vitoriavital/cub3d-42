@@ -6,7 +6,7 @@
 /*   By: mavitori <mavitori@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 20:03:19 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/10/21 09:47:55 by mavitori         ###   ########.fr       */
+/*   Updated: 2024/10/21 11:26:37 by mavitori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,18 @@ void	free_split(char **content)
 {
 	int i;
 
-	i = -1;
+	i = 0;
+	if (!content)
+		return ;
 	while(content[i])
 	{
-		free(content[++i]);
+		if (content[i])
+			free(content[i++]);
+		else
+			i++;
 	}
-	free(content);
+	if (content)
+		free(content);
 }
 
 int	check_rgb(char *red, char *green, char *blue)
@@ -371,16 +377,16 @@ int	split_content(char **content, char **config, char **map, char **map_fill)
 			map_fill[h] = ft_strdup(content[i]);
 			map[h++] = ft_strdup(content[i]);
 		}
-		free(content[i]);
 		i++;
 	}
 	config[j] = NULL;
 	map[h] = NULL;
 	map_fill[h] = NULL;
+	free_split(content);
 	return (0);
 }
 
-void parser_file(char *full_content, t_game *game)
+int parser_file(char *full_content, t_game *game)
 {
 	char	**config;
 	char	**map;
@@ -393,26 +399,38 @@ void parser_file(char *full_content, t_game *game)
 	while ((check_config_signal(content[i]) == 0))
 		i++;
 	if ( i != 6)
-		exit(0);
+	{
+		free_split(content);
+		return (-1);
+	}
 	config = (char **)malloc(sizeof(char *) * 7);
 	while (content[i])
 		i++;
 	map = (char **)malloc(sizeof(char *) * (i - 6));
+	map_fill = (char **)malloc(sizeof(char *) * (i - 6));
 	if (split_content(content, config, map, map_fill) == -1)
 	{
 		printf("Error: .\n");
-		exit(0);
+		free(map);
+		free(map_fill);
+		free(config);
+		return (-1);
 	}
 	if (check_config(config) == -1)
 	{
 		printf("Error: Invalid config.\n");
-		exit(0);
+		free_split(map);
+		free_split(map_fill);
+		free_split(config);
+		return (-1);
 	}
 	game->map_fill = map_fill;
 	if (check_map(map, game) == -1)
 	{
 		printf("Error: Invalid map.\n");
-		exit(0);
+		free_split(map);
+		free_split(config);
+		return (-1);
 	}
 	set_config(config, game);
 	printf("     \n");
@@ -420,6 +438,8 @@ void parser_file(char *full_content, t_game *game)
 	print_teste(map);
 	printf("     \n");
 	game->map->full_map = map;
+	free(config);
+	return (0);
 }
 
 int	read_file(char *map_file, t_game *game)
@@ -446,21 +466,24 @@ int	read_file(char *map_file, t_game *game)
 		free(line);
 		free(temp);
 	}
-	parser_file(full_content, game);
+	if (parser_file(full_content, game) == -1)
+	{
+		free (full_content);
+		return (-1);
+	}
 	free(full_content);
 	return (0);
 }
 
 int verify_extension(char *map_file)
 {
-	int			len;
-	const char	*extension=".cub";
+	int	len;
 
 	len = 0;
 	while (map_file[len])
 		len++;
 	if (ft_strncmp(&map_file[len - 4], ".cub", 4) == 0)
 		return (0);
-	printf("Error: The file need be .cub\n");	
+	printf("Error: The file need be .cub\n");
 	return (-1);
 }

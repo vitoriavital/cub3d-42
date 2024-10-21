@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub_3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: mavitori <mavitori@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 14:08:53 by mavitori          #+#    #+#             */
-/*   Updated: 2024/10/19 17:11:14 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/10/21 10:45:25 by mavitori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,8 @@ typedef struct s_wall
 	double		x;
 	double		step;
 	double		tex_pos;
-	uint32_t	tex_height;
-	uint32_t	tex_width;
+	int			tex_height;
+	int			tex_width;
 	int			tex_x;
 	int			tex_y;
 }				t_wall;
@@ -158,7 +158,8 @@ void		ft_game(void *param);
 void		draw_wall_line(t_wall *wall, t_dda *dda, t_game *game);
 
 // VALIDATE MAP
-int verify_extension(char *map_file);
-int	read_file(char *map_file, t_game *game);
+int			verify_extension(char *map_file);
+int			read_file(char *map_file, t_game *game);
+void		free_split(char **content);
 
 #endif

@@ -1,15 +1,129 @@
-==878695== Memcheck, a memory error detector
-==878695== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==878695== Using Valgrind-3.15.0 and LibVEX; rerun with -h for copyright info
-==878695== Command: ./Cub3D ok
-==878695== 
-Error: The file need be .cub
-==878695== 
-==878695== HEAP SUMMARY:
-==878695==     in use at exit: 0 bytes in 0 blocks
-==878695==   total heap usage: 2 allocs, 2 frees, 8,328 bytes allocated
-==878695== 
-==878695== All heap blocks were freed -- no leaks are possible
-==878695== 
-==878695== For lists of detected and suppressed errors, rerun with: -s
-==878695== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==899919== Memcheck, a memory error detector
+==899919== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==899919== Using Valgrind-3.15.0 and LibVEX; rerun with -h for copyright info
+==899919== Command: ./Cub3D maps/invalid_flood1.cub
+==899919== 
+==899919== Invalid write of size 8
+==899919==    at 0x404AB9: split_content (validate_map.c:383)
+==899919==    by 0x404BCF: parser_file (validate_map.c:411)
+==899919==    by 0x404DF2: read_file (validate_map.c:469)
+==899919==    by 0x403087: read_map (setup.c:149)
+==899919==    by 0x4032F8: validate_input (main.c:29)
+==899919==    by 0x4031C3: main (main.c:71)
+==899919==  Address 0x4dd2a20 is 0 bytes after a block of size 64 alloc'd
+==899919==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==899919==    by 0x404BA0: parser_file (validate_map.c:409)
+==899919==    by 0x404DF2: read_file (validate_map.c:469)
+==899919==    by 0x403087: read_map (setup.c:149)
+==899919==    by 0x4032F8: validate_input (main.c:29)
+==899919==    by 0x4031C3: main (main.c:71)
+==899919== 
+==899919== Invalid write of size 8
+==899919==    at 0x404AC9: split_content (validate_map.c:384)
+==899919==    by 0x404BCF: parser_file (validate_map.c:411)
+==899919==    by 0x404DF2: read_file (validate_map.c:469)
+==899919==    by 0x403087: read_map (setup.c:149)
+==899919==    by 0x4032F8: validate_input (main.c:29)
+==899919==    by 0x4031C3: main (main.c:71)
+==899919==  Address 0x4dd2aa0 is 0 bytes after a block of size 64 alloc'd
+==899919==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==899919==    by 0x404BB6: parser_file (validate_map.c:410)
+==899919==    by 0x404DF2: read_file (validate_map.c:469)
+==899919==    by 0x403087: read_map (setup.c:149)
+==899919==    by 0x4032F8: validate_input (main.c:29)
+==899919==    by 0x4031C3: main (main.c:71)
+==899919== 
+==899919== Invalid read of size 8
+==899919==    at 0x40456D: check_map (validate_map.c:273)
+==899919==    by 0x404C73: parser_file (validate_map.c:428)
+==899919==    by 0x404DF2: read_file (validate_map.c:469)
+==899919==    by 0x403087: read_map (setup.c:149)
+==899919==    by 0x4032F8: validate_input (main.c:29)
+==899919==    by 0x4031C3: main (main.c:71)
+==899919==  Address 0x4dd2a20 is 0 bytes after a block of size 64 alloc'd
+==899919==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==899919==    by 0x404BA0: parser_file (validate_map.c:409)
+==899919==    by 0x404DF2: read_file (validate_map.c:469)
+==899919==    by 0x403087: read_map (setup.c:149)
+==899919==    by 0x4032F8: validate_input (main.c:29)
+==899919==    by 0x4031C3: main (main.c:71)
+==899919== 
+==899919== Invalid read of size 8
+==899919==    at 0x403F5D: set_position (validate_map.c:176)
+==899919==    by 0x404632: check_map (validate_map.c:287)
+==899919==    by 0x404C73: parser_file (validate_map.c:428)
+==899919==    by 0x404DF2: read_file (validate_map.c:469)
+==899919==    by 0x403087: read_map (setup.c:149)
+==899919==    by 0x4032F8: validate_input (main.c:29)
+==899919==    by 0x4031C3: main (main.c:71)
+==899919==  Address 0x4dd2a20 is 0 bytes after a block of size 64 alloc'd
+==899919==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==899919==    by 0x404BA0: parser_file (validate_map.c:409)
+==899919==    by 0x404DF2: read_file (validate_map.c:469)
+==899919==    by 0x403087: read_map (setup.c:149)
+==899919==    by 0x4032F8: validate_input (main.c:29)
+==899919==    by 0x4031C3: main (main.c:71)
+==899919== 
+==899919== Invalid read of size 8
+==899919==    at 0x403873: print_teste (validate_map.c:20)
+==899919==    by 0x40465D: check_map (validate_map.c:289)
+==899919==    by 0x404C73: parser_file (validate_map.c:428)
+==899919==    by 0x404DF2: read_file (validate_map.c:469)
+==899919==    by 0x403087: read_map (setup.c:149)
+==899919==    by 0x4032F8: validate_input (main.c:29)
+==899919==    by 0x4031C3: main (main.c:71)
+==899919==  Address 0x4dd2aa0 is 0 bytes after a block of size 64 alloc'd
+==899919==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==899919==    by 0x404BB6: parser_file (validate_map.c:410)
+==899919==    by 0x404DF2: read_file (validate_map.c:469)
+==899919==    by 0x403087: read_map (setup.c:149)
+==899919==    by 0x4032F8: validate_input (main.c:29)
+==899919==    by 0x4031C3: main (main.c:71)
+==899919== 
+==899919== Invalid read of size 8
+==899919==    at 0x4038E0: free_split (validate_map.c:33)
+==899919==    by 0x404C96: parser_file (validate_map.c:431)
+==899919==    by 0x404DF2: read_file (validate_map.c:469)
+==899919==    by 0x403087: read_map (setup.c:149)
+==899919==    by 0x4032F8: validate_input (main.c:29)
+==899919==    by 0x4031C3: main (main.c:71)
+==899919==  Address 0x4dd2a20 is 0 bytes after a block of size 64 alloc'd
+==899919==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==899919==    by 0x404BA0: parser_file (validate_map.c:409)
+==899919==    by 0x404DF2: read_file (validate_map.c:469)
+==899919==    by 0x403087: read_map (setup.c:149)
+==899919==    by 0x4032F8: validate_input (main.c:29)
+==899919==    by 0x4031C3: main (main.c:71)
+==899919== 
+==899919== Invalid read of size 8
+==899919==    at 0x4038E0: free_split (validate_map.c:33)
+==899919==    by 0x404FFA: free_game (free_data.c:69)
+==899919==    by 0x40330A: validate_input (main.c:31)
+==899919==    by 0x4031C3: main (main.c:71)
+==899919==  Address 0x4dd2aa0 is 0 bytes after a block of size 64 alloc'd
+==899919==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==899919==    by 0x404BB6: parser_file (validate_map.c:410)
+==899919==    by 0x404DF2: read_file (validate_map.c:469)
+==899919==    by 0x403087: read_map (setup.c:149)
+==899919==    by 0x4032F8: validate_input (main.c:29)
+==899919==    by 0x4031C3: main (main.c:71)
+==899919== 
+      11111111111
+      1FFFFFFFF100011
+11111111F1111111
+1FFFFFFFF
+1FFF1FFFF1
+1FFFFFFFF1
+1FFFFFFFF1
+1111111111
+Invalid map: The map missing wall.
+Error: Invalid map.
+==899919== 
+==899919== HEAP SUMMARY:
+==899919==     in use at exit: 0 bytes in 0 blocks
+==899919==   total heap usage: 355 allocs, 355 frees, 15,984 bytes allocated
+==899919== 
+==899919== All heap blocks were freed -- no leaks are possible
+==899919== 
+==899919== For lists of detected and suppressed errors, rerun with: -s
+==899919== ERROR SUMMARY: 7 errors from 7 contexts (suppressed: 0 from 0)

@@ -6,7 +6,7 @@
 /*   By: mavitori <mavitori@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 17:48:48 by mavitori          #+#    #+#             */
-/*   Updated: 2024/10/21 09:56:42 by mavitori         ###   ########.fr       */
+/*   Updated: 2024/10/21 11:18:32 by mavitori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,13 @@ int	add_player_map(t_game *game)
 	}
 	game->player = player;
 	game->map = map;
+	game->map->ceiling_color = NULL;
+	game->map->floor_color = NULL;
+	game->map->full_map = NULL;
+	game->map->north_texture = NULL;
+	game->map->south_texture = NULL;
+	game->map->east_texture = NULL;
+	game->map->west_texture = NULL;
 	return (0);
 }
 
@@ -129,6 +136,14 @@ int	full_map_error(int i, t_game *game)
 int	read_map(char *map_file, t_game *game)
 {
 	game->map = NULL;
+	game->player = NULL;
+	game->map_fill = NULL;
+	game->pos = NULL;
+	game->dir = NULL;
+	game->plane = NULL;
+	game->map_pos = NULL;
+	game->camera_pixel = NULL;
+	game->ray_dir = NULL;
 	if(verify_extension(map_file) == -1)
 		return (-1);
 	if (add_player_map(game) == -1 || read_file(map_file, game) == -1)
