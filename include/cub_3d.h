@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 14:08:53 by mavitori          #+#    #+#             */
-/*   Updated: 2024/10/21 19:55:46 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/10/21 21:10:17 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,7 +171,7 @@ int			check_rgb(char *red, char *green, char *blue);
 int			check_c_f(char *rgb);
 void		set_config(char **config,t_game *game);
 int			check_config_signal(char *line);
-int			check_config(char **line);
+int			check_config(char **line, t_game *game);
 
 //PARSER
 int			read_file(char *map_file, t_game *game);

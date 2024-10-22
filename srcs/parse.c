@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 19:39:28 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/10/21 20:23:08 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/10/21 21:13:00 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,6 @@ int verify_extension(char *map_file)
 	printf("Error: The file need be .cub\n");
 	return (-1);
 }
-
-
 
 char	*read_file_content(char *map_file)
 {
@@ -71,39 +69,6 @@ int	read_file(char *map_file, t_game *game)
 	return (0);
 }
 
-// int	read_file(char *map_file, t_game *game)
-// {
-// 	int		fd;
-// 	char	*line;
-// 	char	*full_content;
-// 	char	*temp;
-
-// 	fd = open(map_file, O_RDONLY);
-// 	if (fd < 1)
-// 	{
-// 		printf("Error: File error or not exist.\n");
-// 		return (-1);
-// 	}
-// 	full_content = ft_strdup("");
-// 	while(1)
-// 	{
-// 		line = get_next_line(fd);
-// 		if(!line)
-// 			break ;
-// 		temp = full_content;
-// 		full_content = ft_strjoin(full_content, line);
-// 		free(line);
-// 		free(temp);
-// 	}
-// 	if (parser_file(full_content, game) == -1)
-// 	{
-// 		free (full_content);
-// 		return (-1);
-// 	}
-// 	free(full_content);
-// 	return (0);
-// }
-
 int	ft_isspace(char c)
 {
 	if (c == ' ' || (c >= 9 && c <= 13))
@@ -135,22 +100,17 @@ int	split_content(char **content, char **config, char **map, char **map_fill)
 	return (0);
 }
 
-int parser_file(char *full_content, t_game *game)
+int	handle_config_validation(char **content)
 {
-	char	**config;
-	char	**map;
-	char	**map_fill;
-	char	**content;
-	int		i;
+	int i;
 
 	i = 0;
-	content = ft_split(full_content, '\n');
 	if (!content[0])
 	{
 		free_split(content);
 		return (-1);
 	}
-	while ((check_config_signal(content[i]) == 0))
+	while (check_config_signal(content[i]) == 0)
 		i++;
 	if (i != 6)
 	{
@@ -158,6 +118,21 @@ int parser_file(char *full_content, t_game *game)
 		free_split(content);
 		return (-1);
 	}
+	return (i);
+}
+
+int	parser_file(char *full_content, t_game *game)
+{
+	char	**config;
+	char	**map;
+	char	**map_fill;
+	char	**content;
+	int		i;
+
+	content = ft_split(full_content, '\n');
+	i = handle_config_validation(content);
+	if (i == -1)
+		return (-1);
 	config = (char **)ft_calloc(sizeof(char *), 7);
 	while (content[i])
 		i++;
@@ -165,18 +140,15 @@ int parser_file(char *full_content, t_game *game)
 	map_fill = (char **)ft_calloc(sizeof(char *), (i - 5));
 	split_content(content, config, map, map_fill);
 	game->map_fill = map_fill;
-	if (check_config(config) == -1 || check_map(map, game) == -1)
+	if (check_config(config, game) == -1 || check_map(map, game) == -1)
 	{
 		printf("Error: Invalid content.\n");
 		return (-1);
 	}
-	set_config(config, game);
 	game->map->full_map = map;
 	free_split(config);
 	return (0);
 }
-
-
 	// printf("     \n");
 	// printf("X-> %d\n Y-> %d\n",game->player->line, game->player->column);
 	// print_teste(map);

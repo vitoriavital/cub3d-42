@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 20:03:19 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/10/21 20:52:15 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/10/21 21:01:17 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@ int	check_sides(char **map, int x, int y)
 	if (map[x-1][y] == '0' || map[x-1][y] == '\0' || map[x-1][y] == ' ')
 		return (-1);
 	// baixo
-	if (map[x+1] == NULL || (map[x+1][y] == '0' || map[x+1][y] == '\0' ))
+	if (map[x+1] == NULL || (map[x+1][y] == '0' || map[x+1][y] == '\0' || map[x+1][y] == ' '))
 		return (-1);
 	// esquerda
-	if (map[x][y-1] == '0' || map[x][y-1] == '\0')
+	if (map[x][y-1] == '0' || map[x][y-1] == '\0' || map[x][y-1] == ' ')
 		return (-1);
 	// direita
-	if (map[x][y+1] == '\0' || (map[x][y+1] == '0' || map[x][y+1] == '\0'))
+	if (map[x][y+1] == '\0' || (map[x][y+1] == '0' || map[x][y+1] == ' '))
 		return (-1);
 	return (0);
 }
@@ -32,16 +32,16 @@ int	check_sides(char **map, int x, int y)
 int	check_bishop(char **map, int x, int y)
 {
 	// superior esquerda
-	if (map[x-1][y-1] == '0' || map[x-1][y-1] == '\0')
+	if (map[x-1][y-1] == '0' || map[x-1][y-1] == '\0' || map[x-1][y-1] == ' ')
 		return (-1);
 	// superior direita
-	if (map[x-1][y+1] == '\0' || map[x-1][y+1] == '0')
+	if (map[x-1][y+1] == '\0' || map[x-1][y+1] == '0' || map[x-1][y+1] == ' ')
 		return (-1);
 	// inferior esquerda
-	if (map[x+1] == NULL || (map[x+1][y-1] == '0' || map[x+1][y-1] == '\0'))
+	if (map[x+1] == NULL || (map[x+1][y-1] == '0' || map[x+1][y-1] == '\0' || map[x+1][y-1] == ' '))
 		return (-1);
 	// inferior direita
-	if (map[x+1] == NULL || map[x+1][y+1] == '\0' || (map[x+1][y+1] == '0'))
+	if (map[x+1] == NULL || map[x+1][y+1] == '\0' || map[x+1][y+1] == '0'  || map[x+1][y+1] == ' ')
 		return (-1);
 	return (0);
 }

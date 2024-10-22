@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 20:03:19 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/10/21 20:47:11 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/10/21 21:11:09 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	handle_file_check(char **file)
 	return (0);
 }
 
-int	check_config(char **line)
+int	check_config(char **line, t_game *game)
 {
 	char	**file;
 	int		i;
@@ -75,5 +75,6 @@ int	check_config(char **line)
 		free_split(file);
 		i++;
 	}
+	set_config(line, game);
 	return (0);
 }
