@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub_3d.h                                           :+:      :+:    :+:   */
+/*   cub_3d_bonus.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mavitori <mavitori@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 14:08:53 by mavitori          #+#    #+#             */
-/*   Updated: 2024/10/22 17:29:10 by mavitori         ###   ########.fr       */
+/*   Updated: 2024/10/22 17:29:31 by mavitori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB_3D_H
-# define CUB_3D_H
+#ifndef CUB_3D_BONUS_H
+# define CUB_3D_BONUS_H
 
 # include "../libs/MLX42/include/MLX42/MLX42.h"
 # include "../libs/libft/libft.h"
@@ -41,6 +41,24 @@ enum						e_direction
 	LEFT = 3,
 };
 
+typedef enum e_wall_type	t_wall_type;
+enum						e_wall_type
+{
+	WALL = 0,
+	DOOR = 1,
+	PORTAL = 2,
+};
+
+typedef struct s_mini
+{
+	int			width;
+	int			height;
+	int			offset;
+	int			px;
+	int			py;
+	int			tile;
+}				t_mini;
+
 typedef struct s_player
 {
 	int			line;
@@ -54,8 +72,12 @@ typedef struct s_map
 	char		*south_texture;
 	char		*west_texture;
 	char		*east_texture;
+	char		*door_texture;
+	char		*portal_texture;
 	char		*floor_color;
 	char		*ceiling_color;
+	char		*old_floor_color;
+	char		*old_ceiling_color;
 	char		**full_map;
 }				t_map;
 
@@ -94,6 +116,7 @@ typedef struct s_dda
 	float		player_dist_wall;
 	float		wall_x;
 	float		wall_y;
+	int			wall_type;
 }				t_dda;
 
 typedef struct s_game
@@ -114,6 +137,8 @@ typedef struct s_game
 	mlx_texture_t	*so;
 	mlx_texture_t	*ea;
 	mlx_texture_t	*we;
+	mlx_texture_t	*door;
+	mlx_texture_t	*portal;
 	mlx_texture_t	*texture;
 }				t_game;
 
@@ -140,6 +165,8 @@ void		free_split(char **content);
 
 // HOOKS
 void		ft_hook(void *param);
+void		move_player_up_down(t_game *game, int key, int multiplier);
+void		move_player_left_right(t_game *game, int key, int multiplier);
 
 // BUILD
 void		delta_dist(t_game *game, t_dda *dda);
@@ -170,5 +197,11 @@ int			check_config(char **line, t_game *game);
 
 //PARSER
 int			read_file(char *map_file, t_game *game);
+
+// MINI MAP
+void		ft_mini_map(void *param);
+
+// DOOR PORTAL
+void		switch_door_portal(t_game *game);
 
 #endif
