@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 17:48:48 by mavitori          #+#    #+#             */
-/*   Updated: 2024/10/22 09:30:05 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/10/22 09:31:36 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,6 +171,10 @@ int	read_map(char *map_file, t_game *game)
 	game->map_pos = NULL;
 	game->camera_pixel = NULL;
 	game->ray_dir = NULL;
+	game->so = NULL;
+	game->no = NULL;
+	game->ea = NULL;
+	game->we = NULL;
 	if(verify_extension(map_file) == -1)
 		return (-1);
 	if (add_player_map(game) == -1 || read_file(map_file, game) == -1)
