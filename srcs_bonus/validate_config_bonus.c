@@ -6,17 +6,11 @@
 /*   By: mavitori <mavitori@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 20:03:19 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/10/22 17:21:41 by mavitori         ###   ########.fr       */
+/*   Updated: 2024/10/22 17:47:40 by mavitori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include_bonus/cub_3d_bonus.h"
-
-// static void	set_bonus_config(t_game *game)
-// {
-// 	game->door = mlx_load_png(game->map->door_texture);
-// 	game->portal = mlx_load_png(game->map->portal_texture);
-// }
 
 static void	set_config(char **config, t_game *game)
 {
@@ -42,8 +36,8 @@ static void	set_config(char **config, t_game *game)
 		free_split(split_line);
 		i++;
 	}
-	game->door = mlx_load_png(game->map->door_texture);
-	game->portal = mlx_load_png(game->map->portal_texture);
+	game->map->door_texture = ft_strdup("textures/door.png");
+	game->map->portal_texture = ft_strdup("textures/tree_portal.png");
 }
 
 static int	handle_file_check(char **file)

@@ -3,8 +3,8 @@ SO ./textures/cat.png
 EA ./textures/ghost.png
 NO ./textures/spider.png
 
-F 0,0,0
-C 0,0,0
+F 89,182,91
+C 190,190,255
 
 111111111111
 100000100011

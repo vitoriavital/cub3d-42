@@ -6,7 +6,7 @@
 /*   By: mavitori <mavitori@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 17:48:48 by mavitori          #+#    #+#             */
-/*   Updated: 2024/10/22 17:19:23 by mavitori         ###   ########.fr       */
+/*   Updated: 2024/10/22 17:42:05 by mavitori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,8 @@ int	load_textures(t_game *game)
 	game->no = NULL;
 	game->ea = NULL;
 	game->we = NULL;
+	game->portal = NULL;
+	game->door = NULL;
 	texture = mlx_load_png(game->map->north_texture);
 	if (!texture)
 		return (-1);
@@ -99,6 +101,14 @@ int	load_textures(t_game *game)
 	if (!texture)
 		return (-1);
 	game->we = texture;
+	texture = mlx_load_png(game->map->door_texture);
+	if (!texture)
+		return (-1);
+	game->door = texture;
+	texture = mlx_load_png(game->map->portal_texture);
+	if (!texture)
+		return (-1);
+	game->portal = texture;
 	return (0);
 }
 
