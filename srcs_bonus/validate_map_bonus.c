@@ -6,7 +6,7 @@
 /*   By: mavitori <mavitori@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 20:03:19 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/10/22 17:13:16 by mavitori         ###   ########.fr       */
+/*   Updated: 2024/10/22 18:32:05 by mavitori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int	check_map(char **lines, t_game *game)
 	{
 		while (lines[line][i])
 		{
-			if (ft_strrchr(" 01NSWE", lines[line][i]) == NULL)
+			if (ft_strrchr(" 0124NSWE", lines[line][i]) == NULL)
 				return (-1);
 			count_player(lines[line][i], &player);
 			i++;
