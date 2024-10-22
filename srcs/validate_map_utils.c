@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validate_map_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: mavitori <mavitori@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 20:03:19 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/10/21 20:28:13 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/10/22 14:11:42 by mavitori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,8 @@ void	set_position(char **map, t_game *game)
 		{
 			if (see_where(map[i][j], game) != 10)
 			{
-				game->player->line = i;
-				game->player->column = j;
+				game->player->column = i;
+				game->player->line = j;
 				map[i][j] = '0';
 				game->map_fill[i][j] = '0';
 			}
