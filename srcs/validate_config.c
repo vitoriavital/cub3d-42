@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   validate_config.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: mavitori <mavitori@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 20:03:19 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/10/21 21:11:09 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/10/22 16:55:26 by mavitori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub_3d.h"
 
-void	set_config(char **config,t_game *game)
+static void	set_config(char **config, t_game *game)
 {
 	int		i;
 	char	**split_line;
@@ -38,7 +38,7 @@ void	set_config(char **config,t_game *game)
 	}
 }
 
-int	handle_file_check(char **file)
+static int	handle_file_check(char **file)
 {
 	if (ft_strncmp(file[0], "F", 1) == 0 || ft_strncmp(file[0], "C", 1) == 0)
 	{

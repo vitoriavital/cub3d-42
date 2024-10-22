@@ -6,7 +6,7 @@
 /*   By: mavitori <mavitori@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 14:52:12 by mavitori          #+#    #+#             */
-/*   Updated: 2024/09/18 13:26:23 by mavitori         ###   ########.fr       */
+/*   Updated: 2024/10/22 14:56:52 by mavitori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,7 @@ void	ft_vector_rotate(t_vector *v, float angle)
 	float		x;
 	float		y;
 
-	// Convert angle to radians
 	radians = angle * PI / 180.0;
-	// Apply rotation formula
 	x = v->x * cosf(radians) - v->y * sinf(radians);
 	y = v->x * sinf(radians) + v->y * cosf(radians);
 	v->x = x;

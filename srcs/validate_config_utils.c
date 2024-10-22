@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   validate_config_utils.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: mavitori <mavitori@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 20:03:19 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/10/21 19:50:22 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/10/22 16:56:13 by mavitori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub_3d.h"
 
-int	check_rgb(char *red, char *green, char *blue)
+static int	check_rgb(char *red, char *green, char *blue)
 {
 	int	r;
 	int	g;
@@ -56,6 +56,13 @@ int	check_c_f(char *rgb)
 		return (-1);
 	}
 	free_split(colors);
+	return (0);
+}
+
+static int	ft_isspace(char c)
+{
+	if (c == ' ' || (c >= 9 && c <= 13))
+		return (-1);
 	return (0);
 }
 

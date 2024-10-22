@@ -6,7 +6,7 @@
 /*   By: mavitori <mavitori@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 17:52:28 by mavitori          #+#    #+#             */
-/*   Updated: 2024/10/21 10:07:56 by mavitori         ###   ########.fr       */
+/*   Updated: 2024/10/22 14:56:34 by mavitori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,10 @@
 
 static void	calc_wall_dist(t_game *game, t_dda *dda)
 {
-	//Calcular a distância do player até a parede
 	if (dda->hit_side == 1)
-	{
-		//y ganhou = parede horizontal
 		dda->player_dist_wall = dda->tmp_dda_y - dda->delta_dist_y;
-	}
 	else
-	{
-		//x ganhou = parede vertical
 		dda->player_dist_wall = dda->tmp_dda_x - dda->delta_dist_x;
-	}
 	draw_wall(game, dda->player_dist_wall, dda);
 }
 
@@ -50,11 +43,7 @@ void	build_ray(t_game *game, t_dda *dda)
 	t_vector	*wall_pos;
 	int			x;
 	int			y;
-	// Calcular raios e desenhar altura das linhas
-	// Algoritmo DDA(Digital Differential Analyzer)
-	// Distância do player para a parede
-	// 1. achar qual quadrado que tem parede naquela direção
-	// 2. qual a distancia da parede
+
 	hit = 0;
 	dda->tmp_dda_x = dda->dist_to_side_x;
 	dda->tmp_dda_y = dda->dist_to_side_y;

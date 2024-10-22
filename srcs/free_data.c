@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   free_data.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: mavitori <mavitori@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 17:50:25 by mavitori          #+#    #+#             */
-/*   Updated: 2024/10/21 19:28:52 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/10/22 16:49:11 by mavitori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub_3d.h"
 
-void	check_free(void *ptr)
+static void	check_free(void *ptr)
 {
 	if (ptr)
 		free(ptr);
@@ -34,13 +34,20 @@ static void	free_textures(t_game *game)
 		mlx_delete_texture(game->we);
 }
 
+int	free_invalid_content(char **config, char **map)
+{
+	printf("Error: Invalid content.\n");
+	free_split(config);
+	free_split(map);
+	return (-1);
+}
 
 void	free_game(t_game *game)
 {
 	if (!game->map)
 		return (check_free(game));
 	free_textures(game);
-	if(game->map)
+	if (game->map)
 	{
 		check_free(game->map->floor_color);
 		check_free(game->map->ceiling_color);
@@ -62,12 +69,12 @@ void	free_game(t_game *game)
 
 void	free_split(char **content)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (!content)
 		return ;
-	while(content[i])
+	while (content[i])
 	{
 		if (content[i])
 			free(content[i++]);

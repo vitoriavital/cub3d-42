@@ -6,7 +6,7 @@
 /*   By: mavitori <mavitori@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 20:03:19 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/10/22 11:30:25 by mavitori         ###   ########.fr       */
+/*   Updated: 2024/10/22 15:03:18 by mavitori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,34 +14,31 @@
 
 int	check_sides(char **map, int x, int y)
 {
-	//cimaa
-	if (map[x-1][y] == '0' || map[x-1][y] == '\0' || map[x-1][y] == ' ')
+	if (map[x - 1][y] == '0' || map[x - 1][y] == '\0' || map[x - 1][y] == ' ')
 		return (-1);
-	// baixo
-	if (map[x+1] == NULL || (map[x+1][y] == '0' || map[x+1][y] == '\0' || map[x+1][y] == ' '))
+	if (map[x + 1] == NULL || (map[x + 1][y] == '0'
+		|| map[x + 1][y] == '\0' || map[x + 1][y] == ' '))
 		return (-1);
-	// esquerda
-	if (map[x][y-1] == '0' || map[x][y-1] == '\0' || map[x][y-1] == ' ')
+	if (map[x][y - 1] == '0' || map[x][y - 1] == '\0' || map[x][y - 1] == ' ')
 		return (-1);
-	// direita
-	if (map[x][y+1] == '\0' || (map[x][y+1] == '0' || map[x][y+1] == ' '))
+	if (map[x][y + 1] == '\0' || (map[x][y + 1] == '0' || map[x][y + 1] == ' '))
 		return (-1);
 	return (0);
 }
 
 int	check_bishop(char **map, int x, int y)
 {
-	// superior esquerda
-	if (map[x-1][y-1] == '0' || map[x-1][y-1] == '\0' || map[x-1][y-1] == ' ')
+	if (map[x - 1][y - 1] == '0' || map[x - 1][y - 1] == '\0'
+		|| map[x - 1][y - 1] == ' ')
 		return (-1);
-	// superior direita
-	if (map[x-1][y+1] == '\0' || map[x-1][y+1] == '0' || map[x-1][y+1] == ' ')
+	if (map[x - 1][y + 1] == '\0' || map[x - 1][y + 1] == '0'
+		|| map[x - 1][y + 1] == ' ')
 		return (-1);
-	// inferior esquerda
-	if (map[x+1] == NULL || (map[x+1][y-1] == '0' || map[x+1][y-1] == '\0' || map[x+1][y-1] == ' '))
+	if (map[x + 1] == NULL || (map[x + 1][y - 1] == '0'
+		|| map[x + 1][y - 1] == '\0' || map[x + 1][y - 1] == ' '))
 		return (-1);
-	// inferior direita
-	if (map[x+1] == NULL || map[x+1][y+1] == '\0' || map[x+1][y+1] == '0'  || map[x+1][y+1] == ' ')
+	if (map[x + 1] == NULL || map[x + 1][y + 1] == '\0'
+		|| map[x + 1][y + 1] == '0' || map[x + 1][y + 1] == ' ')
 		return (-1);
 	return (0);
 }
@@ -61,16 +58,9 @@ int	is_f_exposed(t_game *game)
 			if (game->map_fill[x][y] == 'F')
 			{
 				if (check_sides(game->map_fill, x, y) == -1)
-				{
-					// printf("Invalid map: The map missing wall.\n");
 					return (-1);
-				}
 				if (check_bishop(game->map_fill, x, y) == -1)
-				{
-					// ISSUE HERE WITH game_of_thrones.cub
-					// printf("Invalid map: The map missing wall.\n");
 					return (-1);
-				}
 			}
 			y++;
 		}
