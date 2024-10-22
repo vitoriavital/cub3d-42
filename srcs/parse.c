@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 19:39:28 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/10/21 21:13:00 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/10/22 09:29:11 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,6 +143,8 @@ int	parser_file(char *full_content, t_game *game)
 	if (check_config(config, game) == -1 || check_map(map, game) == -1)
 	{
 		printf("Error: Invalid content.\n");
+		free_split(config);
+		free_split(map);
 		return (-1);
 	}
 	game->map->full_map = map;
