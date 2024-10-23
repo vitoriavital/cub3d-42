@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 14:08:53 by mavitori          #+#    #+#             */
-/*   Updated: 2024/10/21 21:10:17 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/10/22 22:45:34 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,11 +179,7 @@ int 		verify_extension(char *map_file);
 int 		parser_file(char *full_content, t_game *game);
 int			split_content(char **content, char **config, char **map, char **map_fill);
 int			ft_isspace(char c);
-
-
-//tirar
-void	print_teste(char **content);
-// int		ft_mtxlen(char	**matrix)
-// char	**find_space(char **map)
+int			verify_extension(char *map_file);
+void		replace_tabs(char *content);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validate_map.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mavitori <mavitori@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 20:03:19 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/10/22 11:30:25 by mavitori         ###   ########.fr       */
+/*   Updated: 2024/10/23 09:10:19 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,11 @@ int	is_f_exposed(t_game *game)
 {
 	int	x;
 	int	y;
+	int	f;
 
 	x = 0;
 	y = 0;
+	f = 0;
 	while (game->map_fill[x] != NULL)
 	{
 		y = 0;
@@ -61,21 +63,17 @@ int	is_f_exposed(t_game *game)
 			if (game->map_fill[x][y] == 'F')
 			{
 				if (check_sides(game->map_fill, x, y) == -1)
-				{
-					// printf("Invalid map: The map missing wall.\n");
 					return (-1);
-				}
 				if (check_bishop(game->map_fill, x, y) == -1)
-				{
-					// ISSUE HERE WITH game_of_thrones.cub
-					// printf("Invalid map: The map missing wall.\n");
 					return (-1);
-				}
+				f++;
 			}
 			y++;
 		}
 		x++;
 	}
+	if (f == 0)
+		return (-1);
 	return (0);
 }
 
