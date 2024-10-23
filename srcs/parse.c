@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 19:39:28 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/10/22 09:29:11 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/10/22 21:24:07 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,12 +88,18 @@ int	split_content(char **content, char **config, char **map, char **map_fill)
 	while(content[i])
 	{
 		if(check_config_signal(content[i]) == 0)
+		{
+			if (map[0] != NULL)
+				return -1;
 			config[j++] = ft_strdup(content[i]);
+		}
 		else
 		{
 			map_fill[h] = ft_strdup(content[i]);
 			map[h++] = ft_strdup(content[i]);
 		}
+		// if (j < h)
+
 		i++;
 	}
 	free_split(content);
@@ -138,7 +144,14 @@ int	parser_file(char *full_content, t_game *game)
 		i++;
 	map = (char **)ft_calloc(sizeof(char *), (i - 5));
 	map_fill = (char **)ft_calloc(sizeof(char *), (i - 5));
-	split_content(content, config, map, map_fill);
+	if (split_content(content, config, map, map_fill) == -1)
+	{
+		printf("Error: Invalid content.\n");
+		// free_split(config);
+		// free_split(map);
+		return (-1);
+	}
+	// split_content(content, config, map, map_fill);
 	game->map_fill = map_fill;
 	if (check_config(config, game) == -1 || check_map(map, game) == -1)
 	{
