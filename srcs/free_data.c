@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 17:50:25 by mavitori          #+#    #+#             */
-/*   Updated: 2024/10/21 19:28:52 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/10/23 20:14:20 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,12 @@ static void	free_textures(t_game *game)
 		mlx_delete_texture(game->we);
 }
 
-
 void	free_game(t_game *game)
 {
 	if (!game->map)
 		return (check_free(game));
 	free_textures(game);
-	if(game->map)
+	if (game->map)
 	{
 		check_free(game->map->floor_color);
 		check_free(game->map->ceiling_color);
@@ -62,12 +61,12 @@ void	free_game(t_game *game)
 
 void	free_split(char **content)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (!content)
 		return ;
-	while(content[i])
+	while (content[i])
 	{
 		if (content[i])
 			free(content[i++]);

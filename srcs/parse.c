@@ -6,72 +6,27 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 19:39:28 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/10/22 22:44:47 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/10/23 20:13:09 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub_3d.h"
 
-char	*read_file_content(char *map_file)
-{
-	int		fd;
-	char	*line;
-	char	*full_content;
-	char	*temp;
-
-	fd = open(map_file, O_RDONLY);
-	if (fd < 1)
-	{
-		printf("Error: File error or not exist.\n");
-		return (NULL);
-	}
-	full_content = ft_strdup("");
-	while (1)
-	{
-		line = get_next_line(fd);
-		if (!line)
-			break ;
-		temp = full_content;
-		full_content = ft_strjoin(full_content, line);
-		free(line);
-		free(temp);
-	}
-	close(fd);
-	return (full_content);
-}
-
-int	read_file(char *map_file, t_game *game)
-{
-	char	*full_content;
-
-	full_content = read_file_content(map_file);
-	if (!full_content)
-		return (-1);
-	replace_tabs(full_content);
-	if (parser_file(full_content, game) == -1)
-	{
-		free(full_content);
-		return (-1);
-	}
-	free(full_content);
-	return (0);
-}
-
 int	split_content(char **content, char **config, char **map, char **map_fill)
 {
-	int		i;
-	int		j;
-	int		h;
+	int	i;
+	int	j;
+	int	h;
 
 	i = 0;
 	j = 0;
 	h = 0;
-	while(content[i])
+	while (content[i])
 	{
-		if(check_config_signal(content[i]) == 0)
+		if (check_config_signal(content[i]) == 0)
 		{
 			if (map[0] != NULL)
-				return -1;
+				return (-1);
 			config[j++] = ft_strdup(content[i]);
 		}
 		else
@@ -79,16 +34,15 @@ int	split_content(char **content, char **config, char **map, char **map_fill)
 			map_fill[h] = ft_strdup(content[i]);
 			map[h++] = ft_strdup(content[i]);
 		}
-
 		i++;
 	}
 	free_split(content);
 	return (0);
 }
 
-int	handle_config_validation(char **content)
+static int	handle_config_validation(char **content)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (!content[0])
@@ -105,6 +59,14 @@ int	handle_config_validation(char **content)
 		return (-1);
 	}
 	return (i);
+}
+
+int	error_parser(char *text, char **config)
+{
+	if (config != NULL)
+		free_split(config);
+	printf("Error: %s.\n", text);
+	return (-1);
 }
 
 int	parser_file(char *full_content, t_game *game)
@@ -125,18 +87,10 @@ int	parser_file(char *full_content, t_game *game)
 	map = (char **)ft_calloc(sizeof(char *), (i - 5));
 	map_fill = (char **)ft_calloc(sizeof(char *), (i - 5));
 	if (split_content(content, config, map, map_fill) == -1)
-	{
-		printf("Error: Invalid content.\n");
-		return (-1);
-	}
+		return (error_parser("Error: Invalid order.", NULL));
 	game->map_fill = map_fill;
 	if (check_config(config, game) == -1 || check_map(map, game) == -1)
-	{
-		printf("Error: Invalid content.\n");
-		free_split(config);
-		free_split(map);
-		return (-1);
-	}
+		return (error_parser("Error: Invalid content.", config));
 	game->map->full_map = map;
 	free_split(config);
 	return (0);

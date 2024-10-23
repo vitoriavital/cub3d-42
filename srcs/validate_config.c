@@ -6,13 +6,13 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 20:03:19 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/10/21 21:11:09 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/10/23 20:07:33 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub_3d.h"
 
-void	set_config(char **config,t_game *game)
+void	set_config(char **config, t_game *game)
 {
 	int		i;
 	char	**split_line;
@@ -71,7 +71,10 @@ int	check_config(char **line, t_game *game)
 			return (-1);
 		}
 		if (handle_file_check(file) != 0)
+		{
+			free_split(file);
 			return (-1);
+		}
 		free_split(file);
 		i++;
 	}

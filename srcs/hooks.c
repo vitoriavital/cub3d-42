@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hooks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mavitori <mavitori@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 17:51:27 by mavitori          #+#    #+#             */
-/*   Updated: 2024/10/22 11:55:08 by mavitori         ###   ########.fr       */
+/*   Updated: 2024/10/23 20:33:13 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,6 @@ static int	check_wall(t_game *game, float x, float y)
 
 	row = (int)y;
 	column = (int)x;
-	// if (row < 0 || row >= MAP_HEIGHT || column < 0 || column >= MAP_WIDTH)
-	// 	return (-1); // 	NAO TEMOS O MAP_HEIGHT NEM MAP_WIDTH QUANDO O MAP FOR IRREGULAR
-	// printf("Check wall: x:%d - y:%d = %c\n", row, column, game->map->full_map[row][column]);
 	if (game->map->full_map[row][column] == '0')
 		return (0);
 	else
@@ -71,7 +68,6 @@ static void	move_player_left_right(t_game *game, int key)
 
 	move_x = 0.0;
 	move_y = 0.0;
-	// Compute a perpendicular vector for walking right or left
 	if (key == MLX_KEY_A)
 		v = ft_vector_create(game->dir->y, -game->dir->x);
 	else

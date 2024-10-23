@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 14:08:53 by mavitori          #+#    #+#             */
-/*   Updated: 2024/10/22 22:45:34 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/10/23 20:13:59 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,5 +181,6 @@ int			split_content(char **content, char **config, char **map, char **map_fill);
 int			ft_isspace(char c);
 int			verify_extension(char *map_file);
 void		replace_tabs(char *content);
+int			error_parser(char *text, char **config);
 
 #endif

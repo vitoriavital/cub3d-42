@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 20:03:19 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/10/23 09:10:19 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/10/23 20:31:22 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,34 +14,40 @@
 
 int	check_sides(char **map, int x, int y)
 {
-	//cimaa
-	if (map[x-1][y] == '0' || map[x-1][y] == '\0' || map[x-1][y] == ' ')
+	if (map[x - 1][y] == '0' || map[x - 1][y] == '\0' || map[x - 1][y] == ' ')
 		return (-1);
-	// baixo
-	if (map[x+1] == NULL || (map[x+1][y] == '0' || map[x+1][y] == '\0' || map[x+1][y] == ' '))
+	if (map[x + 1] == NULL || (map[x + 1][y] == '0'
+		|| map[x + 1][y] == '\0' || map[x + 1][y] == ' '))
 		return (-1);
-	// esquerda
-	if (map[x][y-1] == '0' || map[x][y-1] == '\0' || map[x][y-1] == ' ')
+	if (map[x][y - 1] == '0' || map[x][y - 1] == '\0' || map[x][y - 1] == ' ')
 		return (-1);
-	// direita
-	if (map[x][y+1] == '\0' || (map[x][y+1] == '0' || map[x][y+1] == ' '))
+	if (map[x][y + 1] == '\0' || (map[x][y + 1] == '0' || map[x][y + 1] == ' '))
 		return (-1);
 	return (0);
 }
 
 int	check_bishop(char **map, int x, int y)
 {
-	// superior esquerda
-	if (map[x-1][y-1] == '0' || map[x-1][y-1] == '\0' || map[x-1][y-1] == ' ')
+	if (map[x - 1][y - 1] == '0' || map[x - 1][y - 1] == '\0'
+		|| map[x - 1][y - 1] == ' ')
 		return (-1);
-	// superior direita
-	if (map[x-1][y+1] == '\0' || map[x-1][y+1] == '0' || map[x-1][y+1] == ' ')
+	if (map[x - 1][y + 1] == '\0' || map[x - 1][y + 1] == '0'
+		|| map[x - 1][y + 1] == ' ')
 		return (-1);
-	// inferior esquerda
-	if (map[x+1] == NULL || (map[x+1][y-1] == '0' || map[x+1][y-1] == '\0' || map[x+1][y-1] == ' '))
+	if (map[x + 1] == NULL || (map[x + 1][y - 1] == '0'
+		|| map[x + 1][y - 1] == '\0' || map[x + 1][y - 1] == ' '))
 		return (-1);
-	// inferior direita
-	if (map[x+1] == NULL || map[x+1][y+1] == '\0' || map[x+1][y+1] == '0'  || map[x+1][y+1] == ' ')
+	if (map[x + 1] == NULL || map[x + 1][y + 1] == '\0'
+		|| map[x + 1][y + 1] == '0' || map[x + 1][y + 1] == ' ')
+		return (-1);
+	return (0);
+}
+
+int	double_check(char **map_fill, int x, int y)
+{
+	if (check_sides(map_fill, x, y) == -1)
+		return (-1);
+	if (check_bishop(map_fill, x, y) == -1)
 		return (-1);
 	return (0);
 }
@@ -62,9 +68,7 @@ int	is_f_exposed(t_game *game)
 		{
 			if (game->map_fill[x][y] == 'F')
 			{
-				if (check_sides(game->map_fill, x, y) == -1)
-					return (-1);
-				if (check_bishop(game->map_fill, x, y) == -1)
+				if (double_check(game->map_fill, x, y) == -1)
 					return (-1);
 				f++;
 			}
@@ -91,7 +95,7 @@ int	check_map(char **lines, t_game *game)
 		while (lines[line][i])
 		{
 			if (ft_strrchr(" 01NSWE", lines[line][i]) == NULL)
-				return (-1);
+				return (error_parser("Error: Wrong caracter", lines));
 			count_player(lines[line][i], &player);
 			i++;
 		}
@@ -101,5 +105,7 @@ int	check_map(char **lines, t_game *game)
 	if (player != 1)
 		return (-1);
 	set_position(lines, game);
-	return (is_f_exposed(game));
+	if (is_f_exposed(game) == -1)
+		return (error_parser("Error: Wrong caracter", lines));
+	return (0);
 }
