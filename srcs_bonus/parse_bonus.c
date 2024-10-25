@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse.c                                            :+:      :+:    :+:   */
+/*   parse_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mavitori <mavitori@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 19:39:28 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/10/25 15:40:39 by mavitori         ###   ########.fr       */
+/*   Updated: 2024/10/25 15:40:49 by mavitori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/cub_3d.h"
+#include "../include_bonus/cub_3d_bonus.h"
 
 int	split_content(char **content, char **config, char **map, char **map_fill)
 {
@@ -84,6 +84,7 @@ int	parser_file(char *full_content, t_game *game)
 	config = (char **)ft_calloc(sizeof(char *), 7);
 	while (content[i])
 		i++;
+	game->map->height = i - 6;
 	map = (char **)ft_calloc(sizeof(char *), (i - 5));
 	map_fill = (char **)ft_calloc(sizeof(char *), (i - 5));
 	if (split_content(content, config, map, map_fill) == -1)

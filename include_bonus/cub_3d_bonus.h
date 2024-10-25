@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub_3d.h                                           :+:      :+:    :+:   */
+/*   cub_3d_bonus.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mavitori <mavitori@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 14:08:53 by mavitori          #+#    #+#             */
-/*   Updated: 2024/10/25 15:20:24 by mavitori         ###   ########.fr       */
+/*   Updated: 2024/10/25 15:34:37 by mavitori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB_3D_H
-# define CUB_3D_H
+#ifndef CUB_3D_BONUS_H
+# define CUB_3D_BONUS_H
 
 # include "../libs/MLX42/include/MLX42/MLX42.h"
 # include "../libs/libft/libft.h"
@@ -22,8 +22,6 @@
 # include <unistd.h>
 # include <fcntl.h>
 
-// # define MAP_WIDTH 10
-// # define MAP_HEIGHT 10 tirei
 # define SCREEN_WIDTH 800
 # define SCREEN_HEIGHT 600
 # define PI 3.141592653589793
@@ -41,6 +39,24 @@ enum						e_direction
 	LEFT = 3,
 };
 
+typedef enum e_wall_type	t_wall_type;
+enum						e_wall_type
+{
+	WALL = 0,
+	DOOR = 1,
+	PORTAL = 2,
+};
+
+typedef struct s_mini
+{
+	int			width;
+	int			height;
+	int			offset;
+	int			px;
+	int			py;
+	int			tile;
+}				t_mini;
+
 typedef struct s_player
 {
 	int			line;
@@ -54,9 +70,14 @@ typedef struct s_map
 	char		*south_texture;
 	char		*west_texture;
 	char		*east_texture;
+	char		*door_texture;
+	char		*portal_texture;
 	char		*floor_color;
 	char		*ceiling_color;
+	char		*old_floor_color;
+	char		*old_ceiling_color;
 	char		**full_map;
+	int			height;
 }				t_map;
 
 typedef struct s_vector
@@ -79,7 +100,6 @@ typedef struct s_wall
 	int			tex_y;
 }				t_wall;
 
-
 typedef struct s_dda
 {
 	double		multiplier;
@@ -95,6 +115,7 @@ typedef struct s_dda
 	float		player_dist_wall;
 	float		wall_x;
 	float		wall_y;
+	int			wall_type;
 }				t_dda;
 
 typedef struct s_game
@@ -115,9 +136,13 @@ typedef struct s_game
 	mlx_texture_t	*so;
 	mlx_texture_t	*ea;
 	mlx_texture_t	*we;
+	mlx_texture_t	*door;
+	mlx_texture_t	*portal;
 	mlx_texture_t	*texture;
+	mlx_texture_t	*ceiling;
+	mlx_texture_t	*floor;
+	int				bonus_textures;
 }				t_game;
-
 
 // VECTOR UTILS
 float		ft_vector_magnitude(t_vector *v);
@@ -137,9 +162,13 @@ int			read_map(char *map_file, t_game *game);
 
 // FREE DATA
 void		free_game(t_game *game);
+int			free_invalid_content(char **config, char **map);
+void		free_split(char **content);
 
 // HOOKS
 void		ft_hook(void *param);
+void		move_player_up_down(t_game *game, int key, int multiplier);
+void		move_player_left_right(t_game *game, int key, int multiplier);
 
 // BUILD
 void		delta_dist(t_game *game, t_dda *dda);
@@ -158,28 +187,28 @@ void		ft_game(void *param);
 void		draw_wall_line(t_wall *wall, t_dda *dda, t_game *game);
 
 // VALIDATE MAP
-void		free_split(char **content);
-void		flood_fill(t_game *game, int x, int y);
 void		set_position(char **map, t_game *game);
-int			see_where(char c, t_game *game);
 void		count_player(char c, int *player);
 int			check_map(char **lines, t_game *game);
+void		flood_fill(t_game *game, int x, int y);
 int			check_file_dir(char *file);
 
 // VALIDATE CONFIG
-int			check_rgb(char *red, char *green, char *blue);
 int			check_c_f(char *rgb);
-void		set_config(char **config,t_game *game);
 int			check_config_signal(char *line);
 int			check_config(char **line, t_game *game);
 
 //PARSER
 int			read_file(char *map_file, t_game *game);
-int 		parser_file(char *full_content, t_game *game);
-int			split_content(char **content, char **config, char **map, char **map_fill);
-int			ft_isspace(char c);
-int			verify_extension(char *map_file);
-void		replace_tabs(char *content);
 int			error_parser(char *text, char **config);
+int			verify_extension(char *map_file);
+int			ft_isspace(char c);
+int			parser_file(char *full_content, t_game *game);
+
+// MINI MAP
+void		ft_mini_map(void *param);
+
+// DOOR PORTAL
+void		switch_door_portal(t_game *game);
 
 #endif

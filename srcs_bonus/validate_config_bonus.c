@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   validate_config.c                                  :+:      :+:    :+:   */
+/*   validate_config_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mavitori <mavitori@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 20:03:19 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/10/25 15:35:49 by mavitori         ###   ########.fr       */
+/*   Updated: 2024/10/25 15:36:05 by mavitori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/cub_3d.h"
+#include "../include_bonus/cub_3d_bonus.h"
 
 void	set_config(char **config, t_game *game)
 {
@@ -36,6 +36,8 @@ void	set_config(char **config, t_game *game)
 		free_split(split_line);
 		i++;
 	}
+	game->map->door_texture = ft_strdup("textures/door.png");
+	game->map->portal_texture = ft_strdup("textures/tree_portal.png");
 }
 
 int	handle_file_check(char **file)
