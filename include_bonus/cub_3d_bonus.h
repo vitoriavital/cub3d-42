@@ -6,7 +6,7 @@
 /*   By: mavitori <mavitori@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 14:08:53 by mavitori          #+#    #+#             */
-/*   Updated: 2024/10/22 17:29:31 by mavitori         ###   ########.fr       */
+/*   Updated: 2024/10/25 13:23:05 by mavitori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ typedef struct s_map
 	char		*old_floor_color;
 	char		*old_ceiling_color;
 	char		**full_map;
+	int			height;
 }				t_map;
 
 typedef struct s_vector
@@ -140,6 +141,9 @@ typedef struct s_game
 	mlx_texture_t	*door;
 	mlx_texture_t	*portal;
 	mlx_texture_t	*texture;
+	mlx_texture_t	*ceiling;
+	mlx_texture_t	*floor;
+	int				bonus_textures;
 }				t_game;
 
 // VECTOR UTILS

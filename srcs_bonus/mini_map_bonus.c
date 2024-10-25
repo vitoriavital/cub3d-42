@@ -6,7 +6,7 @@
 /*   By: mavitori <mavitori@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 17:14:35 by mavitori          #+#    #+#             */
-/*   Updated: 2024/10/22 17:34:34 by mavitori         ###   ########.fr       */
+/*   Updated: 2024/10/25 13:28:08 by mavitori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,17 +52,19 @@ static void	draw_walls_mm(t_game *game, t_mini *mini)
 		{
 			tile_x = map_x - (tiles_wide / 2) + i;
 			tile_y = map_y - (tiles_high / 2) + j;
-
-			if (tile_x >= 0 && tile_y >= 0)
+			if (tile_y >= 0 && tile_y < game->map->height)
 			{
-				if (game->map->full_map[tile_y][tile_x] > '0' && game->map->full_map[tile_y][tile_x] != '3')
-					color = ft_pixel(100, 100, 100, 255);
-				else if (game->map->full_map[tile_y][tile_x] == '0' || game->map->full_map[tile_y][tile_x] == '3')
-					color = ft_pixel(0, 0, 0, 255);
-				else
-					color = ft_pixel(100, 100, 100, 255);
+				if (tile_x >= 0 && tile_x <= (int)ft_strlen(game->map->full_map[tile_y]))
+				{
+					if (game->map->full_map[tile_y][tile_x] > '0' && game->map->full_map[tile_y][tile_x] != '3')
+						color = ft_pixel(100, 100, 100, 255);
+					else if (game->map->full_map[tile_y][tile_x] == '0' || game->map->full_map[tile_y][tile_x] == '3')
+						color = ft_pixel(0, 0, 0, 255);
+					else
+						color = ft_pixel(100, 100, 100, 255);
 
-				draw_tile(game, mini, mini->offset + i * mini->tile, mini->offset + j * mini->tile, color);
+					draw_tile(game, mini, mini->offset + i * mini->tile, mini->offset + j * mini->tile, color);
+				}
 			}
 		}
 	}

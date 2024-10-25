@@ -6,7 +6,7 @@
 /*   By: mavitori <mavitori@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 17:51:27 by mavitori          #+#    #+#             */
-/*   Updated: 2024/10/22 17:37:59 by mavitori         ###   ########.fr       */
+/*   Updated: 2024/10/25 13:06:15 by mavitori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,16 @@ static void	mouse_rotation(t_game *game)
 	ft_vector_rotate(game->dir, angle);
 }
 
+static void	activate_textures_bonus(t_game *game)
+{
+	static float	last_open;
+
+	if (mlx_get_time() - last_open < 0.4)
+		return ;
+	game->bonus_textures = !game->bonus_textures;
+	last_open = mlx_get_time();
+}
+
 void	ft_hook(void *param)
 {
 	t_game	*game;
@@ -147,4 +157,6 @@ void	ft_hook(void *param)
 		move_player_left_right(game, MLX_KEY_D, 1);
 	if (mlx_is_key_down(game->mlx, MLX_KEY_O))
 		switch_door_portal(game);
+	if (mlx_is_key_down(game->mlx, MLX_KEY_M))
+		activate_textures_bonus(game);
 }

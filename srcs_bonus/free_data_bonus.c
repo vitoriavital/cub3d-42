@@ -6,7 +6,7 @@
 /*   By: mavitori <mavitori@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 17:50:25 by mavitori          #+#    #+#             */
-/*   Updated: 2024/10/22 17:18:18 by mavitori         ###   ########.fr       */
+/*   Updated: 2024/10/24 16:58:55 by mavitori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,10 @@ static void	free_textures(t_game *game)
 		mlx_delete_texture(game->door);
 	if (game->portal)
 		mlx_delete_texture(game->portal);
+	if (game->ceiling)
+		mlx_delete_texture(game->ceiling);
+	if (game->floor)
+		mlx_delete_texture(game->floor);
 }
 
 int	free_invalid_content(char **config, char **map)

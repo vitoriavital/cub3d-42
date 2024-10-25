@@ -6,7 +6,7 @@
 /*   By: mavitori <mavitori@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 19:39:28 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/10/22 17:13:16 by mavitori         ###   ########.fr       */
+/*   Updated: 2024/10/25 13:25:21 by mavitori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ static int	parser_file(char *full_content, t_game *game)
 	config = (char **)ft_calloc(sizeof(char *), 7);
 	while (content[i])
 		i++;
+	game->map->height = i - 6;
 	map = (char **)ft_calloc(sizeof(char *), (i - 5));
 	map_fill = (char **)ft_calloc(sizeof(char *), (i - 5));
 	split_content(content, config, map, map_fill);
