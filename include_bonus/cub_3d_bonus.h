@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub_3d_bonus.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mavitori <mavitori@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 14:08:53 by mavitori          #+#    #+#             */
-/*   Updated: 2024/10/25 15:34:37 by mavitori         ###   ########.fr       */
+/*   Updated: 2024/10/26 14:42:15 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,15 @@ enum						e_direction
 	RIGHT = 2,
 	LEFT = 3,
 };
+
+typedef struct s_particle
+{
+	float		x;
+	float		y;
+	float		speed;
+	int			size;
+	uint32_t	color;
+}	t_particle;
 
 typedef enum e_wall_type	t_wall_type;
 enum						e_wall_type
@@ -142,6 +151,7 @@ typedef struct s_game
 	mlx_texture_t	*ceiling;
 	mlx_texture_t	*floor;
 	int				bonus_textures;
+	uint32_t		particle_color;
 }				t_game;
 
 // VECTOR UTILS
@@ -210,5 +220,11 @@ void		ft_mini_map(void *param);
 
 // DOOR PORTAL
 void		switch_door_portal(t_game *game);
+
+// bonus darkmode
+void	apply_dark_filter(mlx_texture_t *texture);
+void	init_particles(t_particle *particles, int count, uint32_t color);
+void 	update_particles(t_particle *particles, int count, uint32_t color);
+void 	draw_particles(t_game *game, t_particle *particles, int count);
 
 #endif

@@ -3,13 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   door_portal_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mavitori <mavitori@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 17:14:06 by mavitori          #+#    #+#             */
-/*   Updated: 2024/10/22 17:35:01 by mavitori         ###   ########.fr       */
+/*   Updated: 2024/10/26 15:15:58 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "../include_bonus/cub_3d_bonus.h"
 
@@ -24,12 +23,19 @@ static void	upside_down(t_game *game)
 	char	*new_floor;
 	char	*new_ceiling;
 
-	new_no = ft_strdup("textures/upside_waterfall.png");
-	new_so = ft_strdup("textures/upside_house.png");
-	new_we = ft_strdup("textures/upside_field.png");
-	new_ea = ft_strdup("textures/upside_forest.png");
-	new_door = ft_strdup("textures/upside_door.png");
-	new_portal = ft_strdup("textures/upside_tree_portal.png");
+	// new_no = game->map->north_texture;
+	// new_so = ft_strdup("textures/upside_house.png");
+	// new_we = ft_strdup("textures/upside_field.png");
+	// new_ea = ft_strdup("textures/upside_forest.png");
+	// new_door = ft_strdup("textures/upside_door.png");
+	// new_portal = ft_strdup("textures/upside_tree_portal.png");
+	game->particle_color = 0x00000000;
+	new_no = game->map->north_texture;
+	new_so = game->map->south_texture;
+	new_we = game->map->west_texture;
+	new_ea = game->map->east_texture;
+	new_door = game->map->door_texture;
+	new_portal = game->map->portal_texture;
 	new_floor = ft_strdup("0,0,0");
 	new_ceiling = ft_strdup("140,0,0");
 	mlx_delete_texture(game->no);
@@ -44,16 +50,22 @@ static void	upside_down(t_game *game)
 	game->we = mlx_load_png(new_we);
 	game->door = mlx_load_png(new_door);
 	game->portal = mlx_load_png(new_portal);
+	apply_dark_filter(game->no);
+	apply_dark_filter(game->so);
+	apply_dark_filter(game->we);
+	apply_dark_filter(game->ea);
+	apply_dark_filter(game->door);
+	apply_dark_filter(game->portal);
 	game->map->old_floor_color = game->map->floor_color;
 	game->map->old_ceiling_color = game->map->ceiling_color;
 	game->map->floor_color = new_floor;
 	game->map->ceiling_color = new_ceiling;
-	free(new_no);
-	free(new_so);
-	free(new_ea);
-	free(new_we);
-	free(new_door);
-	free(new_portal);
+	// free(new_no);
+	// free(new_so);
+	// free(new_ea);
+	// free(new_we);
+	// free(new_door);
+	// free(new_portal);
 }
 
 static void	enter_portal(t_game *game)
@@ -81,6 +93,7 @@ static void	enter_portal(t_game *game)
 		game->we = mlx_load_png(game->map->west_texture);
 		game->door = mlx_load_png(game->map->door_texture);
 		game->portal = mlx_load_png(game->map->portal_texture);
+		// apply_dark_filter(game->no);
 		tmp_floor = game->map->floor_color;
 		tmp_ceiling = game->map->ceiling_color;
 		game->map->floor_color = game->map->old_floor_color;

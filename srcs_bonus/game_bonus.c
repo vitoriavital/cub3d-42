@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mavitori <mavitori@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 13:31:25 by mavitori          #+#    #+#             */
-/*   Updated: 2024/10/25 15:15:28 by mavitori         ###   ########.fr       */
+/*   Updated: 2024/10/26 14:44:57 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,15 @@ static void	game_loop(t_game *game)
 {
 	uint32_t	x;
 	t_dda		*dda;
-
+	static t_particle particles[100];
+	static int initialized = 0;
+	if (!initialized)
+	{
+		init_particles(particles, 100, 0xFFFFFFFF);
+		game->particle_color = 0xFFFFFFFF;
+		initialized = 1;
+	}
+	update_particles(particles, 100, game->particle_color);
 	x = 0;
 	dda = malloc(sizeof(t_dda));
 	while (x < SCREEN_WIDTH)
@@ -29,6 +37,7 @@ static void	game_loop(t_game *game)
 		ft_vector_floor(game->pos, game->map_pos);
 		dist_to_side(game, dda);
 		build_ray(game, dda);
+		draw_particles(game, particles, 100);
 		x++;
 	}
 	free(dda);
