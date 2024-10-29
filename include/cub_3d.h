@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 14:08:53 by mavitori          #+#    #+#             */
-/*   Updated: 2024/10/23 20:13:59 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/10/28 21:34:32 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,11 +160,12 @@ void		draw_wall_line(t_wall *wall, t_dda *dda, t_game *game);
 // VALIDATE MAP
 void		free_split(char **content);
 void		flood_fill(t_game *game, int x, int y);
-void		set_position(char **map, t_game *game);
+int			set_position(char **map, t_game *game, int players);
 int			see_where(char c, t_game *game);
 void		count_player(char c, int *player);
 int			check_map(char **lines, t_game *game);
 int			check_file_dir(char *file);
+int			is_f_exposed(t_game *game);
 
 // VALIDATE CONFIG
 int			check_rgb(char *red, char *green, char *blue);
@@ -182,5 +183,6 @@ int			ft_isspace(char c);
 int			verify_extension(char *map_file);
 void		replace_tabs(char *content);
 int			error_parser(char *text, char **config);
+int			check_walls_one(char **lines);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 20:03:19 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/10/23 20:00:50 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/10/28 21:26:23 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,14 @@ int	see_where(char c, t_game *game)
 	return (10);
 }
 
-void	set_position(char **map, t_game *game)
+int	set_position(char **map, t_game *game, int players)
 {
 	int	i;
 	int	j;
 
 	i = 0;
+	if (players != 1)
+		return (-1);
 	while (map[i] != NULL)
 	{
 		j = 0;
@@ -49,12 +51,14 @@ void	set_position(char **map, t_game *game)
 				game->player->line = j;
 				map[i][j] = '0';
 				game->map_fill[i][j] = '0';
+				break;
 			}
 			j++;
 		}
 		i++;
 	}
 	flood_fill(game, game->player->line, game->player->column);
+	return (0);
 }
 
 void	flood_fill(t_game *game, int x, int y)
