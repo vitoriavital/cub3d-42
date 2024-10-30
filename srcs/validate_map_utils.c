@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 20:03:19 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/10/28 21:26:23 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/10/30 20:28:38 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,13 +51,12 @@ int	set_position(char **map, t_game *game, int players)
 				game->player->line = j;
 				map[i][j] = '0';
 				game->map_fill[i][j] = '0';
-				break;
 			}
 			j++;
 		}
 		i++;
 	}
-	flood_fill(game, game->player->line, game->player->column);
+	flood_fill(game, game->player->column, game->player->line);
 	return (0);
 }
 
