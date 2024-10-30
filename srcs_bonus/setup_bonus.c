@@ -6,13 +6,13 @@
 /*   By: mavitori <mavitori@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 17:48:48 by mavitori          #+#    #+#             */
-/*   Updated: 2024/10/25 15:43:29 by mavitori         ###   ########.fr       */
+/*   Updated: 2024/10/30 12:40:21 by mavitori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include_bonus/cub_3d_bonus.h"
 
-void	player_direction(t_game *game)
+static void	player_direction(t_game *game)
 {
 	if (game->player->dir == NORTH)
 	{
@@ -36,7 +36,7 @@ void	player_direction(t_game *game)
 	}
 }
 
-int	add_player_map(t_game *game)
+static int	add_player_map(t_game *game)
 {
 	t_player	*player;
 	t_map		*map;
@@ -62,70 +62,28 @@ int	add_player_map(t_game *game)
 	return (0);
 }
 
-int	full_map_error(int i, t_game *game)
-{
-	int	j;
-
-	fprintf(stderr, "Memory allocation failed.\n");
-	j = 0;
-	while (j < i)
-		free(game->map->full_map[j++]);
-	free(game->map->full_map);
-	free(game->player);
-	free(game->map);
-	return (-1);
-}
-
 int	load_textures(t_game *game)
 {
-	mlx_texture_t	*texture;
-
-	game->so = NULL;
-	game->no = NULL;
-	game->ea = NULL;
-	game->we = NULL;
-	texture = mlx_load_png(game->map->north_texture);
-	if (!texture)
+	if (check_tex(game, "no", game->map->north_texture) == -1)
 		return (-1);
-	game->no = texture;
-	texture = mlx_load_png(game->map->south_texture);
-	if (!texture)
+	if (check_tex(game, "so", game->map->south_texture) == -1)
 		return (-1);
-	game->so = texture;
-	texture = mlx_load_png(game->map->east_texture);
-	if (!texture)
+	if (check_tex(game, "ea", game->map->east_texture) == -1)
 		return (-1);
-	game->ea = texture;
-	texture = mlx_load_png(game->map->west_texture);
-	if (!texture)
+	if (check_tex(game, "we", game->map->west_texture) == -1)
 		return (-1);
-	game->we = texture;
-	texture = mlx_load_png(game->map->door_texture);
-	if (!texture)
-		printf("Tex door");
-	if (!texture)
+	if (check_tex(game, "door", game->map->door_texture) == -1)
 		return (-1);
-	game->door = texture;
-	texture = mlx_load_png(game->map->portal_texture);
-	if (!texture)
+	if (check_tex(game, "portal", game->map->portal_texture) == -1)
 		return (-1);
-	game->portal = texture;
-	char *ceiling = ft_strdup("textures/ceiling.png");
-	texture = mlx_load_png(ceiling);
-	if (!texture)
+	if (check_tex(game, "floor", game->map->floor_texture) == -1)
 		return (-1);
-	game->ceiling = texture;
-	free (ceiling);
-	char *floor = ft_strdup("textures/floor.png");
-	texture = mlx_load_png(floor);
-	if (!texture)
+	if (check_tex(game, "ceiling", game->map->ceiling_texture) == -1)
 		return (-1);
-	game->floor = texture;
-	free (floor);
 	return (0);
 }
 
-int	read_map(char *map_file, t_game *game)
+static void	init_game(t_game *game)
 {
 	game->map = NULL;
 	game->player = NULL;
@@ -141,6 +99,15 @@ int	read_map(char *map_file, t_game *game)
 	game->ea = NULL;
 	game->we = NULL;
 	game->bonus_textures = 0;
+		game->so = NULL;
+	game->no = NULL;
+	game->ea = NULL;
+	game->we = NULL;
+}
+
+int	read_map(char *map_file, t_game *game)
+{
+	init_game(game);
 	if (verify_extension(map_file) == -1)
 		return (-1);
 	if (add_player_map(game) == -1 || read_file(map_file, game) == -1)

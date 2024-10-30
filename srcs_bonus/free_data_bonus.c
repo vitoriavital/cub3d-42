@@ -6,7 +6,7 @@
 /*   By: mavitori <mavitori@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 17:50:25 by mavitori          #+#    #+#             */
-/*   Updated: 2024/10/25 15:45:05 by mavitori         ###   ########.fr       */
+/*   Updated: 2024/10/30 12:06:23 by mavitori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ void	check_free(void *ptr)
 		free(ptr);
 }
 
-
 static void	free_textures(t_game *game)
 {
 	check_free(game->map->north_texture);
@@ -27,6 +26,8 @@ static void	free_textures(t_game *game)
 	check_free(game->map->west_texture);
 	check_free(game->map->door_texture);
 	check_free(game->map->portal_texture);
+	check_free(game->map->ceiling_texture);
+	check_free(game->map->floor_texture);
 	if (game->no)
 		mlx_delete_texture(game->no);
 	if (game->so)

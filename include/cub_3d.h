@@ -6,7 +6,7 @@
 /*   By: mavitori <mavitori@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 14:08:53 by mavitori          #+#    #+#             */
-/*   Updated: 2024/10/25 15:20:24 by mavitori         ###   ########.fr       */
+/*   Updated: 2024/10/30 12:16:40 by mavitori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,6 @@ void		ft_vector_floor(t_vector *v, t_vector *result);
 void		ft_vector_scalar(t_vector *v, double scalar, t_vector *result);
 
 // SETUP
-void		player_direction(t_game *game);
 int			read_map(char *map_file, t_game *game);
 
 // FREE DATA

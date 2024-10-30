@@ -1,11 +1,13 @@
        C 2,2,255
 
-	NO ./textures/cat.png
+NO       ./textures/waterfall.png
        F 255,255,255
-	SO ./textures/ghost.png
-       WE  ./textures/pie.png
-       EA ./textures/spider.png
 
+SO ./textures/house.png
+
+WE ./textures/forest.png
+
+EA ./textures/field.png
 
        1111111111111111111111111
        1000000000110000000000001

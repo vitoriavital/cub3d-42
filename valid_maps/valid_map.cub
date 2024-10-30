@@ -1,8 +1,9 @@
-WE ./textures/pie.png
-SO ./textures/cat.png
-EA ./textures/ghost.png
+NO ./textures/waterfall.png
 
-NO ./textures/spider.png
+SO ./textures/house.png
+WE ./textures/forest.png
+
+EA ./textures/field.png
 
 F 0,0,0
 C 0,0,0

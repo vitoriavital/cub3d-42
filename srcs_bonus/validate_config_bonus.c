@@ -6,7 +6,7 @@
 /*   By: mavitori <mavitori@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 20:03:19 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/10/25 15:36:05 by mavitori         ###   ########.fr       */
+/*   Updated: 2024/10/30 11:14:41 by mavitori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,5 +81,7 @@ int	check_config(char **line, t_game *game)
 		i++;
 	}
 	set_config(line, game);
+	game->map->floor_texture = ft_strdup("textures/floor.png");
+	game->map->ceiling_texture = ft_strdup("textures/ceiling.png");
 	return (0);
 }

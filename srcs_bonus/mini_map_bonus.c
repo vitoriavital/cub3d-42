@@ -6,22 +6,22 @@
 /*   By: mavitori <mavitori@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 17:14:35 by mavitori          #+#    #+#             */
-/*   Updated: 2024/10/25 15:39:57 by mavitori         ###   ########.fr       */
+/*   Updated: 2024/10/30 11:13:08 by mavitori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include_bonus/cub_3d_bonus.h"
 
-static void	draw_tile(t_game *game, t_mini *mini, int px, int py, uint32_t color)
+static void	draw_tile(t_game *game, int px, int py, uint32_t color)
 {
 	int			x;
 	int			y;
 
 	x = 0;
-	while (x < mini->tile)
+	while (x < game->mini->tile)
 	{
 		y = 0;
-		while (y < mini->tile)
+		while (y < game->mini->tile)
 		{
 			mlx_put_pixel(game->image, px - 4 + x, py - 4 + y, color);
 			y++;
@@ -30,57 +30,79 @@ static void	draw_tile(t_game *game, t_mini *mini, int px, int py, uint32_t color
 	}
 }
 
-static void	draw_walls_mm(t_game *game, t_mini *mini)
+static void	calculate_walls(t_game *game, t_mini *mini, int i, int j)
 {
-	int			i;
-	int			j;
-	int			map_x;
-	int			map_y;
 	int			tile_x;
 	int			tile_y;
 	uint32_t	color;
 
-	map_x = (int)game->map_pos->x;
-	map_y = (int)game->map_pos->y;
-
-	int tiles_wide = mini->width / mini->tile;
-	int tiles_high = mini->height / mini->tile;
-
-	for (i = 0; i < tiles_wide; i++)
+	tile_x = (int)game->map_pos->x - (mini->width / mini->tile / 2) + i;
+	tile_y = (int)game->map_pos->y - (mini->height / mini->tile / 2) + j;
+	color = 0;
+	if (tile_y >= 0 && tile_y < game->map->height)
 	{
-		for (j = 0; j < tiles_high; j++)
+		if (tile_x >= 0
+			&& tile_x <= (int)ft_strlen(game->map->full_map[tile_y]))
 		{
-			tile_x = map_x - (tiles_wide / 2) + i;
-			tile_y = map_y - (tiles_high / 2) + j;
-			if (tile_y >= 0 && tile_y < game->map->height)
-			{
-				if (tile_x >= 0 && tile_x <= (int)ft_strlen(game->map->full_map[tile_y]))
-				{
-					if (game->map->full_map[tile_y][tile_x] > '0' && game->map->full_map[tile_y][tile_x] != '3')
-						color = ft_pixel(100, 100, 100, 255);
-					else if (game->map->full_map[tile_y][tile_x] == '0' || game->map->full_map[tile_y][tile_x] == '3')
-						color = ft_pixel(0, 0, 0, 255);
-					else
-						color = ft_pixel(100, 100, 100, 255);
-
-					draw_tile(game, mini, mini->offset + i * mini->tile, mini->offset + j * mini->tile, color);
-				}
-			}
+			if (game->map->full_map[tile_y][tile_x] > '0'
+				&& game->map->full_map[tile_y][tile_x] != '3')
+				color = mini->background_color;
+			else if (game->map->full_map[tile_y][tile_x] == '0'
+				|| game->map->full_map[tile_y][tile_x] == '3')
+				color = mini->path_color;
+			else
+				color = mini->background_color;
+			draw_tile(game, mini->offset + i * mini->tile,
+				mini->offset + j * mini->tile, color);
 		}
 	}
 }
 
-static void	draw_background(t_game *game, t_mini *mini)
+static void	draw_walls_mini_map(t_game *game)
 {
-	int	i = mini->offset / 2;
-	int	j = mini->offset / 2;
+	int			i;
+	int			j;
+	int			tiles_width;
+	int			tiles_height;
 
-	while (i < mini->width + mini->offset)
+	tiles_height = game->mini->height / game->mini->tile;
+	tiles_width = game->mini->width / game->mini->tile;
+	i = 0;
+	while (i < tiles_width)
 	{
-		j = mini->offset / 2;
-		while (j < mini->height + mini->offset)
+		j = 0;
+		while (j < tiles_height)
 		{
-			mlx_put_pixel(game->image, i, j, ft_pixel(100, 100, 100, 255));
+			calculate_walls(game, game->mini, i, j);
+			j++;
+		}
+		i++;
+	}
+}
+
+static void	draw_background(t_game *game)
+{
+	int	i;
+	int	j;
+
+	i = game->mini->offset - 4;
+	j = game->mini->offset - 4;
+	if (game->particle_color == 0x00000000)
+	{
+		game->mini->background_color = ft_pixel(100, 100, 100, 255);
+		game->mini->path_color = ft_pixel(0, 0, 0, 255);
+	}
+	else
+	{
+		game->mini->background_color = ft_pixel(231, 219, 199, 255);
+		game->mini->path_color = ft_pixel(173, 185, 91, 255);
+	}
+	while (i < game->mini->width + game->mini->offset - 4)
+	{
+		j = game->mini->offset - 4;
+		while (j < game->mini->height + game->mini->offset - 4)
+		{
+			mlx_put_pixel(game->image, i, j, game->mini->background_color);
 			j++;
 		}
 		i++;
@@ -99,11 +121,13 @@ void	ft_mini_map(void *param)
 	mini->width = SCREEN_WIDTH * 0.2;
 	mini->height = SCREEN_HEIGHT * 0.2;
 	mini->offset = 20;
-	draw_background(game, mini);
-	draw_walls_mm(game, mini);
-	mini->px = ((mini->width - mini->offset) / 2) + mini->offset + mini->tile / 2;
-	mini->py = ((mini->height - mini->offset) / 2) + mini->offset + mini->tile / 2;
-	draw_tile(game, mini, mini->px, mini->py, ft_pixel(255, 0, 0, 255));
-	// draw_player(game, mini);
+	game->mini = mini;
+	draw_background(game);
+	draw_walls_mini_map(game);
+	mini->px = ((mini->width - mini->offset) / 2)
+		+ mini->offset + mini->tile / 2;
+	mini->py = ((mini->height - mini->offset) / 2)
+		+ mini->offset + mini->tile / 2;
+	draw_tile(game, mini->px, mini->py, ft_pixel(255, 0, 0, 255));
 	free(mini);
 }

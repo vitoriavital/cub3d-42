@@ -6,7 +6,7 @@
 /*   By: mavitori <mavitori@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 14:08:53 by mavitori          #+#    #+#             */
-/*   Updated: 2024/10/25 15:34:37 by mavitori         ###   ########.fr       */
+/*   Updated: 2024/10/30 12:56:45 by mavitori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,15 @@ enum						e_direction
 	LEFT = 3,
 };
 
+typedef struct s_particle
+{
+	float		x;
+	float		y;
+	float		speed;
+	int			size;
+	uint32_t	color;
+}	t_particle;
+
 typedef enum e_wall_type	t_wall_type;
 enum						e_wall_type
 {
@@ -55,6 +64,8 @@ typedef struct s_mini
 	int			px;
 	int			py;
 	int			tile;
+	int32_t		background_color;
+	int32_t		path_color;
 }				t_mini;
 
 typedef struct s_player
@@ -76,6 +87,8 @@ typedef struct s_map
 	char		*ceiling_color;
 	char		*old_floor_color;
 	char		*old_ceiling_color;
+	char		*floor_texture;
+	char		*ceiling_texture;
 	char		**full_map;
 	int			height;
 }				t_map;
@@ -142,6 +155,8 @@ typedef struct s_game
 	mlx_texture_t	*ceiling;
 	mlx_texture_t	*floor;
 	int				bonus_textures;
+	uint32_t		particle_color;
+	t_mini			*mini;
 }				t_game;
 
 // VECTOR UTILS
@@ -157,7 +172,6 @@ void		ft_vector_floor(t_vector *v, t_vector *result);
 void		ft_vector_scalar(t_vector *v, double scalar, t_vector *result);
 
 // SETUP
-void		player_direction(t_game *game);
 int			read_map(char *map_file, t_game *game);
 
 // FREE DATA
@@ -167,6 +181,8 @@ void		free_split(char **content);
 
 // HOOKS
 void		ft_hook(void *param);
+
+// HOOKS BONUS
 void		move_player_up_down(t_game *game, int key, int multiplier);
 void		move_player_left_right(t_game *game, int key, int multiplier);
 
@@ -179,7 +195,11 @@ void		build_ray(t_game *game, t_dda *dda);
 void		draw_floor(t_game *game);
 void		draw_ceiling(t_game *game);
 void		draw_wall(t_game *game, float dist, t_dda *dda);
+
+// DRAW BONUS
 int32_t		ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a);
+void		build_rgb(char **colors, int *rgb, char flag);
+
 // GAME
 void		ft_game(void *param);
 
@@ -210,5 +230,17 @@ void		ft_mini_map(void *param);
 
 // DOOR PORTAL
 void		switch_door_portal(t_game *game);
+
+// bonus darkmode
+void		apply_dark_filter(mlx_texture_t *texture);
+void		init_particles(t_particle *particles, int count, uint32_t color);
+void		update_particles(t_particle *particles, int count, uint32_t color);
+void		draw_particles(t_game *game, t_particle *particles, int count);
+
+// UTILS
+void		define_wall_type(t_game *game, t_dda *dda, int x, int y);
+int			check_tex(t_game *game, char *key, char *tex_path);
+int			find_direction(t_game *game);
+void		reload_normal_setup(t_game *game);
 
 #endif

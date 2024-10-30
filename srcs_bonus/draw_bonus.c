@@ -6,16 +6,11 @@
 /*   By: mavitori <mavitori@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 13:29:05 by mavitori          #+#    #+#             */
-/*   Updated: 2024/10/25 15:15:28 by mavitori         ###   ########.fr       */
+/*   Updated: 2024/10/30 12:06:48 by mavitori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include_bonus/cub_3d_bonus.h"
-
-int32_t	ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a)
-{
-	return (r << 24 | g << 16 | b << 8 | a);
-}
 
 static uint32_t	texture_bonus(uint32_t x, uint32_t y, t_game *game, char side)
 {
@@ -43,7 +38,6 @@ static uint32_t	texture_bonus(uint32_t x, uint32_t y, t_game *game, char side)
 		color = &game->floor->pixels[(tex_y * tex_width + tex_x) \
 		* game->floor->bytes_per_pixel];
 	}
-
 	return (ft_pixel(color[0], color[1], color[2], color[3]));
 }
 
@@ -57,9 +51,7 @@ void	draw_ceiling(t_game *game)
 
 	x = 0;
 	colors = ft_split(game->map->ceiling_color, ',');
-	rgb[0] = ft_atoi(colors[0]);
-	rgb[1] = ft_atoi(colors[1]);
-	rgb[2] = ft_atoi(colors[2]);
+	build_rgb(colors, rgb, 'b');
 	while (x < SCREEN_WIDTH)
 	{
 		y = 0;
@@ -74,10 +66,7 @@ void	draw_ceiling(t_game *game)
 		}
 		x++;
 	}
-	free(colors[0]);
-	free(colors[1]);
-	free(colors[2]);
-	free(colors);
+	build_rgb(colors, rgb, 'f');
 }
 
 void	draw_floor(t_game *game)
@@ -90,9 +79,7 @@ void	draw_floor(t_game *game)
 
 	x = 0;
 	colors = ft_split(game->map->floor_color, ',');
-	rgb[0] = ft_atoi(colors[0]);
-	rgb[1] = ft_atoi(colors[1]);
-	rgb[2] = ft_atoi(colors[2]);
+	build_rgb(colors, rgb, 'b');
 	while (x < SCREEN_WIDTH)
 	{
 		y = SCREEN_HEIGHT / 2;
@@ -107,10 +94,7 @@ void	draw_floor(t_game *game)
 		}
 		x++;
 	}
-	free(colors[0]);
-	free(colors[1]);
-	free(colors[2]);
-	free(colors);
+	build_rgb(colors, rgb, 'f');
 }
 
 void	draw_wall(t_game *game, float dist, t_dda *dda)

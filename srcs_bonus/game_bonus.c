@@ -6,17 +6,32 @@
 /*   By: mavitori <mavitori@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 13:31:25 by mavitori          #+#    #+#             */
-/*   Updated: 2024/10/25 15:15:28 by mavitori         ###   ########.fr       */
+/*   Updated: 2024/10/30 11:17:18 by mavitori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include_bonus/cub_3d_bonus.h"
 
+static void	init_update_particles(t_game *game, t_particle *particles)
+{
+	static int			initialized;
+
+	if (!initialized)
+	{
+		init_particles(particles, 100, 0xFFFFFFFF);
+		game->particle_color = 0xFFFFFFFF;
+		initialized = 1;
+	}
+	update_particles(particles, 100, game->particle_color);
+}
+
 static void	game_loop(t_game *game)
 {
-	uint32_t	x;
-	t_dda		*dda;
+	uint32_t			x;
+	t_dda				*dda;
+	static t_particle	particles[100];
 
+	init_update_particles(game, particles);
 	x = 0;
 	dda = malloc(sizeof(t_dda));
 	while (x < SCREEN_WIDTH)
@@ -29,6 +44,7 @@ static void	game_loop(t_game *game)
 		ft_vector_floor(game->pos, game->map_pos);
 		dist_to_side(game, dda);
 		build_ray(game, dda);
+		draw_particles(game, particles, 100);
 		x++;
 	}
 	free(dda);
