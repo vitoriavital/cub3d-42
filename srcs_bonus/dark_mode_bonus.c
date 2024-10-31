@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 12:07:11 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/10/26 15:10:45 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/10/30 22:22:39 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,15 @@ void	init_particles(t_particle *particles, int count, uint32_t color)
 	while (i < count)
 	{
 		particles[i].x = rand() % SCREEN_WIDTH;
-		particles[i].y = rand() % 10;
-		particles[i].speed = (float)(rand() % 100)/100.0 + 0.5;
-		particles[i].size = rand() % 3 + 1;
+		particles[i].y = rand() % 500;
+		particles[i].speed = (float)(rand() % 100) / 100.0 + 0.5;
+		particles[i].size = rand() % 3 + 3;
 		particles[i].color = color | ((rand() % 50) << 24);
 		i++;
 	}
 }
 
-void update_particles(t_particle *particles, int count, uint32_t color)
+void	update_particles(t_particle *particles, int count, uint32_t color)
 {
 	int	i;
 
@@ -48,7 +48,7 @@ void update_particles(t_particle *particles, int count, uint32_t color)
 
 }
 
-void draw_particles(t_game *game, t_particle *particles, int count)
+void	draw_particles(t_game *game, t_particle *particles, int count)
 {
 	int	i;
 	int	j;
@@ -88,8 +88,8 @@ void	apply_dark_filter(mlx_texture_t *texture)
 		{
 			pixel = &texture->pixels[(y * texture->width + x) * 4];
 			pixel[0] = (uint8_t)(pixel[0] * 1);
-			if (pixel[0] > 255)
-				pixel[0] = 255;
+			// if (pixel[0] > 255) semrpe falso
+			// 	pixel[0] = 255;
 			pixel[1] = (uint8_t)(pixel[1] * 0.1);
 			pixel[2] = (uint8_t)(pixel[2] * 0.1);
 			x++;
