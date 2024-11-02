@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 20:03:19 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/10/28 21:33:08 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/11/02 16:52:06 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ int	check_map(char **lines, t_game *game)
 		while (lines[line][i])
 		{
 			if (ft_strrchr(" 01NSWE", lines[line][i]) == NULL)
-				return (error_parser("Wrong caracter", lines));
+				return (error_parser(NULL, lines));
 			count_player(lines[line][i], &player);
 			i++;
 		}
@@ -101,8 +101,8 @@ int	check_map(char **lines, t_game *game)
 		i = 0;
 	}
 	if (check_walls_one(lines) == -1 || set_position(lines, game, player) == -1)
-		return (error_parser("Error: wall", lines));
+		return (error_parser(NULL, lines));
 	if (is_f_exposed(game) == -1)
-		return (error_parser("Error: see corners", lines));
+		return (error_parser(NULL, lines));
 	return (0);
 }

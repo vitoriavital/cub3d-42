@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 19:39:28 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/11/02 12:34:23 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/11/02 16:56:14 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ static int	handle_config_validation(char **content)
 		i++;
 	if (i != 6)
 	{
-		printf("Error: Invalid config.\n");
 		free_split(content);
 		return (-1);
 	}
@@ -65,7 +64,8 @@ int	error_parser(char *text, char **config)
 {
 	if (config != NULL)
 		free_split(config);
-	printf("Error: %s\n", text);
+	if (text != NULL)
+		printf("Error: %s\n", text);
 	return (-1);
 }
 
@@ -90,7 +90,7 @@ int	parser_file(char *full_content, t_game *game)
 		return (error_parser("Error: Invalid order.", NULL));
 	game->map_fill = map_fill;
 	if (check_config(config, game, map) == -1 || check_map(map, game) == -1)
-		return (error_parser(".", config));
+		return (error_parser("Check the map", config));
 	game->map->full_map = map;
 	free_split(config);
 	return (0);

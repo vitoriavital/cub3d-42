@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 19:39:28 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/11/02 15:22:41 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/11/02 16:56:17 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ static int	handle_config_validation(char **content)
 		i++;
 	if (i != 6)
 	{
-		printf("Error: Invalid config.\n");
 		free_split(content);
 		return (-1);
 	}
@@ -65,7 +64,8 @@ int	error_parser(char *text, char **config)
 {
 	if (config != NULL)
 		free_split(config);
-	printf("Error: %s.\n", text);
+	if (text != NULL)
+		printf("Error: %s\n", text);
 	return (-1);
 }
 
