@@ -6,28 +6,29 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 20:03:19 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/10/28 21:34:48 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/11/02 11:45:34 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub_3d.h"
 
-int is_all_ones(char *line)
+int	is_all_ones(char *line)
 {
-	int i = 0;
+	int	i;
 
+	i = 0;
 	while (line[i] && ft_isspace(line[i]))
 		i++;
 	while (line[i])
 	{
 		if (line[i] != '1' && !ft_isspace(line[i]))
-			return -1;
+			return (-1);
 		i++;
 	}
 	return (0);
 }
 
-int check_ones(char **lines, int size)
+int	check_ones(char **lines, int size)
 {
 	int		i;
 	char	*line;
@@ -53,7 +54,7 @@ int check_ones(char **lines, int size)
 	return (0);
 }
 
-int check_walls_one(char **lines)
+int	check_walls_one(char **lines)
 {
 	int	i;
 
@@ -64,4 +65,3 @@ int check_walls_one(char **lines)
 		return (-1);
 	return (0);
 }
-
