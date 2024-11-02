@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 19:39:28 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/11/02 16:55:45 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/11/02 17:00:42 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,6 @@ int	read_file(char *map_file, t_game *game)
 	{
 		free(full_content);
 		return (error_parser("Check the map", NULL));
-		// return (-1);
 	}
 	free(full_content);
 	return (0);
