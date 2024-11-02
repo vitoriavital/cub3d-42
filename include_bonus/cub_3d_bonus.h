@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub_3d_bonus.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mavitori <mavitori@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 14:08:53 by mavitori          #+#    #+#             */
-/*   Updated: 2024/10/30 12:56:45 by mavitori         ###   ########.fr       */
+/*   Updated: 2024/11/02 15:32:43 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -207,16 +207,17 @@ void		ft_game(void *param);
 void		draw_wall_line(t_wall *wall, t_dda *dda, t_game *game);
 
 // VALIDATE MAP
-void		set_position(char **map, t_game *game);
+int			set_position(char **map, t_game *game, int players);
 void		count_player(char c, int *player);
 int			check_map(char **lines, t_game *game);
 void		flood_fill(t_game *game, int x, int y);
 int			check_file_dir(char *file);
+int			check_walls_one(char **lines);
 
 // VALIDATE CONFIG
 int			check_c_f(char *rgb);
 int			check_config_signal(char *line);
-int			check_config(char **line, t_game *game);
+int			check_config(char **line, t_game *game, char **map);
 
 //PARSER
 int			read_file(char *map_file, t_game *game);

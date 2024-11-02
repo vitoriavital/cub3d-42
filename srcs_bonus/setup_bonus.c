@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   setup_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mavitori <mavitori@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 17:48:48 by mavitori          #+#    #+#             */
-/*   Updated: 2024/10/30 12:40:21 by mavitori         ###   ########.fr       */
+/*   Updated: 2024/11/02 16:18:40 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,7 @@ static int	add_player_map(t_game *game)
 	player = malloc(sizeof(t_player));
 	map = malloc(sizeof(t_map));
 	if (!player || !map)
-	{
-		fprintf(stderr, "Memory allocation failed.\n");
-		return (-1);
-	}
+		return (error_parser("Memory allocation failed.", NULL));
 	game->player = player;
 	game->map = map;
 	game->map->ceiling_color = NULL;
@@ -59,6 +56,10 @@ static int	add_player_map(t_game *game)
 	game->map->south_texture = NULL;
 	game->map->east_texture = NULL;
 	game->map->west_texture = NULL;
+	game->map->door_texture = NULL;
+	game->map->portal_texture = NULL;
+	game->map->floor_texture = NULL;
+	game->map->ceiling_texture = NULL;
 	return (0);
 }
 
@@ -99,10 +100,10 @@ static void	init_game(t_game *game)
 	game->ea = NULL;
 	game->we = NULL;
 	game->bonus_textures = 0;
-		game->so = NULL;
-	game->no = NULL;
-	game->ea = NULL;
-	game->we = NULL;
+	game->door = NULL;
+	game->portal = NULL;
+	game->ceiling = NULL;
+	game->floor = NULL;
 }
 
 int	read_map(char *map_file, t_game *game)

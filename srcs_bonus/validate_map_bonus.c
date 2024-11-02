@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validate_map_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mavitori <mavitori@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 20:03:19 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/10/25 15:29:59 by mavitori         ###   ########.fr       */
+/*   Updated: 2024/11/02 15:35:26 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,17 +28,15 @@ int	check_sides(char **map, int x, int y)
 
 int	check_bishop(char **map, int x, int y)
 {
-	if (map[x - 1][y - 1] == '0' || map[x - 1][y - 1] == '\0'
-		|| map[x - 1][y - 1] == ' ')
+	if (map[x - 1][y - 1] == '\0' || map[x - 1][y - 1] == ' ')
 		return (-1);
-	if (map[x - 1][y + 1] == '\0' || map[x - 1][y + 1] == '0'
-		|| map[x - 1][y + 1] == ' ')
+	if (map[x - 1][y + 1] == '\0' || map[x - 1][y + 1] == ' ')
 		return (-1);
-	if (map[x + 1] == NULL || (map[x + 1][y - 1] == '0'
-		|| map[x + 1][y - 1] == '\0' || map[x + 1][y - 1] == ' '))
+	if (map[x + 1] == NULL
+		|| (map[x + 1][y - 1] == '\0' || map[x + 1][y - 1] == ' '))
 		return (-1);
-	if (map[x + 1] == NULL || map[x + 1][y + 1] == '\0'
-		|| map[x + 1][y + 1] == '0' || map[x + 1][y + 1] == ' ')
+	if (map[x + 1] == NULL
+		|| (map[x + 1][y + 1] == '\0' || map[x + 1][y + 1] == ' '))
 		return (-1);
 	return (0);
 }
@@ -102,9 +100,8 @@ int	check_map(char **lines, t_game *game)
 		line++;
 		i = 0;
 	}
-	if (player != 1)
-		return (-1);
-	set_position(lines, game);
+	if (check_walls_one(lines) == -1 || set_position(lines, game, player) == -1)
+		return (error_parser("Error: wall", lines));
 	if (is_f_exposed(game) == -1)
 		return (error_parser("Error: Wrong caracter", lines));
 	return (0);

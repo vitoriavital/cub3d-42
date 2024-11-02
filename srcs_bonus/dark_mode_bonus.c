@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 12:07:11 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/10/30 22:22:39 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/11/02 15:39:38 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	update_particles(t_particle *particles, int count, uint32_t color)
 {
 	int	i;
 
-	i= 0;
+	i = 0;
 	while (i < count)
 	{
 		particles[i].y += particles[i].speed;
@@ -45,7 +45,6 @@ void	update_particles(t_particle *particles, int count, uint32_t color)
 		}
 		i++;
 	}
-
 }
 
 void	draw_particles(t_game *game, t_particle *particles, int count)
@@ -63,8 +62,10 @@ void	draw_particles(t_game *game, t_particle *particles, int count)
 			k = 0;
 			while (k < particles[i].size)
 			{
-				if ((int)particles[i].x + j < SCREEN_WIDTH && (int)particles[i].y + k < SCREEN_HEIGHT)
-					mlx_put_pixel(game->image, (int)particles[i].x + j, (int)particles[i].y + k, particles[i].color);
+				if ((int)particles[i].x + j < SCREEN_WIDTH
+					&& (int)particles[i].y + k < SCREEN_HEIGHT)
+					mlx_put_pixel(game->image, (int)particles[i].x + j, \
+					(int)particles[i].y + k, particles[i].color);
 				k++;
 			}
 			j++;
@@ -72,7 +73,6 @@ void	draw_particles(t_game *game, t_particle *particles, int count)
 		i++;
 	}
 }
-
 
 void	apply_dark_filter(mlx_texture_t *texture)
 {
@@ -88,8 +88,6 @@ void	apply_dark_filter(mlx_texture_t *texture)
 		{
 			pixel = &texture->pixels[(y * texture->width + x) * 4];
 			pixel[0] = (uint8_t)(pixel[0] * 1);
-			// if (pixel[0] > 255) semrpe falso
-			// 	pixel[0] = 255;
 			pixel[1] = (uint8_t)(pixel[1] * 0.1);
 			pixel[2] = (uint8_t)(pixel[2] * 0.1);
 			x++;

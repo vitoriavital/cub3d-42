@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validate_config_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mavitori <mavitori@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 20:03:19 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/10/30 11:14:41 by mavitori         ###   ########.fr       */
+/*   Updated: 2024/11/02 16:20:44 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,20 +45,14 @@ int	handle_file_check(char **file)
 	if (ft_strncmp(file[0], "F", 1) == 0 || ft_strncmp(file[0], "C", 1) == 0)
 	{
 		if (check_c_f(file[1]) != 0)
-		{
-			free_split(file);
 			return (-1);
-		}
 	}
 	else if (check_file_dir(file[1]) != 0)
-	{
-		free_split(file);
 		return (-1);
-	}
 	return (0);
 }
 
-int	check_config(char **line, t_game *game)
+int	check_config(char **line, t_game *game, char **map)
 {
 	char	**file;
 	int		i;
@@ -67,14 +61,10 @@ int	check_config(char **line, t_game *game)
 	while (line[i])
 	{
 		file = ft_split(line[i], ' ');
-		if (!file[1] || file[2] != NULL)
+		if ((!file[1] || file[2] != NULL) || handle_file_check(file) != 0)
 		{
 			free_split(file);
-			return (-1);
-		}
-		if (handle_file_check(file) != 0)
-		{
-			free_split(file);
+			free_split(map);
 			return (-1);
 		}
 		free_split(file);
