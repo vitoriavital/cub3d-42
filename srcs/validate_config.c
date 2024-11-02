@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 20:03:19 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/11/02 12:46:35 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/11/02 14:54:21 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,16 +43,10 @@ int	handle_file_check(char **file)
 	if (ft_strncmp(file[0], "F", 1) == 0 || ft_strncmp(file[0], "C", 1) == 0)
 	{
 		if (check_c_f(file[1]) != 0)
-		{
-			// free_split(file);
 			return (-1);
-		}
 	}
 	else if (check_file_dir(file[1]) != 0)
-	{
-		// free_split(file);
 		return (-1);
-	}
 	return (0);
 }
 
