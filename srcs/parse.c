@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 19:39:28 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/11/02 12:34:23 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/11/02 18:16:32 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,23 @@ int	error_parser(char *text, char **config)
 	return (-1);
 }
 
+int	check_spaces(char *content)
+{
+	int i = 0;
+	int	n = 0;
+
+	printf("->%s",content);
+	while(content[i])
+	{
+		if(content[i] == '\n')
+			n++;
+		// printf(content[i]);
+		i++;
+	}
+	printf("->%d",n);
+	return (0);
+}
+
 int	parser_file(char *full_content, t_game *game)
 {
 	char	**config;
@@ -77,6 +94,8 @@ int	parser_file(char *full_content, t_game *game)
 	char	**content;
 	int		i;
 
+	check_spaces(full_content);
+	exit(0);
 	content = ft_split(full_content, '\n');
 	i = handle_config_validation(content);
 	if (i == -1)
