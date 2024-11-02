@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub_3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mavitori <mavitori@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 14:08:53 by mavitori          #+#    #+#             */
-/*   Updated: 2024/10/30 12:16:40 by mavitori         ###   ########.fr       */
+/*   Updated: 2024/11/02 12:34:56 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,6 +132,7 @@ void		ft_vector_floor(t_vector *v, t_vector *result);
 void		ft_vector_scalar(t_vector *v, double scalar, t_vector *result);
 
 // SETUP
+void		player_direction(t_game *game);
 int			read_map(char *map_file, t_game *game);
 
 // FREE DATA
@@ -159,26 +160,29 @@ void		draw_wall_line(t_wall *wall, t_dda *dda, t_game *game);
 // VALIDATE MAP
 void		free_split(char **content);
 void		flood_fill(t_game *game, int x, int y);
-void		set_position(char **map, t_game *game);
+int			set_position(char **map, t_game *game, int players);
 int			see_where(char c, t_game *game);
 void		count_player(char c, int *player);
 int			check_map(char **lines, t_game *game);
 int			check_file_dir(char *file);
+int			is_f_exposed(t_game *game);
 
 // VALIDATE CONFIG
 int			check_rgb(char *red, char *green, char *blue);
 int			check_c_f(char *rgb);
 void		set_config(char **config,t_game *game);
 int			check_config_signal(char *line);
-int			check_config(char **line, t_game *game);
+int			check_config(char **line, t_game *game, char **map);
 
 //PARSER
 int			read_file(char *map_file, t_game *game);
+int 		verify_extension(char *map_file);
 int 		parser_file(char *full_content, t_game *game);
 int			split_content(char **content, char **config, char **map, char **map_fill);
 int			ft_isspace(char c);
 int			verify_extension(char *map_file);
 void		replace_tabs(char *content);
 int			error_parser(char *text, char **config);
+int			check_walls_one(char **lines);
 
 #endif

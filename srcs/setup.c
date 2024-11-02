@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   setup.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mavitori <mavitori@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 17:48:48 by mavitori          #+#    #+#             */
-/*   Updated: 2024/10/30 12:33:37 by mavitori         ###   ########.fr       */
+/*   Updated: 2024/10/23 20:14:33 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub_3d.h"
 
-static void	player_direction(t_game *game)
+void	player_direction(t_game *game)
 {
 	if (game->player->dir == NORTH)
 	{
@@ -36,7 +36,7 @@ static void	player_direction(t_game *game)
 	}
 }
 
-static int	add_player_map(t_game *game)
+int	add_player_map(t_game *game)
 {
 	t_player	*player;
 	t_map		*map;
@@ -58,6 +58,20 @@ static int	add_player_map(t_game *game)
 	game->map->east_texture = NULL;
 	game->map->west_texture = NULL;
 	return (0);
+}
+
+int	full_map_error(int i, t_game *game)
+{
+	int	j;
+
+	fprintf(stderr, "Memory allocation failed.\n");
+	j = 0;
+	while (j < i)
+		free(game->map->full_map[j++]);
+	free(game->map->full_map);
+	free(game->player);
+	free(game->map);
+	return (-1);
 }
 
 int	load_textures(t_game *game)

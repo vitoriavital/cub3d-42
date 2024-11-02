@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mavitori <mavitori@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 19:39:28 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/10/25 15:40:39 by mavitori         ###   ########.fr       */
+/*   Updated: 2024/11/02 12:34:23 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int	error_parser(char *text, char **config)
 {
 	if (config != NULL)
 		free_split(config);
-	printf("Error: %s.\n", text);
+	printf("Error: %s\n", text);
 	return (-1);
 }
 
@@ -89,8 +89,8 @@ int	parser_file(char *full_content, t_game *game)
 	if (split_content(content, config, map, map_fill) == -1)
 		return (error_parser("Error: Invalid order.", NULL));
 	game->map_fill = map_fill;
-	if (check_config(config, game) == -1 || check_map(map, game) == -1)
-		return (error_parser("Error: Invalid content.", config));
+	if (check_config(config, game, map) == -1 || check_map(map, game) == -1)
+		return (error_parser(".", config));
 	game->map->full_map = map;
 	free_split(config);
 	return (0);
