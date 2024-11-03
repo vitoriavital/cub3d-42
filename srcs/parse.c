@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 19:39:28 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/11/02 18:16:32 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/11/03 12:59:00 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,20 +69,51 @@ int	error_parser(char *text, char **config)
 	return (-1);
 }
 
-int	check_spaces(char *content)
-{
-	int i = 0;
-	int	n = 0;
 
-	printf("->%s",content);
-	while(content[i])
+int check_all_spaces(char *content, int j)
+{
+	while (content[j])
 	{
-		if(content[i] == '\n')
-			n++;
-		// printf(content[i]);
+		if (!ft_isspace(content[j]))
+			return (-1);
+		j++;
+	}
+	return (0);
+}
+
+int	check_new_line(char c)
+{
+	if (c == '\n')
+		return (1);
+	else
+		return (0);
+}
+
+int check_spaces(char *content)
+{
+	int	i;
+	int	map_started;
+	int	last_was_newline;
+	int	j;
+
+	map_started = 0;
+	last_was_newline = 1;
+	i  = 0;
+	while (content[i])
+	{
+		if (content[i] == '1' && last_was_newline)
+			map_started = 1;
+		if (map_started && content[i] == '\n')
+		{
+			j = i + 1;
+			while (content[j] && ft_isspace(content[j]) && content[j] != '\n')
+				j++;
+			if (content[j] == '\n')
+				return (check_all_spaces(content, j));
+		}
+		last_was_newline = check_new_line(content[i]);
 		i++;
 	}
-	printf("->%d",n);
 	return (0);
 }
 
@@ -94,8 +125,8 @@ int	parser_file(char *full_content, t_game *game)
 	char	**content;
 	int		i;
 
-	check_spaces(full_content);
-	exit(0);
+	if (check_spaces(full_content) == -1)
+		return (error_parser("Error: Check the map", NULL));
 	content = ft_split(full_content, '\n');
 	i = handle_config_validation(content);
 	if (i == -1)
