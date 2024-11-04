@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 19:39:28 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/11/03 12:59:00 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/11/04 10:53:28 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,7 @@ int	error_parser(char *text, char **config)
 	return (-1);
 }
 
-
-int check_all_spaces(char *content, int j)
+int	check_all_spaces(char *content, int j)
 {
 	while (content[j])
 	{
@@ -89,7 +88,7 @@ int	check_new_line(char c)
 		return (0);
 }
 
-int check_spaces(char *content)
+int	check_spaces(char *content)
 {
 	int	i;
 	int	map_started;
