@@ -6,7 +6,7 @@
 /*   By: mavitori <mavitori@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 17:14:06 by mavitori          #+#    #+#             */
-/*   Updated: 2024/10/30 13:18:45 by mavitori         ###   ########.fr       */
+/*   Updated: 2024/11/04 15:40:42 by mavitori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,7 @@ void	switch_door_portal(t_game *game)
 	if (mlx_get_time() - last_open < 0.4)
 		return ;
 	dir = find_direction(game);
+	last_open = mlx_get_time();
 	if (dir == NORTH
 		&& check_door_portal(x, y - 1, game, dir) != 0)
 		return ;
@@ -120,5 +121,4 @@ void	switch_door_portal(t_game *game)
 	else if (dir == EAST
 		&& check_door_portal(x + 1, y, game, dir) != 0)
 		return ;
-	last_open = mlx_get_time();
 }

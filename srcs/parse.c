@@ -6,7 +6,7 @@
 /*   By: mavitori <mavitori@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 19:39:28 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/11/04 14:26:24 by mavitori         ###   ########.fr       */
+/*   Updated: 2024/11/04 14:56:10 by mavitori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,18 +47,11 @@ static int	handle_config_validation(char **content)
 
 	i = 0;
 	if (!content[0])
-	{
-		free_split(content);
-		return (-1);
-	}
+		return (error_parser("Empty File", content));
 	while (check_config_signal(content[i]) == 0)
 		i++;
 	if (i != 6)
-	{
-		printf("Error: Invalid config.\n");
-		free_split(content);
-		return (-1);
-	}
+		return (error_parser("Invalid config", content));
 	return (i);
 }
 
@@ -71,7 +64,7 @@ int	parser_file(char *full_content, t_game *game)
 	int		i;
 
 	if (check_spaces(full_content) == -1)
-		return (error_parser("Error: Check the map", NULL));
+		return (error_parser("Check the map", NULL));
 	content = ft_split(full_content, '\n');
 	i = handle_config_validation(content);
 	if (i == -1)
@@ -82,10 +75,10 @@ int	parser_file(char *full_content, t_game *game)
 	map = (char **)ft_calloc(sizeof(char *), (i - 5));
 	map_fill = (char **)ft_calloc(sizeof(char *), (i - 5));
 	if (split_content(content, config, map, map_fill) == -1)
-		return (error_parser("Error: Invalid order.", NULL));
+		return (error_parser("Invalid order", NULL));
 	game->map_fill = map_fill;
 	if (check_config(config, game, map) == -1 || check_map(map, game) == -1)
-		return (error_parser(".", config));
+		return (error_parser("Invalid config", config));
 	game->map->full_map = map;
 	free_split(config);
 	return (0);

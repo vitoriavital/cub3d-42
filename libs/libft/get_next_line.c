@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: mavitori <mavitori@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 19:47:21 by ajuliao-          #+#    #+#             */
-/*   Updated: 2023/12/09 10:51:19 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/11/04 15:27:06 by mavitori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	create_list(t_list_get **list, int fd)
 char	*get_next_line(int fd)
 {
 	static t_list_get	*list;
-	char			*txt;
+	char				*txt;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 	{

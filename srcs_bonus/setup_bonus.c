@@ -6,7 +6,7 @@
 /*   By: mavitori <mavitori@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 17:48:48 by mavitori          #+#    #+#             */
-/*   Updated: 2024/11/04 14:15:45 by mavitori         ###   ########.fr       */
+/*   Updated: 2024/11/04 14:56:00 by mavitori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static int	add_player_map(t_game *game)
 	player = malloc(sizeof(t_player));
 	map = malloc(sizeof(t_map));
 	if (!player || !map)
-		return (error_parser("Memory allocation failed.", NULL));
+		return (error_parser("Memory allocation failed", NULL));
 	game->player = player;
 	game->map = map;
 	game->map->ceiling_color = NULL;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: mavitori <mavitori@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 19:47:59 by ajuliao-          #+#    #+#             */
-/*   Updated: 2023/12/08 20:56:57 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/11/04 15:26:52 by mavitori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ size_t	find_n(t_list_get **list)
 
 void	copy_txt(t_list_get **list, char *str)
 {
-	int		i;
+	int			i;
 	t_list_get	*temp;
 
 	i = 0;
@@ -72,7 +72,7 @@ void	copy_txt(t_list_get **list, char *str)
 
 size_t	str_len(t_list_get **list)
 {
-	size_t	len;
+	size_t		len;
 	t_list_get	*curr;
 
 	if (!list || !*list)

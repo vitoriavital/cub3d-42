@@ -6,7 +6,7 @@
 /*   By: mavitori <mavitori@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 19:39:28 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/11/04 14:02:22 by mavitori         ###   ########.fr       */
+/*   Updated: 2024/11/04 14:42:46 by mavitori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int	read_file(char *map_file, t_game *game)
 	if (parser_file(full_content, game) == -1)
 	{
 		free(full_content);
-		return (error_parser("Check the map", NULL));
+		return (-1);
 	}
 	free(full_content);
 	return (0);

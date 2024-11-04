@@ -6,7 +6,7 @@
 /*   By: mavitori <mavitori@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 13:56:32 by mavitori          #+#    #+#             */
-/*   Updated: 2024/11/04 14:26:11 by mavitori         ###   ########.fr       */
+/*   Updated: 2024/11/04 14:54:05 by mavitori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ int	error_parser(char *text, char **config)
 {
 	if (config != NULL)
 		free_split(config);
-	printf("Error: %s\n", text);
+	if (text)
+		printf("Error: %s\n", text);
 	return (-1);
 }
 

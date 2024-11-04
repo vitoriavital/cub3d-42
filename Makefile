@@ -1,4 +1,4 @@
-NAME        := Cub3D
+NAME        := cub3D
 CFLAGS      := -Wextra -Wall -Werror -g3
 LIBMLX      := ./libs/MLX42
 LIBMLX_REPO := https://github.com/codam-coding-college/MLX42.git

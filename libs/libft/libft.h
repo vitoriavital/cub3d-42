@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: mavitori <mavitori@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 11:36:27 by mavitori          #+#    #+#             */
-/*   Updated: 2024/10/12 12:52:42 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/11/04 15:27:48 by mavitori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,17 +77,17 @@ t_list				*ft_lstmap(t_list *lst, void *(*f)(void *),
 
 typedef struct s_list_get
 {
-	char			content;
+	char				content;
 	struct s_list_get	*next;
 }	t_list_get;
 
-char	*get_next_line(int fd);
-size_t	find_n(t_list_get **list);
-void	create_list(t_list_get **list, int fd);
-char	*get_one_line(t_list_get **list);
-void	insert_end(t_list_get **root, char value);
-size_t	str_len(t_list_get **list);
-void	copy_txt(t_list_get **list, char *str);
-void	dealloc_list(t_list_get **list);
+char				*get_next_line(int fd);
+size_t				find_n(t_list_get **list);
+void				create_list(t_list_get **list, int fd);
+char				*get_one_line(t_list_get **list);
+void				insert_end(t_list_get **root, char value);
+size_t				str_len(t_list_get **list);
+void				copy_txt(t_list_get **list, char *str);
+void				dealloc_list(t_list_get **list);
 
 #endif

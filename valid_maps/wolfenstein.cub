@@ -1,13 +1,13 @@
-NO       ./textures/sunflowers.png
+NO       ./textures/bluestone.png
 
-SO ./textures/the_scream.png
+SO ./textures/colorstone.png
 
-WE ./textures/the_starry_night.png
+WE ./textures/eagle.png
 
-EA ./textures/blossoms.png
+EA ./textures/purplestone.png
 
-F 89,182,91
-C 190,190,255
+F 0,0,0
+C 0,0,0
 
 111111111111111111111111
 100S00000001000000000001
