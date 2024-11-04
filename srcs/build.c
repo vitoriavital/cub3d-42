@@ -3,30 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   build.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mavitori <mavitori@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 17:52:28 by mavitori          #+#    #+#             */
-/*   Updated: 2024/09/20 16:25:41 by mavitori         ###   ########.fr       */
+/*   Updated: 2024/10/23 20:09:10 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub_3d.h"
 
-static void	calc_wall_dist(t_game *game, t_vector *wall_pos, t_dda *dda)
+static void	calc_wall_dist(t_game *game, t_dda *dda)
 {
-	float	player_dist_wall;
-	float	dividend;
-	//Calcular a distância do player até a parede
 	if (dda->hit_side == 1)
-	{
-		//y ganhou = parede horizontal
 		dda->player_dist_wall = dda->tmp_dda_y - dda->delta_dist_y;
-	}
 	else
-	{
-		//x ganhou = parede vertical
 		dda->player_dist_wall = dda->tmp_dda_x - dda->delta_dist_x;
-	}
 	draw_wall(game, dda->player_dist_wall, dda);
 }
 
@@ -52,11 +43,7 @@ void	build_ray(t_game *game, t_dda *dda)
 	t_vector	*wall_pos;
 	int			x;
 	int			y;
-	// Calcular raios e desenhar altura das linhas
-	// Algoritmo DDA(Digital Differential Analyzer)
-	// Distância do player para a parede
-	// 1. achar qual quadrado que tem parede naquela direção
-	// 2. qual a distancia da parede
+
 	hit = 0;
 	dda->tmp_dda_x = dda->dist_to_side_x;
 	dda->tmp_dda_y = dda->dist_to_side_y;
@@ -69,7 +56,7 @@ void	build_ray(t_game *game, t_dda *dda)
 		if (game->map->full_map[y][x] > '0')
 			hit = 1;
 	}
-	calc_wall_dist(game, wall_pos, dda);
+	calc_wall_dist(game, dda);
 	free(wall_pos);
 }
 

@@ -6,13 +6,13 @@
 /*   By: mavitori <mavitori@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 17:48:48 by mavitori          #+#    #+#             */
-/*   Updated: 2024/10/05 21:01:48 by mavitori         ###   ########.fr       */
+/*   Updated: 2024/11/04 14:15:39 by mavitori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub_3d.h"
 
-void	player_direction(t_game *game)
+static void	player_direction(t_game *game)
 {
 	if (game->player->dir == NORTH)
 	{
@@ -36,24 +36,7 @@ void	player_direction(t_game *game)
 	}
 }
 
-void	print_map(t_game *game)
-{
-	int	y;
-	int	x;
-
-	y = 0;
-	x = 0;
-	while (y < MAP_HEIGHT)
-	{
-		x = 0;
-		while (x < MAP_WIDTH)
-			printf("%c", game->map->full_map[y][x++]);
-		printf("\n");
-		y++;
-	}
-}
-
-int	add_player_map(t_game *game)
+static int	add_player_map(t_game *game)
 {
 	t_player	*player;
 	t_map		*map;
@@ -67,86 +50,64 @@ int	add_player_map(t_game *game)
 	}
 	game->player = player;
 	game->map = map;
+	game->map->ceiling_color = NULL;
+	game->map->floor_color = NULL;
+	game->map->full_map = NULL;
+	game->map->north_texture = NULL;
+	game->map->south_texture = NULL;
+	game->map->east_texture = NULL;
+	game->map->west_texture = NULL;
 	return (0);
 }
 
-int	add_full_map(t_game *game)
+static int	load_textures(t_game *game)
 {
-	game->map->full_map = malloc(MAP_HEIGHT * sizeof(char *));
-	if (!game->map->full_map)
-	{
-		fprintf(stderr, "Memory allocation failed.\n");
-		free(game->player);
-		free(game->map);
+	mlx_texture_t	*texture;
+
+	game->so = NULL;
+	game->no = NULL;
+	game->ea = NULL;
+	game->we = NULL;
+	texture = mlx_load_png(game->map->north_texture);
+	if (!texture)
 		return (-1);
-	}
-	return (0);
-}
-
-int	full_map_error(int i, t_game *game)
-{
-	int	j;
-
-	fprintf(stderr, "Memory allocation failed.\n");
-	j = 0;
-	while (j < i)
-		free(game->map->full_map[j++]);
-	free(game->map->full_map);
-	free(game->player);
-	free(game->map);
-	return (-1);
-}
-
-int	fill_full_map(t_game *game)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	j = 0;
-	const char *fixed_map[10] = {
-		"1111111111",
-		"1000010001",
-		"1010000001",
-		"1000000001",
-		"1000100001",
-		"1000000001",
-		"1000000001",
-		"1010000001",
-		"1000000001",
-		"1111111111",
-	};
-	while (i < MAP_HEIGHT)
-	{
-		game->map->full_map[i] = ft_strdup(fixed_map[i]);
-		if (!game->map->full_map[i])
-			return (full_map_error(i, game));
-		i++;
-	}
+	game->no = texture;
+	texture = mlx_load_png(game->map->south_texture);
+	if (!texture)
+		return (-1);
+	game->so = texture;
+	texture = mlx_load_png(game->map->east_texture);
+	if (!texture)
+		return (-1);
+	game->ea = texture;
+	texture = mlx_load_png(game->map->west_texture);
+	if (!texture)
+		return (-1);
+	game->we = texture;
 	return (0);
 }
 
 int	read_map(char *map_file, t_game *game)
 {
-	if (add_player_map(game) == -1)
+	game->map = NULL;
+	game->player = NULL;
+	game->map_fill = NULL;
+	game->pos = NULL;
+	game->dir = NULL;
+	game->plane = NULL;
+	game->map_pos = NULL;
+	game->camera_pixel = NULL;
+	game->ray_dir = NULL;
+	game->so = NULL;
+	game->no = NULL;
+	game->ea = NULL;
+	game->we = NULL;
+	if (verify_extension(map_file) == -1)
 		return (-1);
-	game->map->north_texture = ft_strdup("textures/pie.png");
-	game->map->south_texture = ft_strdup("textures/cat.png");
-	game->map->west_texture = ft_strdup("textures/ghost.png");
-	game->map->east_texture = ft_strdup("textures/spider.png");
-	game->no = mlx_load_png(game->map->north_texture);
-	game->so = mlx_load_png(game->map->south_texture);
-	game->ea = mlx_load_png(game->map->east_texture);
-	game->we = mlx_load_png(game->map->west_texture);
-	game->map->floor_color = ft_strdup("220,100,0");
-	game->map->ceiling_color = ft_strdup("225,30,0");
-	if (add_full_map(game) == -1)
+	if (add_player_map(game) == -1 || read_file(map_file, game) == -1)
 		return (-1);
-	if (fill_full_map(game) == -1)
-		return (-1);
-	game->player->line = 4;
-	game->player->column = 4;
-	game->player->dir = NORTH;
+	if (load_textures(game) == -1)
+		return (error_parser("Texture failed to load", NULL));
 	game->pos = ft_vector_create(game->player->line, game->player->column);
 	player_direction(game);
 	game->map_pos = ft_vector_create(0, 0);

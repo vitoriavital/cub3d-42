@@ -1,10 +1,10 @@
-NAME        := Cub3D
-CFLAGS      := -Wextra -Wall -Werror
-CFLAGS      :=
+NAME        := cub3D
+CFLAGS      := -Wextra -Wall -Werror -g3
 LIBMLX      := ./libs/MLX42
 LIBMLX_REPO := https://github.com/codam-coding-college/MLX42.git
 
 HEADERS     := -I ./include -I $(LIBMLX)/include
+HEADERS_BONUS := -I ./include -I $(LIBMLX)/include_bonus
 LIB_MLX        := $(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm
 LIB_FT      := libs/libft/libft.a
 SRCS        := $(shell find ./srcs -iname "*.c")
@@ -47,11 +47,11 @@ fclean: clean
 
 re: clean all
 
-bonus: libmlx $(OBJS_PATH_BONUS) $(OBJS_BONUS)
-	@$(CC) $(OBJS_BONUS) $(LIBS) $(HEADERS) -o $(NAME)_bonus
+bonus: LIBFT libmlx $(OBJS_PATH_BONUS) $(OBJS_BONUS)
+	@$(CC) $(OBJS_BONUS) $(LIB_MLX) $(LIB_FT) $(HEADERS_BONUS) -o $(NAME)_bonus
 
 $(OBJS_PATH_BONUS)/%.o: ./srcs_bonus/%.c | $(OBJS_PATH_BONUS)
-	@$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS) && printf "Compiling Bonus: $(notdir $<)\n"
+	@$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS_BONUS) && printf "Compiling Bonus: $(notdir $<)\n"
 
 $(OBJS_PATH_BONUS):
 	@mkdir -p $(OBJS_PATH_BONUS)

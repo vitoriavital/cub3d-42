@@ -1,0 +1,18 @@
+WE ./textures/pie.png
+SO ./textures/cat.png
+EA ./textures/ghost.png
+
+NO ./textures/spider.png
+
+F 0,0,0
+C 0,0,0
+
+
+      11111111111
+      100000000100011
+1110111101111111
+1000000001
+1000100001
+1000000001
+10W0000001
+1111111111

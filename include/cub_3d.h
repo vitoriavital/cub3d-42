@@ -6,7 +6,7 @@
 /*   By: mavitori <mavitori@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 14:08:53 by mavitori          #+#    #+#             */
-/*   Updated: 2024/09/20 16:46:31 by mavitori         ###   ########.fr       */
+/*   Updated: 2024/11/04 14:30:30 by mavitori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,8 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <fcntl.h>
 
-# define MAP_WIDTH 10
-# define MAP_HEIGHT 10
 # define SCREEN_WIDTH 800
 # define SCREEN_HEIGHT 600
 # define PI 3.141592653589793
@@ -72,12 +71,11 @@ typedef struct s_wall
 	double		x;
 	double		step;
 	double		tex_pos;
-	uint32_t	tex_height;
-	uint32_t	tex_width;
+	int			tex_height;
+	int			tex_width;
 	int			tex_x;
 	int			tex_y;
 }				t_wall;
-
 
 typedef struct s_dda
 {
@@ -99,6 +97,7 @@ typedef struct s_dda
 typedef struct s_game
 {
 	t_map			*map;
+	char			**map_fill;
 	t_player		*player;
 	mlx_image_t		*image;
 	mlx_t			*mlx;
@@ -116,7 +115,6 @@ typedef struct s_game
 	mlx_texture_t	*texture;
 }				t_game;
 
-
 // VECTOR UTILS
 float		ft_vector_magnitude(t_vector *v);
 void		ft_vector_normalize(t_vector *v);
@@ -130,11 +128,11 @@ void		ft_vector_floor(t_vector *v, t_vector *result);
 void		ft_vector_scalar(t_vector *v, double scalar, t_vector *result);
 
 // SETUP
-void		player_direction(t_game *game);
 int			read_map(char *map_file, t_game *game);
 
 // FREE DATA
 void		free_game(t_game *game);
+void		free_split(char **content);
 
 // HOOKS
 void		ft_hook(void *param);
@@ -149,10 +147,43 @@ void		draw_floor(t_game *game);
 void		draw_ceiling(t_game *game);
 void		draw_wall(t_game *game, float dist, t_dda *dda);
 int32_t		ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a);
+
 // GAME
 void		ft_game(void *param);
 
 // DRAW TEXTURE
 void		draw_wall_line(t_wall *wall, t_dda *dda, t_game *game);
+
+// VALIDATE MAP
+int			check_map(char **lines, t_game *game);
+
+// VALIDATE MAP UTILS
+void		flood_fill(t_game *game, int x, int y);
+void		count_player(char c, int *player);
+int			set_position(char **map, t_game *game, int players);
+
+// VALIDATE CONFIG
+int			check_config(char **line, t_game *game, char **map);
+
+// VALIDATE CONFIG UTILS
+int			check_file_dir(char *file);
+int			check_c_f(char *rgb);
+int			check_config_signal(char *line);
+
+// PARSER
+int			parser_file(char *full_content, t_game *game);
+
+// VALIDATE MAP WALLS
+int			check_walls_one(char **lines);
+
+// PARSER UTILS
+int			verify_extension(char *map_file);
+void		replace_tabs(char *content);
+int			ft_isspace(char c);
+int			read_file(char *map_file, t_game *game);
+
+// UTILS
+int			error_parser(char *text, char **config);
+int			check_spaces(char *content);
 
 #endif

@@ -6,13 +6,13 @@
 /*   By: mavitori <mavitori@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 16:42:01 by mavitori          #+#    #+#             */
-/*   Updated: 2024/09/20 16:48:57 by mavitori         ###   ########.fr       */
+/*   Updated: 2024/10/21 10:08:23 by mavitori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub_3d.h"
 
-static uint32_t	fix_color(mlx_texture_t *texture, t_wall *wall, t_game *game)
+static uint32_t	fix_color(mlx_texture_t *texture, t_wall *wall)
 {
 	uint8_t	*color;
 
@@ -76,7 +76,7 @@ void	draw_wall_line(t_wall *wall, t_dda *dda, t_game *game)
 			wall->tex_y = wall->tex_height - 1;
 		wall->tex_pos += wall->step;
 		mlx_put_pixel(game->image, game->current_pixel, i, \
-			fix_color(texture, wall, game));
+			fix_color(texture, wall));
 		i++;
 	}
 }
