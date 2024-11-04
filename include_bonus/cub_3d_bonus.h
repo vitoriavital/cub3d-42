@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub_3d_bonus.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: mavitori <mavitori@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 14:08:53 by mavitori          #+#    #+#             */
-/*   Updated: 2024/11/02 15:32:43 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/11/04 14:30:13 by mavitori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,7 +176,6 @@ int			read_map(char *map_file, t_game *game);
 
 // FREE DATA
 void		free_game(t_game *game);
-int			free_invalid_content(char **config, char **map);
 void		free_split(char **content);
 
 // HOOKS
@@ -200,31 +199,39 @@ void		draw_wall(t_game *game, float dist, t_dda *dda);
 int32_t		ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a);
 void		build_rgb(char **colors, int *rgb, char flag);
 
-// GAME
-void		ft_game(void *param);
-
 // DRAW TEXTURE
 void		draw_wall_line(t_wall *wall, t_dda *dda, t_game *game);
 
+// GAME
+void		ft_game(void *param);
+
 // VALIDATE MAP
-int			set_position(char **map, t_game *game, int players);
-void		count_player(char c, int *player);
-int			check_map(char **lines, t_game *game);
+int			check_map(char **lines, t_game *game, int h);
+
+// VALIDATE MAP UTILS
 void		flood_fill(t_game *game, int x, int y);
-int			check_file_dir(char *file);
-int			check_walls_one(char **lines);
+void		count_player(char c, int *player);
+int			set_position(char **map, t_game *game, int players);
 
 // VALIDATE CONFIG
-int			check_c_f(char *rgb);
-int			check_config_signal(char *line);
 int			check_config(char **line, t_game *game, char **map);
 
-//PARSER
-int			read_file(char *map_file, t_game *game);
-int			error_parser(char *text, char **config);
-int			verify_extension(char *map_file);
-int			ft_isspace(char c);
+// VALIDATE CONFIG UTILS
+int			check_file_dir(char *file);
+int			check_c_f(char *rgb);
+int			check_config_signal(char *line);
+
+// PARSER
 int			parser_file(char *full_content, t_game *game);
+
+// VALIDATE MAP WALLS
+int			check_walls_one(char **lines);
+
+// PARSER UTILS
+int			verify_extension(char *map_file);
+void		replace_tabs(char *content);
+int			ft_isspace(char c);
+int			read_file(char *map_file, t_game *game);
 
 // MINI MAP
 void		ft_mini_map(void *param);
@@ -232,11 +239,15 @@ void		ft_mini_map(void *param);
 // DOOR PORTAL
 void		switch_door_portal(t_game *game);
 
-// bonus darkmode
+// DARK MODE
 void		apply_dark_filter(mlx_texture_t *texture);
 void		init_particles(t_particle *particles, int count, uint32_t color);
 void		update_particles(t_particle *particles, int count, uint32_t color);
 void		draw_particles(t_game *game, t_particle *particles, int count);
+
+// VALIDATION UTILS
+int			error_parser(char *text, char **config);
+int			check_spaces(char *content);
 
 // UTILS
 void		define_wall_type(t_game *game, t_dda *dda, int x, int y);

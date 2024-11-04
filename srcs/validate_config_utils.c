@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   validate_config_utils.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: mavitori <mavitori@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 20:03:19 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/11/02 12:41:17 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/11/04 14:05:05 by mavitori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub_3d.h"
 
-int	check_rgb(char *red, char *green, char *blue)
+static int	check_rgb(char *red, char *green, char *blue)
 {
 	int	r;
 	int	g;

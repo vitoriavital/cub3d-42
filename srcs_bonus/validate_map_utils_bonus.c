@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validate_map_utils_bonus.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: mavitori <mavitori@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 20:03:19 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/11/02 16:27:46 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/11/04 14:08:51 by mavitori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	count_player(char c, int *player)
 	return ;
 }
 
-int	see_where(char c, t_game *game)
+static int	see_where(char c, t_game *game)
 {
 	if (c == 'N')
 		return (game->player->dir = NORTH);

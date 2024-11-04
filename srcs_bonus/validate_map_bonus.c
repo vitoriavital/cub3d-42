@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   validate_map_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: mavitori <mavitori@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 20:03:19 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/11/02 16:53:33 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/11/04 14:25:03 by mavitori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include_bonus/cub_3d_bonus.h"
 
-int	check_sides(char **map, int x, int y)
+static int	check_sides(char **map, int x, int y)
 {
 	if (map[x - 1][y] == '0' || map[x - 1][y] == '\0' || map[x - 1][y] == ' ')
 		return (-1);
@@ -26,7 +26,7 @@ int	check_sides(char **map, int x, int y)
 	return (0);
 }
 
-int	check_bishop(char **map, int x, int y)
+static int	check_bishop(char **map, int x, int y)
 {
 	if (map[x - 1][y - 1] == '\0' || map[x - 1][y - 1] == ' ')
 		return (-1);
@@ -50,7 +50,7 @@ int	double_check(char **map_fill, int x, int y)
 	return (0);
 }
 
-int	is_f_exposed(t_game *game)
+static int	is_f_exposed(t_game *game)
 {
 	int	x;
 	int	y;
@@ -79,7 +79,7 @@ int	is_f_exposed(t_game *game)
 	return (0);
 }
 
-int	check_map(char **lines, t_game *game)
+int	check_map(char **lines, t_game *game, int h)
 {
 	int	i;
 	int	line;
@@ -104,5 +104,6 @@ int	check_map(char **lines, t_game *game)
 		return (error_parser(NULL, lines));
 	if (is_f_exposed(game) == -1)
 		return (error_parser(NULL, lines));
+	game->map->height = h - 6;
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: mavitori <mavitori@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 19:39:28 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/11/02 16:56:17 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/11/04 14:25:44 by mavitori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,19 +54,11 @@ static int	handle_config_validation(char **content)
 		i++;
 	if (i != 6)
 	{
+		printf("Error: Invalid config.\n");
 		free_split(content);
 		return (-1);
 	}
 	return (i);
-}
-
-int	error_parser(char *text, char **config)
-{
-	if (config != NULL)
-		free_split(config);
-	if (text != NULL)
-		printf("Error: %s\n", text);
-	return (-1);
 }
 
 int	parser_file(char *full_content, t_game *game)
@@ -77,6 +69,8 @@ int	parser_file(char *full_content, t_game *game)
 	char	**content;
 	int		i;
 
+	if (check_spaces(full_content) == -1)
+		return (error_parser("Error: Check the map", NULL));
 	content = ft_split(full_content, '\n');
 	i = handle_config_validation(content);
 	if (i == -1)
@@ -84,14 +78,13 @@ int	parser_file(char *full_content, t_game *game)
 	config = (char **)ft_calloc(sizeof(char *), 7);
 	while (content[i])
 		i++;
-	game->map->height = i - 6;
 	map = (char **)ft_calloc(sizeof(char *), (i - 5));
 	map_fill = (char **)ft_calloc(sizeof(char *), (i - 5));
 	if (split_content(content, config, map, map_fill) == -1)
 		return (error_parser("Error: Invalid order.", NULL));
 	game->map_fill = map_fill;
-	if (check_config(config, game, map) == -1 || check_map(map, game) == -1)
-		return (error_parser("Error: Invalid content.", config));
+	if (check_config(config, game, map) == -1 || check_map(map, game, i) == -1)
+		return (error_parser(".", config));
 	game->map->full_map = map;
 	free_split(config);
 	return (0);

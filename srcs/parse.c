@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: mavitori <mavitori@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 19:39:28 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/11/02 16:56:14 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/11/04 14:26:24 by mavitori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub_3d.h"
 
-int	split_content(char **content, char **config, char **map, char **map_fill)
+static int	split_content(char **content, char **config,
+	char **map, char **map_fill)
 {
 	int	i;
 	int	j;
@@ -54,19 +55,11 @@ static int	handle_config_validation(char **content)
 		i++;
 	if (i != 6)
 	{
+		printf("Error: Invalid config.\n");
 		free_split(content);
 		return (-1);
 	}
 	return (i);
-}
-
-int	error_parser(char *text, char **config)
-{
-	if (config != NULL)
-		free_split(config);
-	if (text != NULL)
-		printf("Error: %s\n", text);
-	return (-1);
 }
 
 int	parser_file(char *full_content, t_game *game)
@@ -77,6 +70,8 @@ int	parser_file(char *full_content, t_game *game)
 	char	**content;
 	int		i;
 
+	if (check_spaces(full_content) == -1)
+		return (error_parser("Error: Check the map", NULL));
 	content = ft_split(full_content, '\n');
 	i = handle_config_validation(content);
 	if (i == -1)
@@ -90,7 +85,7 @@ int	parser_file(char *full_content, t_game *game)
 		return (error_parser("Error: Invalid order.", NULL));
 	game->map_fill = map_fill;
 	if (check_config(config, game, map) == -1 || check_map(map, game) == -1)
-		return (error_parser("Check the map", config));
+		return (error_parser(".", config));
 	game->map->full_map = map;
 	free_split(config);
 	return (0);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   setup_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: mavitori <mavitori@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 17:48:48 by mavitori          #+#    #+#             */
-/*   Updated: 2024/11/02 16:18:40 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/11/04 14:15:45 by mavitori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static int	add_player_map(t_game *game)
 	return (0);
 }
 
-int	load_textures(t_game *game)
+static int	load_textures(t_game *game)
 {
 	if (check_tex(game, "no", game->map->north_texture) == -1)
 		return (-1);

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   free_data.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: mavitori <mavitori@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 17:50:25 by mavitori          #+#    #+#             */
-/*   Updated: 2024/10/23 20:14:20 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/11/04 14:14:19 by mavitori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub_3d.h"
 
-void	check_free(void *ptr)
+static void	check_free(void *ptr)
 {
 	if (ptr)
 		free(ptr);

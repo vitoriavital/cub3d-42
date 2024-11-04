@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   setup.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: mavitori <mavitori@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 17:48:48 by mavitori          #+#    #+#             */
-/*   Updated: 2024/10/23 20:14:33 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/11/04 14:15:39 by mavitori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub_3d.h"
 
-void	player_direction(t_game *game)
+static void	player_direction(t_game *game)
 {
 	if (game->player->dir == NORTH)
 	{
@@ -36,7 +36,7 @@ void	player_direction(t_game *game)
 	}
 }
 
-int	add_player_map(t_game *game)
+static int	add_player_map(t_game *game)
 {
 	t_player	*player;
 	t_map		*map;
@@ -60,21 +60,7 @@ int	add_player_map(t_game *game)
 	return (0);
 }
 
-int	full_map_error(int i, t_game *game)
-{
-	int	j;
-
-	fprintf(stderr, "Memory allocation failed.\n");
-	j = 0;
-	while (j < i)
-		free(game->map->full_map[j++]);
-	free(game->map->full_map);
-	free(game->player);
-	free(game->map);
-	return (-1);
-}
-
-int	load_textures(t_game *game)
+static int	load_textures(t_game *game)
 {
 	mlx_texture_t	*texture;
 

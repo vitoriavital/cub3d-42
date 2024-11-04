@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   validate_map_walls_bonus.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: mavitori <mavitori@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 20:03:19 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/11/02 15:25:29 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/11/04 14:03:45 by mavitori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub_3d.h"
 
-int	is_all_ones(char *line)
+static int	is_all_ones(char *line)
 {
 	int	i;
 
@@ -28,7 +28,7 @@ int	is_all_ones(char *line)
 	return (0);
 }
 
-int	check_ones(char **lines, int size)
+static int	check_ones(char **lines, int size)
 {
 	int		i;
 	char	*line;

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   validate_config_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: mavitori <mavitori@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 20:03:19 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/11/02 16:20:44 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/11/04 14:16:25 by mavitori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include_bonus/cub_3d_bonus.h"
 
-void	set_config(char **config, t_game *game)
+static void	set_config(char **config, t_game *game)
 {
 	int		i;
 	char	**split_line;
@@ -40,7 +40,7 @@ void	set_config(char **config, t_game *game)
 	game->map->portal_texture = ft_strdup("textures/tree_portal.png");
 }
 
-int	handle_file_check(char **file)
+static int	handle_file_check(char **file)
 {
 	if (ft_strncmp(file[0], "F", 1) == 0 || ft_strncmp(file[0], "C", 1) == 0)
 	{

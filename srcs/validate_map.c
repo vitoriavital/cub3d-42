@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   validate_map.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: mavitori <mavitori@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 20:03:19 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/11/02 16:52:06 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/11/04 14:17:42 by mavitori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub_3d.h"
 
-int	check_sides(char **map, int x, int y)
+static int	check_sides(char **map, int x, int y)
 {
 	if (map[x - 1][y] == '0' || map[x - 1][y] == '\0' || map[x - 1][y] == ' ')
 		return (-1);
@@ -26,7 +26,7 @@ int	check_sides(char **map, int x, int y)
 	return (0);
 }
 
-int	check_bishop(char **map, int x, int y)
+static int	check_bishop(char **map, int x, int y)
 {
 	if (map[x - 1][y - 1] == '\0' || map[x - 1][y - 1] == ' ')
 		return (-1);
@@ -50,7 +50,7 @@ int	double_check(char **map_fill, int x, int y)
 	return (0);
 }
 
-int	is_f_exposed(t_game *game)
+static int	is_f_exposed(t_game *game)
 {
 	int	x;
 	int	y;
